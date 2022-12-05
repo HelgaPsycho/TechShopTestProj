@@ -80,30 +80,32 @@ class MainViewController: UIViewController {
         setupFilterButtonConstraints ()
         selectCategoryView.addSubview(buttonsStackView)
         setupButtonsStackViewConstrains()
-        buttonsStackView.addArrangedSubview(circle1)
-        setupCircleButton(button: circle1, image: UIImage(systemName: "iphone")!)
-        buttonsStackView.addArrangedSubview(circle2)
-        setupCircleButton(button: circle2, image: UIImage(systemName: "laptopcomputer")!)
-        buttonsStackView.addArrangedSubview(circle3)
-        setupCircleButton(button: circle3, image: UIImage(systemName: "waveform.path.ecg")!)
-        buttonsStackView.addArrangedSubview(circle4)
-        setupCircleButton(button: circle4, image: UIImage(systemName: "books.vertical")!)
+        
+        addAndSetupCirclesToButtonStackView()
+        
         selectCategoryView.addSubview(labelsHorizontalStackView)
         setuplabelsHorizontalStackView()
+        
         labelsHorizontalStackView.addArrangedSubview(phoneLabel)
-        setupLabelsUnderButtons(label: phoneLabel)
+        
         labelsHorizontalStackView.addArrangedSubview(computerLabel)
-        setupLabelsUnderButtons(label: computerLabel)
+        
         labelsHorizontalStackView.addArrangedSubview(healthLabel)
-        setupLabelsUnderButtons(label: healthLabel)
+       
         labelsHorizontalStackView.addArrangedSubview(booksLabel)
-        setupLabelsUnderButtons(label: booksLabel)
+
+        setupLabelsUnderButtons ()
+        
+        hotSalesView.addSubview(hotSalesLabel)
+        setupTitleLabels(label: hotSalesLabel)
+        setupHotSalesLabelConstraints()
     
     }
     
     
     private lazy var selectCategoryLabel: UILabel = {
         let label = UILabel()
+        label.text = "Select Category"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -147,27 +149,65 @@ class MainViewController: UIViewController {
         buttonsStackView.leftAnchor.constraint(equalTo: selectCategoryView.leftAnchor, constant: 8).isActive = true
     }
     
+    lazy var circle1: UIButton = {
+        var button = UIButton()
+        button.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var circle2: UIButton = {
+        var button = UIButton()
+        button.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var circle3: UIButton = {
+        var button = UIButton()
+        button.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var circle4: UIButton = {
+        var button = UIButton()
+        button.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
+        return button
+    }()
 
-    var circle1: UIButton = {
-        var button = UIButton()
-        return button
-    }()
     
-    var circle2: UIButton = {
-        var button = UIButton()
-        return button
-    }()
+    var circleButtonsArray: [UIButton] = []
+    var symbolsForButtonsArray: [String] = []
     
-    var circle3: UIButton = {
-        var button = UIButton()
-        return button
-    }()
     
-    var circle4: UIButton = {
-        var button = UIButton()
-        return button
-    }()
+    func addAndSetupCirclesToButtonStackView(){
+        var index = 0
+        
+        circleButtonsArray = [circle1, circle2, circle3, circle4]
+        symbolsForButtonsArray = ["iphone", "laptopcomputer", "waveform.path.ecg", "books.vertical"]
+        
+        for button in circleButtonsArray {
+            buttonsStackView.addArrangedSubview(button)
+            setupCircleButton(button: button, image: (UIImage(systemName: symbolsForButtonsArray[index]) ?? UIImage(systemName:  "questionmark.square.dashed"))!)
+            index += 1
+        }
+        
+    }
     
+    
+    func  setupCircleButton(button: UIButton, image: UIImage){
+        var buttonImage = image
+        let color = UIColor(named: "darkSilver")
+        let colorConfig = UIImage.SymbolConfiguration(paletteColors: [color!])
+        let sizeConfig = UIImage.SymbolConfiguration(scale: .large)
+        buttonImage  = buttonImage.withConfiguration(sizeConfig)
+        buttonImage = buttonImage.withConfiguration(colorConfig)
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 35
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        button.setImage(buttonImage, for: .normal)
+    }
+
     var labelsHorizontalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -214,17 +254,21 @@ class MainViewController: UIViewController {
         return label
     }()
     
+    var labelsUnderButtonsArray: [UILabel] = []
+    
     func setupTitleLabels (label: UILabel) {
         label.textAlignment = .left
         label.textColor = .black
-        label.text = "Select Category"
         label.font = UIFont(name: "MarkPro-Heavy", size: 25)
     }
     
-    func setupLabelsUnderButtons (label: UILabel){
-        label.textAlignment = .center
-        label.textColor = .black
-        label.font = UIFont(name: "MarkPro-Medium", size: 12)
+    func setupLabelsUnderButtons (){
+        labelsUnderButtonsArray = [phoneLabel, computerLabel, healthLabel, booksLabel]
+        for label in labelsUnderButtonsArray {
+            label.textAlignment = .center
+            label.textColor = .black
+            label.font = UIFont(name: "MarkPro-Medium", size: 12)
+        }
     }
     
     //MARK: - setup hot sales view
@@ -235,6 +279,23 @@ class MainViewController: UIViewController {
         hotSalesView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
         hotSalesView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 3/10).isActive = true
     }
+    
+    private lazy var hotSalesLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Hot sales"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private func setupHotSalesLabelConstraints() {
+        hotSalesLabel.leftAnchor.constraint(equalTo: hotSalesView.leftAnchor).isActive = true
+        hotSalesLabel.topAnchor.constraint(equalTo: hotSalesView.topAnchor).isActive = true
+        hotSalesLabel.widthAnchor.constraint(equalTo: hotSalesView.widthAnchor, multiplier: 3/4).isActive = true
+        hotSalesLabel.heightAnchor.constraint(equalTo: hotSalesView.heightAnchor, multiplier: 1/3).isActive = true
+    }
+    
+   
+    //MARK: -
     
     func setupBestSellersView() {
         bestSellerView.topAnchor.constraint(equalTo: hotSalesView.bottomAnchor, constant: 0).isActive = true
@@ -250,20 +311,25 @@ class MainViewController: UIViewController {
         explorerView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/10).isActive = true
     }
     
-    func  setupCircleButton(button: UIButton, image: UIImage){
-        var buttonImage = image
-        let color = UIColor(named: "darkSilver")
-        let colorConfig = UIImage.SymbolConfiguration(paletteColors: [color!])
-        let sizeConfig = UIImage.SymbolConfiguration(scale: .large)
-        buttonImage  = buttonImage.withConfiguration(sizeConfig)
-        buttonImage = buttonImage.withConfiguration(colorConfig)
-        button.backgroundColor = .white
-        button.layer.cornerRadius = 35
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.widthAnchor.constraint(equalToConstant: 70).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        button.setImage(buttonImage, for: .normal)
+    //MARK: - BUTTONS FUNCS
+
+    @objc func circleButtonPressed (sender: UIButton!){
+        for button in circleButtonsArray {
+            button.backgroundColor = UIColor(named: "white")
+            button.currentImage?.withTintColor(UIColor(named: "darkSilver")!)
+        }
+        for label in labelsUnderButtonsArray {
+            label.textColor = .black
+        }
+        
+        sender.backgroundColor = UIColor(named: "peach")
+        sender.currentImage?.withTintColor(UIColor(named: "white")!)
+        
+        let index = circleButtonsArray.firstIndex(of: sender)
+        labelsUnderButtonsArray[index ?? 0].textColor = UIColor(named: "peach")
     }
+    
+    
 
 }
 
