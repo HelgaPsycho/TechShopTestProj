@@ -9,21 +9,31 @@
 /* Begin PBXBuildFile section */
 		9C029417293CCE9A00142A8F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C029416293CCE9A00142A8F /* AppDelegate.swift */; };
 		9C029419293CCE9A00142A8F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C029418293CCE9A00142A8F /* SceneDelegate.swift */; };
-		9C02941B293CCE9A00142A8F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C02941A293CCE9A00142A8F /* ViewController.swift */; };
+		9C02941B293CCE9A00142A8F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C02941A293CCE9A00142A8F /* MainViewController.swift */; };
 		9C02941E293CCE9A00142A8F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C02941C293CCE9A00142A8F /* Main.storyboard */; };
 		9C029420293CCE9A00142A8F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C02941F293CCE9A00142A8F /* Assets.xcassets */; };
 		9C029423293CCE9A00142A8F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C029421293CCE9A00142A8F /* LaunchScreen.storyboard */; };
+		9C02942C293CCF8D00142A8F /* Mark-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C02942B293CCEDE00142A8F /* Mark-Pro.ttf */; };
+		9C02942E293CD15D00142A8F /* MarkPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C02942D293CD15D00142A8F /* MarkPro-Regular.ttf */; };
+		9C029430293CD1C000142A8F /* Mark-Pro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C02942F293CD1C000142A8F /* Mark-Pro-Bold.ttf */; };
+		9C029433293CD22900142A8F /* Mark-Pro-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C029432293CD22900142A8F /* Mark-Pro-Heavy.ttf */; };
+		9C029435293CD27100142A8F /* MarkPro-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C029434293CD27100142A8F /* MarkPro-Medium.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9C029413293CCE9A00142A8F /* TechShopTestProj.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TechShopTestProj.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C029416293CCE9A00142A8F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C029418293CCE9A00142A8F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9C02941A293CCE9A00142A8F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9C02941A293CCE9A00142A8F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		9C02941D293CCE9A00142A8F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9C02941F293CCE9A00142A8F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9C029422293CCE9A00142A8F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9C029424293CCE9A00142A8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C02942B293CCEDE00142A8F /* Mark-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark-Pro.ttf"; sourceTree = "<group>"; };
+		9C02942D293CD15D00142A8F /* MarkPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MarkPro-Regular.ttf"; sourceTree = "<group>"; };
+		9C02942F293CD1C000142A8F /* Mark-Pro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark-Pro-Bold.ttf"; sourceTree = "<group>"; };
+		9C029432293CD22900142A8F /* Mark-Pro-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark-Pro-Heavy.ttf"; sourceTree = "<group>"; };
+		9C029434293CD27100142A8F /* MarkPro-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MarkPro-Medium.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +66,28 @@
 		9C029415293CCE9A00142A8F /* TechShopTestProj */ = {
 			isa = PBXGroup;
 			children = (
+				9C02942A293CCEA400142A8F /* Fonts */,
 				9C029416293CCE9A00142A8F /* AppDelegate.swift */,
 				9C029418293CCE9A00142A8F /* SceneDelegate.swift */,
-				9C02941A293CCE9A00142A8F /* ViewController.swift */,
+				9C02941A293CCE9A00142A8F /* MainViewController.swift */,
 				9C02941C293CCE9A00142A8F /* Main.storyboard */,
 				9C02941F293CCE9A00142A8F /* Assets.xcassets */,
 				9C029421293CCE9A00142A8F /* LaunchScreen.storyboard */,
 				9C029424293CCE9A00142A8F /* Info.plist */,
 			);
 			path = TechShopTestProj;
+			sourceTree = "<group>";
+		};
+		9C02942A293CCEA400142A8F /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				9C02942B293CCEDE00142A8F /* Mark-Pro.ttf */,
+				9C02942D293CD15D00142A8F /* MarkPro-Regular.ttf */,
+				9C02942F293CD1C000142A8F /* Mark-Pro-Bold.ttf */,
+				9C029432293CD22900142A8F /* Mark-Pro-Heavy.ttf */,
+				9C029434293CD27100142A8F /* MarkPro-Medium.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,7 +148,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C029430293CD1C000142A8F /* Mark-Pro-Bold.ttf in Resources */,
+				9C029433293CD22900142A8F /* Mark-Pro-Heavy.ttf in Resources */,
+				9C029435293CD27100142A8F /* MarkPro-Medium.ttf in Resources */,
 				9C029423293CCE9A00142A8F /* LaunchScreen.storyboard in Resources */,
+				9C02942E293CD15D00142A8F /* MarkPro-Regular.ttf in Resources */,
+				9C02942C293CCF8D00142A8F /* Mark-Pro.ttf in Resources */,
 				9C029420293CCE9A00142A8F /* Assets.xcassets in Resources */,
 				9C02941E293CCE9A00142A8F /* Main.storyboard in Resources */,
 			);
@@ -138,7 +166,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C02941B293CCE9A00142A8F /* ViewController.swift in Sources */,
+				9C02941B293CCE9A00142A8F /* MainViewController.swift in Sources */,
 				9C029417293CCE9A00142A8F /* AppDelegate.swift in Sources */,
 				9C029419293CCE9A00142A8F /* SceneDelegate.swift in Sources */,
 			);
