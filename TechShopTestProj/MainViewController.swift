@@ -9,6 +9,9 @@ import UIKit
 
 class MainViewController: UIViewController {
     
+    var hotSalesManager = HotSalesManager()
+    var hotSalesModelArray: [HotSalesModel] = []
+    
     // MARK: - initialized elements
     
     private lazy var selectCategoryView: UIView = {
@@ -57,10 +60,10 @@ class MainViewController: UIViewController {
         view.addSubview(explorerView)
         setupExplorerView()
         
-        for family in UIFont.familyNames.sorted() {
-            let names = UIFont.fontNames(forFamilyName: family)
-            print("Family: \(family) Font names: \(names)")
-        }
+        hotSalesManager.delegate = self
+        hotSalesManager.fetchHotSales()
+
+        
     }
     
     // MARK: - setup elements
@@ -327,6 +330,7 @@ class MainViewController: UIViewController {
         
         let index = circleButtonsArray.firstIndex(of: sender)
         labelsUnderButtonsArray[index ?? 0].textColor = UIColor(named: "peach")
+    
     }
     
     
@@ -336,4 +340,19 @@ class MainViewController: UIViewController {
 
 extension MainViewController {
 
+}
+
+
+extension MainViewController: HotSalesManagerDelegate {
+    func didUpdateHotSales(_ hotSalessManager: HotSalesManager, hotSales: [HotSalesModel]) {
+        DispatchQueue.main.async { [self] in
+            for i in hotSalesModelArray {
+                print(i)
+            }
+        }
+    }
+    
+    func didFailWithError(error: Error) {
+        print(error)
+    }
 }

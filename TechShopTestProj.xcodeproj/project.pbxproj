@@ -19,6 +19,9 @@
 		9C029433293CD22900142A8F /* Mark-Pro-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C029432293CD22900142A8F /* Mark-Pro-Heavy.ttf */; };
 		9C029435293CD27100142A8F /* MarkPro-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C029434293CD27100142A8F /* MarkPro-Medium.ttf */; };
 		9C029465293E2CF900142A8F /* CircleButtonStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C029464293E2CF900142A8F /* CircleButtonStruct.swift */; };
+		9C029468293E8C1400142A8F /* MainControllerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C029467293E8C1400142A8F /* MainControllerData.swift */; };
+		9C02946C293E92BD00142A8F /* SalesModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C02946B293E92BD00142A8F /* SalesModels.swift */; };
+		9C029470293E938300142A8F /* HotSalesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C02946F293E938300142A8F /* HotSalesManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		9C029432293CD22900142A8F /* Mark-Pro-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark-Pro-Heavy.ttf"; sourceTree = "<group>"; };
 		9C029434293CD27100142A8F /* MarkPro-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MarkPro-Medium.ttf"; sourceTree = "<group>"; };
 		9C029464293E2CF900142A8F /* CircleButtonStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButtonStruct.swift; sourceTree = "<group>"; };
+		9C029467293E8C1400142A8F /* MainControllerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainControllerData.swift; sourceTree = "<group>"; };
+		9C02946B293E92BD00142A8F /* SalesModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesModels.swift; sourceTree = "<group>"; };
+		9C02946F293E938300142A8F /* HotSalesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotSalesManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +103,9 @@
 			isa = PBXGroup;
 			children = (
 				9C029464293E2CF900142A8F /* CircleButtonStruct.swift */,
+				9C029467293E8C1400142A8F /* MainControllerData.swift */,
+				9C02946F293E938300142A8F /* HotSalesManager.swift */,
+				9C02946B293E92BD00142A8F /* SalesModels.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -177,8 +186,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C02946C293E92BD00142A8F /* SalesModels.swift in Sources */,
 				9C02941B293CCE9A00142A8F /* MainViewController.swift in Sources */,
 				9C029417293CCE9A00142A8F /* AppDelegate.swift in Sources */,
+				9C029468293E8C1400142A8F /* MainControllerData.swift in Sources */,
+				9C029470293E938300142A8F /* HotSalesManager.swift in Sources */,
 				9C029465293E2CF900142A8F /* CircleButtonStruct.swift in Sources */,
 				9C029419293CCE9A00142A8F /* SceneDelegate.swift in Sources */,
 			);
