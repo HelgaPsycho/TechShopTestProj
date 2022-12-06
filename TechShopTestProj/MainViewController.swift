@@ -12,6 +12,9 @@ class MainViewController: UIViewController {
     var hotSalesManager = HotSalesManager()
     var hotSalesModelArray: [HotSalesModel] = []
     
+    var bestSallersManager = BestSellersManager()
+    var bestSellersModelArray: [BestSellersModel] = []
+    
     // MARK: - initialized elements
     
     private lazy var selectCategoryView: UIView = {
@@ -62,6 +65,9 @@ class MainViewController: UIViewController {
         
         hotSalesManager.delegate = self
         hotSalesManager.fetchHotSales()
+        
+        bestSallersManager.delegate = self
+        bestSallersManager.fetchHotSales()
 
         
     }
@@ -343,10 +349,13 @@ extension MainViewController {
 
 
 extension MainViewController: HotSalesManagerDelegate {
-    func didUpdateHotSales(_ hotSalessManager: HotSalesManager, hotSales: [HotSalesModel]) {
+
+    func didUpdateHotSales(_ hotSalessManager: HotSalesManager, hotSales: [HotSalesModel])
+    {
         DispatchQueue.main.async { [self] in
-            for i in hotSalesModelArray {
-                print(i)
+            for i in hotSales {
+                print (i)
+
             }
         }
     }
@@ -354,4 +363,17 @@ extension MainViewController: HotSalesManagerDelegate {
     func didFailWithError(error: Error) {
         print(error)
     }
+}
+
+extension MainViewController: BestSellersManagerDelegate {
+    
+    func didUpdateBestSellers(_ bestSellersManager: BestSellersManager, bestSellers: [BestSellersModel]) {
+        DispatchQueue.main.async { [self] in
+            for i in bestSellers {
+                print (i)
+                    
+            }
+        }
+    }
+    
 }

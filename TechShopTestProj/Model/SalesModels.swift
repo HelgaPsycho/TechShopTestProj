@@ -20,9 +20,9 @@ struct HotSalesModel {
 
 struct BestSellersModel {
     let id: Int
-    let is_favorites: Bool
+    let isFavorites: Bool
     let title: String
-    let price_without_discount: Int
+    let priceWithoutDiscount: Int
     let discountPrice: Int
     let picture: URL
 }

@@ -21,7 +21,6 @@ public class CircleButtonViewModel: UIButton {
     init(){
     super.init(frame: CGRectZero)
         CircleButtonViewModel.circleButtonsArray.append(self)
-        print ("=================Circle Button Append \(self)")
 
     }
 
