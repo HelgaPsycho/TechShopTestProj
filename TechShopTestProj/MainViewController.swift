@@ -152,26 +152,30 @@ class MainViewController: UIViewController {
         buttonsStackView.leftAnchor.constraint(equalTo: selectCategoryView.leftAnchor, constant: 8).isActive = true
     }
     
-    lazy var circle1: UIButton = {
-        var button = UIButton()
+    lazy var circle1: CircleButtonViewModel = {
+        var button = CircleButtonViewModel()
+        //button.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
         button.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
         return button
     }()
     
-    lazy var circle2: UIButton = {
-        var button = UIButton()
+    lazy var circle2: CircleButtonViewModel = {
+        var button = CircleButtonViewModel()
+       // button.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
         button.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
         return button
     }()
     
-    lazy var circle3: UIButton = {
-        var button = UIButton()
+    lazy var circle3: CircleButtonViewModel = {
+        var button = CircleButtonViewModel()
+      //  button.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
         button.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
         return button
     }()
     
-    lazy var circle4: UIButton = {
-        var button = UIButton()
+    lazy var circle4: CircleButtonViewModel = {
+        var button = CircleButtonViewModel()
+      //  button.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
         button.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
         return button
     }()
@@ -316,23 +320,18 @@ class MainViewController: UIViewController {
     
     //MARK: - BUTTONS FUNCS
 
-    @objc func circleButtonPressed (sender: UIButton!){
-        for button in circleButtonsArray {
-            button.backgroundColor = UIColor(named: "white")
-            button.currentImage?.withTintColor(UIColor(named: "darkSilver")!)
-        }
-        for label in labelsUnderButtonsArray {
-            label.textColor = .black
-        }
-        
-        sender.backgroundColor = UIColor(named: "peach")
-        sender.currentImage?.withTintColor(UIColor(named: "white")!)
-        
-        let index = circleButtonsArray.firstIndex(of: sender)
-        labelsUnderButtonsArray[index ?? 0].textColor = UIColor(named: "peach")
     
-    }
-    
+    @objc func circleButtonPressed (sender: CircleButtonViewModel){
+        for button in CircleButtonViewModel.circleButtonsArray {
+            button.isSelected = false
+            button.backgroundColor = button.backgroundCircleColor
+            sender.setImage(sender.currentImage?.withTintColor(button.pictureColor, renderingMode: .alwaysOriginal), for: .selected)
+        }
+        sender.isSelected = true
+        sender.backgroundColor = sender.backgroundCircleColor
+        sender.setImage(sender.currentImage?.withTintColor(sender.pictureColor, renderingMode: .alwaysOriginal), for: .selected)
+        }
+
     
 
 }

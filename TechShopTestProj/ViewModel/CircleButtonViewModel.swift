@@ -11,11 +11,22 @@ import UIKit
 
 public class CircleButtonViewModel: UIButton {
     
-    public var circleButtonsArray: [UIButton] = []
+    public  static var circleButtonsArray: [CircleButtonViewModel] = []
     public var labelsUnderButtonsArray : [UILabel] = []
-        
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    init(){
+    super.init(frame: CGRectZero)
+        CircleButtonViewModel.circleButtonsArray.append(self)
+        print ("=================Circle Button Append \(self)")
+
+    }
+
     public var backgroundCircleColor: UIColor { get {
-        if self.state == .selected {
+        if self.isSelected == true {
             return UIColor(named: "peach") ?? UIColor.orange
         } else {
             return UIColor(named: "white") ?? UIColor.white
@@ -25,13 +36,18 @@ public class CircleButtonViewModel: UIButton {
     
     public var pictureColor: UIColor {
         get {
-            if self.state == .selected {
+            if self.isSelected == true {
                 return UIColor(named: "white") ?? UIColor.white
             } else {
                 return UIColor(named: "darkSilver") ?? UIColor.darkGray
             }
         }
+        set {
+            self.currentImage?.withTintColor(newValue)
+        }
     }
+    
+    
     
     public var labelUnderButtonColor: UIColor {
         get {
@@ -43,13 +59,18 @@ public class CircleButtonViewModel: UIButton {
         }
     }
     
-    func circleButtonPressed (sender: UIButton!){
-        for button in circleButtonsArray {
-            button.isSelected = false
-        }
-        sender.isSelected = true
-        }
+//    @objc func circleButtonPressed (sender: UIButton!){
+//        for button in CircleButtonViewModel.circleButtonsArray {
+//            button.isSelected = false
+//            button.backgroundColor = backgroundCircleColor
+//            button.currentImage?.withTintColor(pictureColor)
+//        }
+//        sender.isSelected = true
+//        sender.backgroundColor = backgroundCircleColor
+//        sender.currentImage?.withTintColor(pictureColor)
+//        }
     
     }
+
 
 
