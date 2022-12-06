@@ -33,3 +33,5 @@ struct BestSeller: Codable {
     let picture: URL
   
 }
+
+

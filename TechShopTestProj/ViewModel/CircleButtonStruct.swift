@@ -7,7 +7,7 @@
 
 import Foundation
 struct CircleBatton {
-    enum circleButtonStates {
+    enum circleButtonModel {
         case normal
         case selected
     }
