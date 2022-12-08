@@ -12,12 +12,20 @@ class Carousel: UIView {
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: CarouselLayout())
     
     var urls: [URL] = []
+    var hotSalesModelsArray: [HotSalesModel] = []
     var selectedIndex: Int = 0
     private var timer: Timer?
 
     public init(frame: CGRect, urls: [URL]){
         self.urls = urls
         super.init(frame: frame)
+        setupView()
+    }
+    
+    public init(frame: CGRect, urls: [URL], hotSales: [HotSalesModel]) {
+        self.urls = urls
+        super.init(frame: frame)
+        self.hotSalesModelsArray = hotSales
         setupView()
     }
     
@@ -92,6 +100,7 @@ extension Carousel: UICollectionViewDataSource {
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 10
         imageView.sd_setImage(with: urls[indexPath.row], placeholderImage: UIImage(named: "placeholder"))
+
         cell.contentView.addSubview(imageView)
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: cell.topAnchor),
@@ -100,9 +109,34 @@ extension Carousel: UICollectionViewDataSource {
             imageView.rightAnchor.constraint(equalTo: cell.rightAnchor)
         ])
         
+        // ЕСЛИ ЕСТЬ МАССИВ С ТЕКСТАМИ ДЛЯ ЛЕЙБЛОВ:
+        guard hotSalesModelsArray.isEmpty == false else {return cell}
+        
+        //return getCellWithSetLabelsAndButton(indexPath: indexPath)
         return cell
     }
 }
 
 extension Carousel: UICollectionViewDelegate {
+}
+
+extension Carousel {
+    
+//    func getCellWithSetLabelsAndButton(indexPath: IndexPath)-> UICollectionViewCell {
+//        var titleLabel: UILabel = {
+//            let label = UILabel()
+//            label.text = hotSalesModelsArray[indexPath.row].title
+//            let font = UIFont()
+//
+//            label.font = UIFont()
+//
+//            label.textAlignment = .left
+//            return label
+//        }
+
+
+
+
+       // return
+   // }
 }
