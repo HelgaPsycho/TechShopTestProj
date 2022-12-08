@@ -9,9 +9,12 @@ import UIKit
 
 class MainViewController: UIViewController {
     
+    
     var hotSalesAndBestSellersManager = HotSalesAndBAstSellersManager()
+    var pictureManager = PictureManager()
     var hotSalesModelArray: [HotSalesModel] = []
     var bestSalesModelArray: [BestSellersModel] = []
+    lazy var picture = UIImage()
     
     // MARK: - initialized elements
     
@@ -63,6 +66,9 @@ class MainViewController: UIViewController {
         
         hotSalesAndBestSellersManager.delegate = self
         hotSalesAndBestSellersManager.fetchHotSales()
+        
+        pictureManager.delegate = self
+        pictureManager.fetchHotSales(pictureURL: "https://img.ibxk.com.br/2020/09/23/23104013057475.jpg?w=1120&h=420&mode=crop&scale=both")
     
         
     }
@@ -103,6 +109,10 @@ class MainViewController: UIViewController {
         hotSalesView.addSubview(hotSalesLabel)
         setupTitleLabels(label: hotSalesLabel)
         setupHotSalesLabelConstraints()
+        hotSalesView.addSubview(hotSalesSubview)
+        setupHotSalesSubviewConstaints()
+        hotSalesSubview.addSubview(hotSalesImageView)
+        setupHotSalesImageViewConstraints()
     
     }
     
@@ -299,9 +309,36 @@ class MainViewController: UIViewController {
         hotSalesLabel.leftAnchor.constraint(equalTo: hotSalesView.leftAnchor).isActive = true
         hotSalesLabel.topAnchor.constraint(equalTo: hotSalesView.topAnchor).isActive = true
         hotSalesLabel.widthAnchor.constraint(equalTo: hotSalesView.widthAnchor, multiplier: 3/4).isActive = true
-        hotSalesLabel.heightAnchor.constraint(equalTo: hotSalesView.heightAnchor, multiplier: 1/3).isActive = true
+        hotSalesLabel.heightAnchor.constraint(equalTo: hotSalesView.heightAnchor, multiplier: 1/4).isActive = true
+    }
+    private lazy var hotSalesSubview: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.lightGray
+        return view
+    }()
+    
+    private lazy var hotSalesImageView: UIImageView = {
+        let imageView = UIImageView(image: picture)
+        imageView.backgroundColor = .blue
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+        
+    }()
+    
+    private func setupHotSalesSubviewConstaints() {
+        hotSalesSubview.leftAnchor.constraint(equalTo: hotSalesView.leftAnchor).isActive = true
+        hotSalesSubview.rightAnchor.constraint(equalTo: hotSalesView.rightAnchor).isActive = true
+        hotSalesSubview.bottomAnchor.constraint(equalTo: hotSalesView.bottomAnchor).isActive = true
+        hotSalesSubview.heightAnchor.constraint(equalTo: hotSalesView.heightAnchor, multiplier: 3/4).isActive = true
     }
     
+    private func setupHotSalesImageViewConstraints() {
+        hotSalesImageView.leftAnchor.constraint(equalTo: hotSalesSubview.leftAnchor).isActive = true
+        hotSalesImageView.rightAnchor.constraint(equalTo: hotSalesSubview.rightAnchor).isActive = true
+        hotSalesImageView.bottomAnchor.constraint(equalTo: hotSalesSubview.bottomAnchor).isActive = true
+        hotSalesImageView.topAnchor.constraint(equalTo: hotSalesSubview.topAnchor).isActive = true
+    }
    
     //MARK: -
     
@@ -342,6 +379,7 @@ extension MainViewController {
 
 }
 
+//MARK: - HotSalesAndBestSellersManagerDelegate
 
 extension MainViewController: HotSalesAndBestSellersManagerDelegate {
     func didUpdateBestSellers(_ hotSalesAndBestSellersManager: HotSalesAndBAstSellersManager, bestSellers: [BestSellersModel]) {
@@ -370,3 +408,9 @@ extension MainViewController: HotSalesAndBestSellersManagerDelegate {
 }
 
 
+extension MainViewController: PictureManagerDelegate {
+    
+    func didUpdatePicture(_ pictureManager: PictureManager, picture: UIImage) {
+        self.picture = picture
+    }
+}
