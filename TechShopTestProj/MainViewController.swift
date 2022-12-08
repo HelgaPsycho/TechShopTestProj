@@ -9,11 +9,9 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    var hotSalesManager = HotSalesManager()
+    var hotSalesAndBestSellersManager = HotSalesAndBAstSellersManager()
     var hotSalesModelArray: [HotSalesModel] = []
-    
-    var bestSallersManager = BestSellersManager()
-    var bestSellersModelArray: [BestSellersModel] = []
+    var bestSalesModelArray: [BestSellersModel] = []
     
     // MARK: - initialized elements
     
@@ -63,12 +61,9 @@ class MainViewController: UIViewController {
         view.addSubview(explorerView)
         setupExplorerView()
         
-        hotSalesManager.delegate = self
-        hotSalesManager.fetchHotSales()
-        
-        bestSallersManager.delegate = self
-        bestSallersManager.fetchHotSales()
-
+        hotSalesAndBestSellersManager.delegate = self
+        hotSalesAndBestSellersManager.fetchHotSales()
+    
         
     }
     
@@ -348,9 +343,18 @@ extension MainViewController {
 }
 
 
-extension MainViewController: HotSalesManagerDelegate {
+extension MainViewController: HotSalesAndBestSellersManagerDelegate {
+    func didUpdateBestSellers(_ hotSalesAndBestSellersManager: HotSalesAndBAstSellersManager, bestSellers: [BestSellersModel]) {
+        DispatchQueue.main.async { [self] in
+            for i in bestSellers {
+                print (i)
 
-    func didUpdateHotSales(_ hotSalessManager: HotSalesManager, hotSales: [HotSalesModel])
+            }
+        }
+    }
+    
+
+    func didUpdateHotSales(_ hotSalessManager: HotSalesAndBAstSellersManager, hotSales: [HotSalesModel])
     {
         DispatchQueue.main.async { [self] in
             for i in hotSales {
@@ -365,15 +369,4 @@ extension MainViewController: HotSalesManagerDelegate {
     }
 }
 
-extension MainViewController: BestSellersManagerDelegate {
-    
-    func didUpdateBestSellers(_ bestSellersManager: BestSellersManager, bestSellers: [BestSellersModel]) {
-        DispatchQueue.main.async { [self] in
-            for i in bestSellers {
-                print (i)
-                    
-            }
-        }
-    }
-    
-}
+

@@ -9,6 +9,35 @@
 import Foundation
 import UIKit
 
+//struct CircleButtonsCreater {
+//
+//    var sfSymbolsArray: [String] = ["iphone", "laptopcomputer", "waveform.path.ecg", "books.vertical"]
+//    var labekUnderButtonsArray: String = ["Phones", "Computers", "Health", "Books"]
+//
+//    func createCircleButtonsArray()-> [CircleButtonViewModel]{
+//        for symbol in sfSymbolsArray {
+//            var button = CircleButtonViewModel()
+//            let imageColorConfig = UIImage.SymbolConfiguration(paletteColors: [button.pictureColor])
+//            button.im
+//
+//        }
+//    }
+//
+//}
+//
+//var buttonImage = image
+//let color = UIColor(named: "darkSilver")
+//let colorConfig = UIImage.SymbolConfiguration(paletteColors: [color!])
+//let sizeConfig = UIImage.SymbolConfiguration(scale: .large)
+//buttonImage  = buttonImage.withConfiguration(sizeConfig)
+//buttonImage = buttonImage.withConfiguration(colorConfig)
+//button.backgroundColor = .white
+//button.layer.cornerRadius = 35
+//button.translatesAutoresizingMaskIntoConstraints = false
+//button.widthAnchor.constraint(equalToConstant: 70).isActive = true
+//button.heightAnchor.constraint(equalToConstant: 70).isActive = true
+//button.setImage(buttonImage, for: .normal)
+
 public class CircleButtonViewModel: UIButton {
     
     public  static var circleButtonsArray: [CircleButtonViewModel] = []
