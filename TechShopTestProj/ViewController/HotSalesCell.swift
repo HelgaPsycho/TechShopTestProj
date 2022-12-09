@@ -9,20 +9,30 @@ import UIKit
 import SDWebImage
 
 class HotSalesCell: UICollectionViewCell {
+
     
-    let url: String = ""
+    var data: HotSalesModel? {
+        didSet {
+            guard let data = data else {return}
+            imageView.sd_setImage(with: data.picture, placeholderImage: UIImage(named: "placeholder"))
+            titleLabel.text = data.title
+            subtitleLabel.text = data.subtitle
+            newView.isHidden = !data.isNew
+            
+        }
+    }
+    
     
     var imageView: UIImageView = {
         let imageView = UIImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
-        imageView.sd_setImage(with: URL(string: "https://img.ibxk.com.br/2020/09/23/23104013057475.jpg?w=1120&h=420&mode=crop&scale=both"), placeholderImage: UIImage(named: "placeholder"))
         return imageView
-        }()
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-  
+        contentView.backgroundColor = .orange
         setupHierarhy()
         setupConatraints()
         
@@ -48,6 +58,7 @@ class HotSalesCell: UICollectionViewCell {
         stackView.addArrangedSubview(buyNowButton)
         labelsStackView.addArrangedSubview(titleLabel)
         labelsStackView.addArrangedSubview(subtitleLabel)
+        
     }
     
     func setupConatraints(){
@@ -64,8 +75,9 @@ class HotSalesCell: UICollectionViewCell {
         stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
         stackView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1/2).isActive = true
         
-        buyNowButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        buyNowButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1/4).isActive = true
+      
+    buyNowButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
+    buyNowButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1/4).isActive = true
         
     }
     

@@ -11,21 +11,22 @@ import SDWebImage
 class MainViewController: UIViewController {
     
     
-   // var hotSalesAndBestSellersManager = HotSalesAndBAstSellersManager()
-    var pictureManager = PictureManager()
-   // var hotSalesModelArray: [HotSalesModel] = []
-   // var bestSalesModelArray: [BestSellersModel] = []
-    lazy var picture = UIImage()
+    var hotSalesAndBestSellersManager = HotSalesAndBAstSellersManager()
+    var hotSalesModelArray: [HotSalesModel] = []
+//    var pictureManager = PictureManager()var hotSalesModelArray: [HotSalesModel] = []
+//   // var bestSalesModelArray: [BestSellersModel] = []
+//    lazy var picture = UIImage()
     
     //Carousel
-    let urls: [URL] = [
-    URL(string: "https://img.ibxk.com.br/2020/09/23/23104013057475.jpg?w=1120&h=420&mode=crop&scale=both")!,
-    URL(string: "https://cdn-2.tstatic.net/kupang/foto/bank/images/pre-order-samsung-galaxy-a71-laris-manis-inilah-rekomendasi-ponsel-harga-rp-6-jutaan.jpg")!,
-    URL(string: "https://static.digit.in/default/942998b8b4d3554a6259aeb1a0124384dbe0d4d5.jpeg")!
-    ]
+//    let urls: [URL] = [
+//    URL(string: "https://img.ibxk.com.br/2020/09/23/23104013057475.jpg?w=1120&h=420&mode=crop&scale=both")!,
+//    URL(string: "https://cdn-2.tstatic.net/kupang/foto/bank/images/pre-order-samsung-galaxy-a71-laris-manis-inilah-rekomendasi-ponsel-harga-rp-6-jutaan.jpg")!,
+//    URL(string: "https://static.digit.in/default/942998b8b4d3554a6259aeb1a0124384dbe0d4d5.jpeg")!
+//    ]
     
     
-   lazy var carousel = Carousel(frame: .zero, urls: urls)
+   //lazy var carousel = Carousel(frame: .zero)
+    lazy var carousel = Carousel(frame: .zero)
    // lazy var carousel = Carousel(frame: .zero, urls: urls, hotSales: hotSalesModelArray)
     // MARK: - initialized elements
     
@@ -65,7 +66,8 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-    //    hotSalesAndBestSellersManager.delegate = self
+       hotSalesAndBestSellersManager.delegate = self
+        hotSalesAndBestSellersManager.fetchHotSales()
       //  hotSalesAndBestSellersManager.fetchHotSales()
         view.backgroundColor = UIColor(named: "lightSilver")
         view.addSubview(selectCategoryView)
@@ -373,12 +375,12 @@ extension MainViewController: HotSalesAndBestSellersManagerDelegate {
     func didUpdateHotSales(_ hotSalessManager: HotSalesAndBAstSellersManager, hotSales: [HotSalesModel])
     {
         DispatchQueue.main.async { [self] in
-//            for i in hotSales {
-//                print (i)
-//
-//            }
-//            hotSalesModelArray = hotSales
-//            print(hotSalesModelArray)
+            for i in hotSales {
+                
+
+            }
+            hotSalesModelArray = hotSales
+        
             
         }
     }
@@ -389,12 +391,12 @@ extension MainViewController: HotSalesAndBestSellersManagerDelegate {
 }
 
 
-extension MainViewController: PictureManagerDelegate {
-    
-    func didUpdatePicture(_ pictureManager: PictureManager, picture: UIImage) {
-        self.picture = picture
-    }
-}
+//extension MainViewController: PictureManagerDelegate {
+//
+//    func didUpdatePicture(_ pictureManager: PictureManager, picture: UIImage) {
+//        self.picture = picture
+//    }
+//}
 
 
 //MARK: - CAROUSEL EXT
