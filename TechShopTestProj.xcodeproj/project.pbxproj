@@ -23,14 +23,12 @@
 		9C02946C293E92BD00142A8F /* SalesModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C02946B293E92BD00142A8F /* SalesModels.swift */; };
 		9C029470293E938300142A8F /* HotSalesAndBAstSellersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C02946F293E938300142A8F /* HotSalesAndBAstSellersManager.swift */; };
 		9C029477293F504500142A8F /* CircleButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C029476293F504500142A8F /* CircleButtonViewModel.swift */; };
-		9C02947D294202AC00142A8F /* PictureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C02947C294202AC00142A8F /* PictureManager.swift */; };
 		9C029481294214A100142A8F /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 9C029480294214A100142A8F /* SDWebImage */; };
 		9C029483294214A100142A8F /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9C029482294214A100142A8F /* SDWebImageMapKit */; };
 		9C0294872942199500142A8F /* CarouselLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0294862942199500142A8F /* CarouselLayout.swift */; };
 		9C0294892942245C00142A8F /* Carousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0294882942245C00142A8F /* Carousel.swift */; };
 		9C0294902942412200142A8F /* SFProDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C02948F2942412200142A8F /* SFProDisplay-Bold.ttf */; };
 		9C0294922942413A00142A8F /* SFProDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C0294912942413A00142A8F /* SFProDisplay-Regular.ttf */; };
-		9C029496294326A500142A8F /* StoreApiForHotSales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C029495294326A500142A8F /* StoreApiForHotSales.swift */; };
 		9C0294982943342000142A8F /* HotSalesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0294972943341F00142A8F /* HotSalesCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -53,12 +51,10 @@
 		9C02946B293E92BD00142A8F /* SalesModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesModels.swift; sourceTree = "<group>"; };
 		9C02946F293E938300142A8F /* HotSalesAndBAstSellersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotSalesAndBAstSellersManager.swift; sourceTree = "<group>"; };
 		9C029476293F504500142A8F /* CircleButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButtonViewModel.swift; sourceTree = "<group>"; };
-		9C02947C294202AC00142A8F /* PictureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureManager.swift; sourceTree = "<group>"; };
 		9C0294862942199500142A8F /* CarouselLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselLayout.swift; sourceTree = "<group>"; };
 		9C0294882942245C00142A8F /* Carousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carousel.swift; sourceTree = "<group>"; };
 		9C02948F2942412200142A8F /* SFProDisplay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Bold.ttf"; sourceTree = "<group>"; };
 		9C0294912942413A00142A8F /* SFProDisplay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Regular.ttf"; sourceTree = "<group>"; };
-		9C029495294326A500142A8F /* StoreApiForHotSales.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreApiForHotSales.swift; sourceTree = "<group>"; };
 		9C0294972943341F00142A8F /* HotSalesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotSalesCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,9 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				9C029467293E8C1400142A8F /* MainControllerData.swift */,
-				9C029495294326A500142A8F /* StoreApiForHotSales.swift */,
 				9C02946F293E938300142A8F /* HotSalesAndBAstSellersManager.swift */,
-				9C02947C294202AC00142A8F /* PictureManager.swift */,
 				9C02946B293E92BD00142A8F /* SalesModels.swift */,
 			);
 			path = Model;
@@ -240,13 +234,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C029477293F504500142A8F /* CircleButtonViewModel.swift in Sources */,
-				9C029496294326A500142A8F /* StoreApiForHotSales.swift in Sources */,
 				9C02946C293E92BD00142A8F /* SalesModels.swift in Sources */,
 				9C02941B293CCE9A00142A8F /* MainViewController.swift in Sources */,
 				9C029417293CCE9A00142A8F /* AppDelegate.swift in Sources */,
 				9C029468293E8C1400142A8F /* MainControllerData.swift in Sources */,
 				9C0294872942199500142A8F /* CarouselLayout.swift in Sources */,
-				9C02947D294202AC00142A8F /* PictureManager.swift in Sources */,
 				9C0294892942245C00142A8F /* Carousel.swift in Sources */,
 				9C0294982943342000142A8F /* HotSalesCell.swift in Sources */,
 				9C029470293E938300142A8F /* HotSalesAndBAstSellersManager.swift in Sources */,

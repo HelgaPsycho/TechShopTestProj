@@ -10,40 +10,15 @@ import Combine
 
 class Carousel: UIView {
     
-//    var data: [HotSalesModel]? {
-//        didSet {
-//            guard let data = data else {return}
-//            hotSalesModelsArray = data
-//            
-//        }
-//    }
-    
-    private var api = StoreAPIForHotSales()
-    private var cancellable = Set<AnyCancellable>()
-    
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: CarouselLayout())
-    
     var hotSalesAndBestSellersManager = HotSalesAndBAstSellersManager()
-    
- //   var urls: [URL] = []
-  //  lazy var hotSalesModelsArray: [HotSalesModel] = [HotSalesModel(id: 0, isNew: true, title: "IPhone", subtitle: "супер телефон", picture: URL(string:"https://img.ibxk.com.br/2020/09/23/23104013057475.jpg?w=1120&h=420&mode=crop&scale=both")!, isBuy: false), HotSalesModel(id: 1, isNew: false, title: "IPhone", subtitle: "супер телефон", picture: URL(string: "https://img.ibxk.com.br/2020/09/23/23104013057475.jpg?w=1120&h=420&mode=crop&scale=both")!, isBuy: false)]
     
    var hotSalesModelsArray: [HotSalesModel] = []
     
     var selectedIndex: Int = 0
     private var timer: Timer?
     
-//    fileprivate func getHotSalesProducts() {
-//        api.hotSalesProducts()
-//            .receive(on: DispatchQueue.main)
-//            .sink {(hotSalesProducts) in
-//                self.hotSalesArray = hotSalesProducts
-//                self.collectionView.reloadData()
-//            }
-//            .store(in: &self.cancellable)
-//        print(hotSalesArray)
-//    }
-    
+
     public init(frame: CGRect, data: [HotSalesModel]) {
         print(data)
         self.hotSalesModelsArray = data
@@ -56,7 +31,6 @@ class Carousel: UIView {
     //init from code
     override init(frame: CGRect) {
         super.init(frame: frame)
-        //getHotSalesProducts()
         setupView()
     }
     
@@ -127,7 +101,6 @@ extension Carousel: UICollectionViewDataSource {
         cell.data = self.hotSalesModelsArray[indexPath.item]
         return cell
         
-    
     }
 }
 
