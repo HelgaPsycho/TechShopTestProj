@@ -9,6 +9,8 @@ import UIKit
 import SDWebImage
 
 class CarouselLayout: UICollectionViewFlowLayout {
+    
+    var delegate: DelegateFlowLayout?
 
     override init () {
         super.init()
@@ -35,4 +37,9 @@ class CarouselLayout: UICollectionViewFlowLayout {
         itemSize = newBounds.size
         return true
     }
+}
+
+protocol DelegateFlowLayout {
+    func sizeForItemAt()
+    
 }

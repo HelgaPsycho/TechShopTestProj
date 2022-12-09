@@ -9,7 +9,7 @@ import Foundation
 
 import Foundation
 
-struct HotSalesModel {
+struct HotSalesModel: Codable {
     let id: Int
     let isNew: Bool
     let title: String

@@ -11,10 +11,10 @@ import SDWebImage
 class MainViewController: UIViewController {
     
     
-    var hotSalesAndBestSellersManager = HotSalesAndBAstSellersManager()
+   // var hotSalesAndBestSellersManager = HotSalesAndBAstSellersManager()
     var pictureManager = PictureManager()
-    var hotSalesModelArray: [HotSalesModel] = []
-    var bestSalesModelArray: [BestSellersModel] = []
+   // var hotSalesModelArray: [HotSalesModel] = []
+   // var bestSalesModelArray: [BestSellersModel] = []
     lazy var picture = UIImage()
     
     //Carousel
@@ -24,9 +24,9 @@ class MainViewController: UIViewController {
     URL(string: "https://static.digit.in/default/942998b8b4d3554a6259aeb1a0124384dbe0d4d5.jpeg")!
     ]
     
+    
    lazy var carousel = Carousel(frame: .zero, urls: urls)
-    
-    
+   // lazy var carousel = Carousel(frame: .zero, urls: urls, hotSales: hotSalesModelArray)
     // MARK: - initialized elements
     
     private lazy var selectCategoryView: UIView = {
@@ -65,6 +65,8 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+    //    hotSalesAndBestSellersManager.delegate = self
+      //  hotSalesAndBestSellersManager.fetchHotSales()
         view.backgroundColor = UIColor(named: "lightSilver")
         view.addSubview(selectCategoryView)
         setupSelectCategoryView()
@@ -75,26 +77,20 @@ class MainViewController: UIViewController {
         view.addSubview(explorerView)
         setupExplorerView()
         
-        hotSalesAndBestSellersManager.delegate = self
-        hotSalesAndBestSellersManager.fetchHotSales()
-        
-        pictureManager.delegate = self
-        pictureManager.fetchHotSales(pictureURL: "https://img.ibxk.com.br/2020/09/23/23104013057475.jpg?w=1120&h=420&mode=crop&scale=both")
+//        pictureManager.delegate = self
+//        pictureManager.fetchHotSales(pictureURL: //"https://img.ibxk.com.br/2020/09/23/23104013057475.jpg?w=1120&h=420&mode=crop&scale=both")
         
         //Carousel
         setupHierarchy()
         setupComponents()
         setupConstraints()
     
-        for family in UIFont.familyNames.sorted() {
-            let names = UIFont.fontNames(forFamilyName: family)
-            print("Family: \(family) Font names: \(names)")
-        }
-
+    
     }
     
     //Carousel
     override func loadView() {
+     //   hotSalesAndBestSellersManager.fetchHotSales()
         let view = UIView()
         view.backgroundColor = .systemBackground
         self.view = view
@@ -406,12 +402,15 @@ extension MainViewController {
 //MARK: - HotSalesAndBestSellersManagerDelegate
 
 extension MainViewController: HotSalesAndBestSellersManagerDelegate {
-    func didUpdateBestSellers(_ hotSalesAndBestSellersManager: HotSalesAndBAstSellersManager, bestSellers: [BestSellersModel]) {
-        DispatchQueue.main.async { [self] in
-            for i in bestSellers {
-                print (i)
 
-            }
+    
+    func didUpdateBestSellers(_ hotSalesAndBestSellersManager: HotSalesAndBAstSellersManager, bestSellers: [BestSellersModel]) {
+        DispatchQueue.main.async {//[self] in
+//            for i in bestSellers {
+//                print (i)
+//
+//            }
+       //     bestSalesModelArray = bestSellers
         }
     }
     
@@ -419,10 +418,13 @@ extension MainViewController: HotSalesAndBestSellersManagerDelegate {
     func didUpdateHotSales(_ hotSalessManager: HotSalesAndBAstSellersManager, hotSales: [HotSalesModel])
     {
         DispatchQueue.main.async { [self] in
-            for i in hotSales {
-                print (i)
-
-            }
+//            for i in hotSales {
+//                print (i)
+//
+//            }
+//            hotSalesModelArray = hotSales
+//            print(hotSalesModelArray)
+            
         }
     }
     

@@ -9,6 +9,8 @@
 		<string>Mark-Pro-Bold.ttf</string>
 		<string>Mark-Pro-Heavy.ttf</string>
 		<string>MarkPro-Medium.ttf</string>
+		<string>SFProDisplay-Regular.ttf</string>
+		<string>SFProDisplay-Bold.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
