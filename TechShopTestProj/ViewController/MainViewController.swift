@@ -129,11 +129,7 @@ class MainViewController: UIViewController {
 
         setupLabelsUnderButtons ()
         
-        hotSalesView.addSubview(hotSalesLabel)
-        setupTitleLabels(label: hotSalesLabel)
-        setupHotSalesLabelConstraints()
-        
-    
+
     }
     
     
@@ -144,12 +140,6 @@ class MainViewController: UIViewController {
         return label
     }()
     
-    private func setupSelectCategoryLabelConstraints () {
-        selectCategoryLabel.leftAnchor.constraint(equalTo: selectCategoryView.leftAnchor).isActive = true
-        selectCategoryLabel.topAnchor.constraint(equalTo: selectCategoryView.topAnchor).isActive = true
-        selectCategoryLabel.widthAnchor.constraint(equalTo: selectCategoryView.widthAnchor, multiplier: 3/4).isActive = true
-        selectCategoryLabel.heightAnchor.constraint(equalTo: selectCategoryView.heightAnchor, multiplier: 1/3).isActive = true
-    }
     
     private lazy var filterButton: UIButton = {
         let button = UIButton()
@@ -157,6 +147,13 @@ class MainViewController: UIViewController {
         button.setImage(UIImage(named: "filter.png"), for: .normal)
         return button
     }()
+    
+    private func setupSelectCategoryLabelConstraints () {
+        selectCategoryLabel.leftAnchor.constraint(equalTo: selectCategoryView.leftAnchor).isActive = true
+        selectCategoryLabel.topAnchor.constraint(equalTo: selectCategoryView.topAnchor).isActive = true
+        selectCategoryLabel.widthAnchor.constraint(equalTo: selectCategoryView.widthAnchor, multiplier: 3/4).isActive = true
+        selectCategoryLabel.heightAnchor.constraint(equalTo: selectCategoryView.heightAnchor, multiplier: 1/3).isActive = true
+    }
     
     func setupFilterButtonConstraints () {
         filterButton.rightAnchor.constraint(equalTo: selectCategoryView.rightAnchor, constant: -4).isActive = true
@@ -309,67 +306,25 @@ class MainViewController: UIViewController {
         }
     }
     
-    //MARK: - setup hot sales view
+    //MARK: - setup constraints
     
-    func  setupHotSalesView() {
+    
+    private func  setupHotSalesView() {
         hotSalesView.topAnchor.constraint(equalTo: selectCategoryView.bottomAnchor, constant: 0).isActive = true
         hotSalesView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8).isActive = true
         hotSalesView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
-        hotSalesView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 3/10).isActive = true
+        hotSalesView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 2/10).isActive = true
     }
     
-    private lazy var hotSalesLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Hot sales"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
     
-    private func setupHotSalesLabelConstraints() {
-        hotSalesLabel.leftAnchor.constraint(equalTo: hotSalesView.leftAnchor).isActive = true
-        hotSalesLabel.topAnchor.constraint(equalTo: hotSalesView.topAnchor).isActive = true
-        hotSalesLabel.widthAnchor.constraint(equalTo: hotSalesView.widthAnchor, multiplier: 3/4).isActive = true
-        hotSalesLabel.heightAnchor.constraint(equalTo: hotSalesView.heightAnchor, multiplier: 1/4).isActive = true
-    }
-//    private lazy var hotSalesSubview: UIView = {
-//        let view = UIView()
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.backgroundColor = UIColor.lightGray
-//        return view
-//    }()
-    
-//    private lazy var hotSalesImageView: UIImageView = {
-//        let imageView = UIImageView(image: picture)
-//        imageView.backgroundColor = .blue
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//        return imageView
-//
-//    }()
-    
-//    private func setupHotSalesSubviewConstaints() {
-//        hotSalesSubview.leftAnchor.constraint(equalTo: hotSalesView.leftAnchor).isActive = true
-//        hotSalesSubview.rightAnchor.constraint(equalTo: hotSalesView.rightAnchor).isActive = true
-//        hotSalesSubview.bottomAnchor.constraint(equalTo: hotSalesView.bottomAnchor).isActive = true
-//        hotSalesSubview.heightAnchor.constraint(equalTo: hotSalesView.heightAnchor, multiplier: 3/4).isActive = true
-//    }
-//
-//    private func setupHotSalesImageViewConstraints() {
-//        hotSalesImageView.leftAnchor.constraint(equalTo: hotSalesSubview.leftAnchor).isActive = true
-//        hotSalesImageView.rightAnchor.constraint(equalTo: hotSalesSubview.rightAnchor).isActive = true
-//        hotSalesImageView.bottomAnchor.constraint(equalTo: hotSalesSubview.bottomAnchor).isActive = true
-//        hotSalesImageView.topAnchor.constraint(equalTo: hotSalesSubview.topAnchor).isActive = true
-//    }
-//
-    //MARK: -
-    
-    func setupBestSellersView() {
+    private func setupBestSellersView() {
         bestSellerView.topAnchor.constraint(equalTo: hotSalesView.bottomAnchor, constant: 0).isActive = true
         bestSellerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8).isActive = true
         bestSellerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
-        bestSellerView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 3/10).isActive = true
+        bestSellerView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 4/10).isActive = true
     }
     
-    func setupExplorerView() {
+    private func setupExplorerView() {
         explorerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
         explorerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8).isActive = true
         explorerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
@@ -459,7 +414,7 @@ extension MainViewController {
             carousel.rightAnchor.constraint(equalTo: hotSalesView.rightAnchor),
             carousel.leftAnchor.constraint(equalTo: hotSalesView.leftAnchor),
             carousel.bottomAnchor.constraint(equalTo: hotSalesView.bottomAnchor),
-            carousel.heightAnchor.constraint(equalTo: hotSalesView.heightAnchor, multiplier: 3/4)
+            carousel.topAnchor.constraint(equalTo: hotSalesView.topAnchor)
         
         ])
     }

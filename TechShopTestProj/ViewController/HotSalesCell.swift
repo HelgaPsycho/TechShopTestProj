@@ -59,9 +59,9 @@ class HotSalesCell: UICollectionViewCell {
         imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
         imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
         
-        stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 30).isActive = true
-        stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -25).isActive = true
+        stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20).isActive = true
+        stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
         stackView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1/2).isActive = true
         
         buyNowButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
