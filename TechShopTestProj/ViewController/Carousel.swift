@@ -102,6 +102,7 @@ extension Carousel: UICollectionViewDataSource {
         return cell
         
     }
+    
 }
 
 extension Carousel: UICollectionViewDelegate {

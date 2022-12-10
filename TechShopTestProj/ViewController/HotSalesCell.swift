@@ -8,6 +8,7 @@
 import UIKit
 import SDWebImage
 
+
 class HotSalesCell: UICollectionViewCell {
 
     
@@ -17,7 +18,9 @@ class HotSalesCell: UICollectionViewCell {
             imageView.sd_setImage(with: data.picture, placeholderImage: UIImage(named: "placeholder"))
             titleLabel.text = data.title
             subtitleLabel.text = data.subtitle
-            newView.isHidden = !data.isNew
+            if !data.isNew {
+                newView.backgroundColor = .clear
+            }
             
         }
     }
@@ -32,7 +35,6 @@ class HotSalesCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        contentView.backgroundColor = .orange
         setupHierarhy()
         setupConatraints()
         
@@ -117,6 +119,18 @@ class HotSalesCell: UICollectionViewCell {
         
     }()
     
+    var newLabel: UIView = {
+        let title = UILabel()
+        title.translatesAutoresizingMaskIntoConstraints = false
+        title.textColor = UIColor(named: "white") ?? UIColor.white
+        let font = UIFont(name: "SFProDisplay-Bold", size: 10)
+        title.font = font
+        title.text = "New"
+        return title
+    }()
+    
+    
+    
     var labelsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -176,3 +190,4 @@ class HotSalesCell: UICollectionViewCell {
     }()
 
 }
+

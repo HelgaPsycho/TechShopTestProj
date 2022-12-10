@@ -11,6 +11,20 @@ import SDWebImage
 class MainViewController: UIViewController {
 
     lazy var carousel = Carousel(frame: .zero)
+    
+    var profiles: [Profile] = []
+
+    private let collectionView: UICollectionView = {
+        let viewLayout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
+        return collectionView
+    }()
+    
+    private enum LayoutConstant {
+        static let spacing: CGFloat = 8.0
+        static let itemHeight: CGFloat = 250.0
+    }
+
   
     // MARK: - initialized elements
     
@@ -29,26 +43,16 @@ class MainViewController: UIViewController {
     
     private lazy var bestSellerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    
-    private lazy var explorerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(named: "indigo")
-        view.layer.cornerRadius = 30
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
 
     
     // MARK: - viewDidLoad
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = UIColor(named: "lightSilver")
         view.addSubview(selectCategoryView)
         setupSelectCategoryView()
@@ -56,34 +60,57 @@ class MainViewController: UIViewController {
         setupHotSalesView()
         view.addSubview(bestSellerView)
         setupBestSellersView()
-        view.addSubview(explorerView)
-        setupExplorerView()
+        bestSellerView.addSubview(bestSellersLabel)
+        setupTitleLabels(label: bestSellersLabel)
+        setupBestSellersLabelContstraints()
+        
+        view.addSubview(collectionView)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
+        collectionView.register(BestSellersCell.self, forCellWithReuseIdentifier: BestSellersCell.identifier)
         
         setupHierarchy()
         setupComponents()
         setupConstraints()
-    
+        populateProfiles()
+        
+        collectionView.reloadData()
     
     }
     
     //Carousel
     override func loadView() {
-     //   hotSalesAndBestSellersManager.fetchHotSales()
         let view = UIView()
         view.backgroundColor = .systemBackground
         self.view = view
+        
     }
+// COLLECTION VIEW
+    private func populateProfiles() {
+        print("POPULATE PROFILES CALLED")
+            profiles = [
+                Profile(name: "Thor", location: "Boston", imageName: "astronomy", profession: "astronomy"),
+                Profile(name: "Mike", location: "Albequerque", imageName: "basketball", profession: "basketball"),
+                Profile(name: "Walter White", location: "New Mexico", imageName: "chemistry", profession: "chemistry"),
+                Profile(name: "Sam Brothers", location: "California", imageName: "geography", profession: "geography"),
+                Profile(name: "Chopin", location: "Norway", imageName: "geometry", profession: "geometry"),
+                Profile(name: "Castles", location: "UK", imageName: "history", profession: "history"),
+                Profile(name: "Dr. Johnson", location: "Australia", imageName: "microscope", profession: "microscope"),
+                Profile(name: "Tom Hanks", location: "Bel Air", imageName: "theater", profession: "theater"),
+                Profile(name: "Roger Federer", location: "Switzerland", imageName: "trophy", profession: "trophy"),
+                Profile(name: "Elon Musk", location: "San Francisco", imageName: "graduate", profession: "graduate")
+            ]
+        }
+   
     
     // MARK: - setup elements
     
     //MARK:  - setup select category view
     
     func setupSelectCategoryView() {
-        selectCategoryView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
-        selectCategoryView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8).isActive = true
-        selectCategoryView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
-        selectCategoryView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 3/10).isActive = true
         
+        setupSelectCategoryConstraints()
         selectCategoryView.addSubview(selectCategoryLabel)
         setupTitleLabels(label: selectCategoryLabel)
         setupSelectCategoryLabelConstraints()
@@ -98,15 +125,12 @@ class MainViewController: UIViewController {
         setuplabelsHorizontalStackView()
         
         labelsHorizontalStackView.addArrangedSubview(phoneLabel)
-        
         labelsHorizontalStackView.addArrangedSubview(computerLabel)
-        
         labelsHorizontalStackView.addArrangedSubview(healthLabel)
-       
         labelsHorizontalStackView.addArrangedSubview(booksLabel)
 
         setupLabelsUnderButtons ()
-        
+
 
     }
     
@@ -125,21 +149,7 @@ class MainViewController: UIViewController {
         button.setImage(UIImage(named: "filter.png"), for: .normal)
         return button
     }()
-    
-    private func setupSelectCategoryLabelConstraints () {
-        selectCategoryLabel.leftAnchor.constraint(equalTo: selectCategoryView.leftAnchor).isActive = true
-        selectCategoryLabel.topAnchor.constraint(equalTo: selectCategoryView.topAnchor).isActive = true
-        selectCategoryLabel.widthAnchor.constraint(equalTo: selectCategoryView.widthAnchor, multiplier: 3/4).isActive = true
-        selectCategoryLabel.heightAnchor.constraint(equalTo: selectCategoryView.heightAnchor, multiplier: 1/3).isActive = true
-    }
-    
-    func setupFilterButtonConstraints () {
-        filterButton.rightAnchor.constraint(equalTo: selectCategoryView.rightAnchor, constant: -4).isActive = true
-        filterButton.centerYAnchor.constraint(equalTo: selectCategoryLabel.centerYAnchor).isActive = true
-        filterButton.widthAnchor.constraint(equalToConstant: 11).isActive = true
-        filterButton.heightAnchor.constraint(equalToConstant: 13).isActive = true
-    
-    }
+
     
     private lazy var buttonsStackView: UIStackView  = {
         let stackView = UIStackView()
@@ -151,12 +161,6 @@ class MainViewController: UIViewController {
         
     }()
     
-    private func setupButtonsStackViewConstrains() {
-        buttonsStackView.centerYAnchor.constraint(equalTo: selectCategoryView.centerYAnchor).isActive = true
-        buttonsStackView.heightAnchor.constraint(equalTo: selectCategoryView.heightAnchor, multiplier: 1/3).isActive = true
-        buttonsStackView.rightAnchor.constraint(equalTo: selectCategoryView.rightAnchor, constant: -8).isActive = true
-        buttonsStackView.leftAnchor.constraint(equalTo: selectCategoryView.leftAnchor, constant: 8).isActive = true
-    }
     
     lazy var circle1: CircleButtonViewModel = {
         var button = CircleButtonViewModel()
@@ -231,13 +235,6 @@ class MainViewController: UIViewController {
         
     }()
     
-    private func setuplabelsHorizontalStackView() {
-        labelsHorizontalStackView.bottomAnchor.constraint(equalTo: selectCategoryView.bottomAnchor).isActive = true
-        labelsHorizontalStackView.leftAnchor.constraint(equalTo: selectCategoryView.leftAnchor).isActive = true
-        labelsHorizontalStackView.rightAnchor.constraint(equalTo: selectCategoryView.rightAnchor).isActive = true
-        labelsHorizontalStackView.topAnchor.constraint(equalTo: buttonsStackView.bottomAnchor, constant: 10).isActive = true
-        
-    }
     
     var phoneLabel: UILabel = {
         let label = UILabel()
@@ -269,6 +266,15 @@ class MainViewController: UIViewController {
     
     var labelsUnderButtonsArray: [UILabel] = []
     
+    var bestSellersLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Best Sellers"
+        return label
+        
+    }()
+    
+    
     func setupTitleLabels (label: UILabel) {
         label.textAlignment = .left
         label.textColor = .black
@@ -287,26 +293,66 @@ class MainViewController: UIViewController {
     //MARK: - setup constraints
     
     
+    private func setupSelectCategoryConstraints(){
+        
+        selectCategoryView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+        selectCategoryView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
+        selectCategoryView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        selectCategoryView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 3/10).isActive = true
+    }
+    
+    private func setupSelectCategoryLabelConstraints () {
+        selectCategoryLabel.leftAnchor.constraint(equalTo: selectCategoryView.leftAnchor).isActive = true
+        selectCategoryLabel.topAnchor.constraint(equalTo: selectCategoryView.topAnchor).isActive = true
+        selectCategoryLabel.widthAnchor.constraint(equalTo: selectCategoryView.widthAnchor, multiplier: 3/4).isActive = true
+        selectCategoryLabel.heightAnchor.constraint(equalTo: selectCategoryView.heightAnchor, multiplier: 1/3).isActive = true
+    }
+    
+    private func setupFilterButtonConstraints () {
+        filterButton.rightAnchor.constraint(equalTo: selectCategoryView.rightAnchor, constant: -4).isActive = true
+        filterButton.centerYAnchor.constraint(equalTo: selectCategoryLabel.centerYAnchor).isActive = true
+        filterButton.widthAnchor.constraint(equalToConstant: 11).isActive = true
+        filterButton.heightAnchor.constraint(equalToConstant: 13).isActive = true
+    
+    }
+    
+    private func setupButtonsStackViewConstrains() {
+        buttonsStackView.centerYAnchor.constraint(equalTo: selectCategoryView.centerYAnchor).isActive = true
+        buttonsStackView.heightAnchor.constraint(equalTo: selectCategoryView.heightAnchor, multiplier: 1/3).isActive = true
+        buttonsStackView.rightAnchor.constraint(equalTo: selectCategoryView.rightAnchor, constant: -10).isActive = true
+        buttonsStackView.leftAnchor.constraint(equalTo: selectCategoryView.leftAnchor, constant: 10).isActive = true
+    }
+    
+    private func setuplabelsHorizontalStackView() {
+        labelsHorizontalStackView.bottomAnchor.constraint(equalTo: selectCategoryView.bottomAnchor).isActive = true
+        labelsHorizontalStackView.leftAnchor.constraint(equalTo: selectCategoryView.leftAnchor).isActive = true
+        labelsHorizontalStackView.rightAnchor.constraint(equalTo: selectCategoryView.rightAnchor).isActive = true
+        labelsHorizontalStackView.topAnchor.constraint(equalTo: buttonsStackView.bottomAnchor, constant: 10).isActive = true
+        
+    }
     private func  setupHotSalesView() {
         hotSalesView.topAnchor.constraint(equalTo: selectCategoryView.bottomAnchor, constant: 0).isActive = true
-        hotSalesView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8).isActive = true
-        hotSalesView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
+        hotSalesView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
+        hotSalesView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
         hotSalesView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 2/10).isActive = true
     }
     
     
     private func setupBestSellersView() {
         bestSellerView.topAnchor.constraint(equalTo: hotSalesView.bottomAnchor, constant: 0).isActive = true
-        bestSellerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8).isActive = true
-        bestSellerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
-        bestSellerView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 4/10).isActive = true
+        bestSellerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
+        bestSellerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        bestSellerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
+    
     }
     
-    private func setupExplorerView() {
-        explorerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
-        explorerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8).isActive = true
-        explorerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
-        explorerView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/10).isActive = true
+    private func setupBestSellersLabelContstraints() {
+        bestSellersLabel.topAnchor.constraint(equalTo: bestSellerView.topAnchor).isActive = true
+        bestSellersLabel.rightAnchor.constraint(equalTo: bestSellerView.rightAnchor).isActive = true
+        bestSellersLabel.leftAnchor.constraint(equalTo: bestSellerView.leftAnchor).isActive = true
+        bestSellersLabel.heightAnchor.constraint(equalTo: bestSellerView.heightAnchor, multiplier: 4/30).isActive = true
+        
+        
     }
     
     //MARK: - BUTTONS FUNCS
@@ -332,19 +378,26 @@ extension MainViewController {
 
 }
 
-//MARK: - CAROUSEL EXT
+//MARK: - CAROUSEL EXT  + BEST SELLERS COLLECTION VIEW SETUP
 
 extension MainViewController {
     
-    func setupHierarchy() {
+    private func setupHierarchy() {
         self.view.addSubview(carousel)
+    
     }
     
-    func setupComponents() {
+    private func setupComponents() {
         carousel.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        collectionView.layer.masksToBounds = true
+        collectionView.layer.cornerRadius = 10
+        
+        collectionView.backgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             carousel.rightAnchor.constraint(equalTo: hotSalesView.rightAnchor),
             carousel.leftAnchor.constraint(equalTo: hotSalesView.leftAnchor),
@@ -352,6 +405,69 @@ extension MainViewController {
             carousel.topAnchor.constraint(equalTo: hotSalesView.topAnchor)
         
         ])
+        
+        NSLayoutConstraint.activate([
+            collectionView.rightAnchor.constraint(equalTo: bestSellerView.rightAnchor),
+            collectionView.leftAnchor.constraint(equalTo: bestSellerView.leftAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: bestSellerView.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: bestSellersLabel.bottomAnchor)
+         ])
+        
+        
     }
     
 }
+
+extension MainViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //   print("Collection view at row \(collectionView.tag) selected index path \(indexPath)")
+       }
+    
+}
+
+    extension MainViewController: UICollectionViewDataSource {
+
+        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            // the number of cells are wholly dependent on the number of colours
+            print("COLLECTION VIEW NUMBER OF ITEMS IN SECTION CALLED: \(profiles.count)")
+            return profiles.count
+        }
+
+
+
+        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+            
+            print("COLLECTIONVIEW CELL FOR ITEM CALLED")
+
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BestSellersCell.identifier, for: indexPath) as! BestSellersCell
+
+                    let profile = profiles[indexPath.row]
+                    cell.setup(with: profile)
+                    return cell
+        }
+
+    }
+
+
+extension MainViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let width = itemWidth(for: view.frame.width, spacing: 0)
+
+        return CGSize(width: width, height: LayoutConstant.itemHeight)
+    }
+
+    func itemWidth(for width: CGFloat, spacing: CGFloat) -> CGFloat {
+        let itemsInRow: CGFloat = 2
+        let boarderSpasing: CGFloat = 10
+        let totalSpacing: CGFloat = ((itemsInRow - 1) * spacing) + (boarderSpasing * 2)
+        let finalWidth = ((width - totalSpacing) / itemsInRow)
+
+        return finalWidth - 5
+    }
+    
+    
+}
+
+
