@@ -22,10 +22,10 @@ class MainViewController: UIViewController {
     
     private enum LayoutConstant {
         static let spacing: CGFloat = 8.0
-        static let itemHeight: CGFloat = 250.0
+        static let itemHeight: CGFloat = 230.0
     }
 
-  
+
     // MARK: - initialized elements
     
     private lazy var selectCategoryView: UIView = {
