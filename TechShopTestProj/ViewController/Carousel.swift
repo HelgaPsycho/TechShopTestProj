@@ -11,7 +11,6 @@ import Combine
 class Carousel: UIView {
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: CarouselLayout())
-    var hotSalesAndBestSellersManager = HotSalesAndBAstSellersManager()
     
    var hotSalesModelsArray: [HotSalesModel] = []
     
@@ -42,8 +41,6 @@ class Carousel: UIView {
     
     
     private func setupView(){
-        hotSalesAndBestSellersManager.delegate = self
-        hotSalesAndBestSellersManager.fetchHotSales()
 
         collectionView.backgroundColor = .clear
         collectionView.delegate = self
@@ -86,7 +83,15 @@ class Carousel: UIView {
         collectionView.scrollToItem(at: IndexPath(item: selectedIndex, section: 0), at: .centeredHorizontally, animated: true)
     }
     
+    func getHotSalesArray(_ hotSalesArray: [HotSalesModel]) {
+        hotSalesModelsArray = hotSalesArray
+        DispatchQueue.main.async { [self] in
+        
+            collectionView.reloadData()
+            
+        }
     
+    }
    
 }
 
@@ -116,21 +121,4 @@ extension Carousel: DelegateFlowLayout {
     }
 }
 
-extension Carousel: HotSalesAndBestSellersManagerDelegate {
-    func didUpdateHotSales(_ hotSalessManager: HotSalesAndBAstSellersManager, hotSales: [HotSalesModel]){
-        DispatchQueue.main.async { [self] in
-        
-            hotSalesModelsArray = hotSales
-            collectionView.reloadData()
-        
-            
-        }
-        
-    }
-    func didUpdateBestSellers(_ hotSalesAndBestSellersManager: HotSalesAndBAstSellersManager, bestSellers: [BestSellersModel]){
-        
-    }
-    func didFailWithError(error: Error)
-    {}
-}
 

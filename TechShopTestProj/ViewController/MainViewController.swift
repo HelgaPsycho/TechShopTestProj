@@ -14,7 +14,7 @@ class MainViewController: UIViewController {
     var managerAPI = HotSalesAndBAstSellersManager()
     
     var bestSellersArray: [BestSellersModel] = []
-    var profiles: [Profile] = []
+    var hotSalesArray: [HotSalesModel] = []
 
     private let collectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
@@ -77,8 +77,7 @@ class MainViewController: UIViewController {
         setupHierarchy()
         setupComponents()
         setupConstraints()
-        populateProfiles()
-        
+    
         collectionView.reloadData()
     
     }
@@ -90,22 +89,6 @@ class MainViewController: UIViewController {
         self.view = view
         
     }
-// COLLECTION VIEW
-    private func populateProfiles() {
-        print("POPULATE PROFILES CALLED")
-            profiles = [
-                Profile(name: "Thor", location: "Boston", imageName: "astronomy", profession: "astronomy"),
-                Profile(name: "Mike", location: "Albequerque", imageName: "basketball", profession: "basketball"),
-                Profile(name: "Walter White", location: "New Mexico", imageName: "chemistry", profession: "chemistry"),
-                Profile(name: "Sam Brothers", location: "California", imageName: "geography", profession: "geography"),
-                Profile(name: "Chopin", location: "Norway", imageName: "geometry", profession: "geometry"),
-                Profile(name: "Castles", location: "UK", imageName: "history", profession: "history"),
-                Profile(name: "Dr. Johnson", location: "Australia", imageName: "microscope", profession: "microscope"),
-                Profile(name: "Tom Hanks", location: "Bel Air", imageName: "theater", profession: "theater"),
-                Profile(name: "Roger Federer", location: "Switzerland", imageName: "trophy", profession: "trophy"),
-                Profile(name: "Elon Musk", location: "San Francisco", imageName: "graduate", profession: "graduate")
-            ]
-        }
    
     
     // MARK: - setup elements
@@ -433,7 +416,6 @@ extension MainViewController: UICollectionViewDelegate {
 
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             // the number of cells are wholly dependent on the number of colours
-            print("COLLECTION VIEW NUMBER OF ITEMS IN SECTION CALLED: \(profiles.count)")
             return bestSellersArray.count
         }
 
@@ -476,7 +458,11 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension MainViewController: HotSalesAndBestSellersManagerDelegate {
-    func didUpdateHotSales(_ hotSalessManager: HotSalesAndBAstSellersManager, hotSales: [HotSalesModel]) {}
+    func didUpdateHotSales(_ hotSalessManager: HotSalesAndBAstSellersManager, hotSales: [HotSalesModel]) {
+        
+        hotSalesArray = hotSales
+        carousel.getHotSalesArray(hotSalesArray)
+    }
     
     func didUpdateBestSellers(_ hotSalesAndBestSellersManager: HotSalesAndBAstSellersManager, bestSellers: [BestSellersModel]){
         
