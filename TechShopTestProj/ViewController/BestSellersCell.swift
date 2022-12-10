@@ -157,7 +157,7 @@ final class BestSellersCell: UICollectionViewCell {
         if product.isFavorites == false {
             favouriteView.image = UIImage(named: "heart.png")
         } else {
-            favouriteView.image = UIImage(named: "fullHeart")
+            favouriteView.image = UIImage(named: "fullHeart.png")
         }
         priceWithoutDiscoutLabel.text = String(product.priceWithoutDiscount)
         priceWithDiscount.text = String(product.discountPrice)

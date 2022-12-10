@@ -19,7 +19,8 @@ class HotSalesCell: UICollectionViewCell {
             titleLabel.text = data.title
             subtitleLabel.text = data.subtitle
             if !data.isNew {
-                newView.backgroundColor = .clear
+                newView.isHidden = true
+            
             }
             
         }
@@ -107,7 +108,6 @@ class HotSalesCell: UICollectionViewCell {
         title.font = font
         title.text = "New"
         view.addSubview(title)
-        
         title.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         title.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
@@ -116,19 +116,7 @@ class HotSalesCell: UICollectionViewCell {
         
         return view
         
-        
     }()
-    
-    var newLabel: UIView = {
-        let title = UILabel()
-        title.translatesAutoresizingMaskIntoConstraints = false
-        title.textColor = UIColor(named: "white") ?? UIColor.white
-        let font = UIFont(name: "SFProDisplay-Bold", size: 10)
-        title.font = font
-        title.text = "New"
-        return title
-    }()
-    
     
     
     var labelsStackView: UIStackView = {
@@ -143,8 +131,7 @@ class HotSalesCell: UICollectionViewCell {
     var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-      //  label.text = hotSalesModelsArray[indexPath.row].title
-        label.text = "Telephone Model"
+        label.layer.borderColor = UIColor.black.cgColor
         label.textColor = UIColor(named: "white") ?? UIColor.white
         label.textAlignment = .left
         label.font = UIFont(name: "SFProDisplay-Bold", size: 25)
@@ -157,7 +144,6 @@ class HotSalesCell: UICollectionViewCell {
     var subtitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-     //   label.text = hotSalesModelsArray[indexPath.row].subtitle
         label.text = "Description"
         label.textColor = UIColor(named: "white") ?? UIColor.white
         let font = UIFont(name: "SFProDisplay-Bold", size: 11)

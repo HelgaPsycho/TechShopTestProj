@@ -32,6 +32,7 @@
 		9C0294982943342000142A8F /* HotSalesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0294972943341F00142A8F /* HotSalesCell.swift */; };
 		9C0294A62943D88D00142A8F /* BestSellersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0294A52943D88D00142A8F /* BestSellersCell.swift */; };
 		9C0294A82943DB7700142A8F /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0294A72943DB7700142A8F /* Profile.swift */; };
+		9C0294AC2944FBB200142A8F /* FilterOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0294AB2944FBB200142A8F /* FilterOptionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		9C0294972943341F00142A8F /* HotSalesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotSalesCell.swift; sourceTree = "<group>"; };
 		9C0294A52943D88D00142A8F /* BestSellersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestSellersCell.swift; sourceTree = "<group>"; };
 		9C0294A72943DB7700142A8F /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		9C0294AB2944FBB200142A8F /* FilterOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 				9C0294972943341F00142A8F /* HotSalesCell.swift */,
 				9C0294A52943D88D00142A8F /* BestSellersCell.swift */,
 				9C0294882942245C00142A8F /* Carousel.swift */,
+				9C0294AB2944FBB200142A8F /* FilterOptionView.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				9C029470293E938300142A8F /* HotSalesAndBAstSellersManager.swift in Sources */,
 				9C029465293E2CF900142A8F /* CircleButtonStruct.swift in Sources */,
 				9C029419293CCE9A00142A8F /* SceneDelegate.swift in Sources */,
+				9C0294AC2944FBB200142A8F /* FilterOptionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

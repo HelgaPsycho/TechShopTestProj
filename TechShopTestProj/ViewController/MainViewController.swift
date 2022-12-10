@@ -134,6 +134,7 @@ class MainViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "filter.png"), for: .normal)
+        button.addTarget(self, action: #selector(filterButtonPresssed), for: .touchUpInside)
         return button
     }()
 
@@ -410,6 +411,8 @@ extension MainViewController: UICollectionViewDelegate {
         //   print("Collection view at row \(collectionView.tag) selected index path \(indexPath)")
        }
     
+    
+    
 }
 
     extension MainViewController: UICollectionViewDataSource {
@@ -422,8 +425,6 @@ extension MainViewController: UICollectionViewDelegate {
 
 
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            
-            print("COLLECTIONVIEW CELL FOR ITEM CALLED")
 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BestSellersCell.identifier, for: indexPath) as! BestSellersCell
             let product = bestSellersArray[indexPath.row]
@@ -475,4 +476,31 @@ extension MainViewController: HotSalesAndBestSellersManagerDelegate {
         }
     }
     func didFailWithError(error: Error){}
+}
+
+
+//MARK: - FILTER OPTIONS
+
+extension MainViewController {
+    
+    @objc func filterButtonPresssed(sender: UIButton){
+        filterOptionCalled()
+    
+        
+    }
+    
+    func filterOptionCalled () {
+        let filterOptionView = FilterOptionView()
+        
+        view.addSubview(filterOptionView)
+        view.bringSubviewToFront(filterOptionView)
+
+        filterOptionView.leftAnchor.constraint(equalTo: bestSellerView.leftAnchor, constant: -8).isActive = true
+        filterOptionView.rightAnchor.constraint(equalTo: bestSellerView.rightAnchor, constant: 8).isActive = true
+        filterOptionView.bottomAnchor.constraint(equalTo: bestSellerView.bottomAnchor).isActive = true
+        filterOptionView.topAnchor.constraint(equalTo: bestSellerView.topAnchor, constant: 10).isActive = true
+    
+    }
+    
+
 }
