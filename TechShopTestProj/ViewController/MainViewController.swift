@@ -11,7 +11,9 @@ import SDWebImage
 class MainViewController: UIViewController {
 
     lazy var carousel = Carousel(frame: .zero)
+    var managerAPI = HotSalesAndBAstSellersManager()
     
+    var bestSellersArray: [BestSellersModel] = []
     var profiles: [Profile] = []
 
     private let collectionView: UICollectionView = {
@@ -53,6 +55,8 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        managerAPI.delegate = self
+        managerAPI.fetchHotSales()
         view.backgroundColor = UIColor(named: "lightSilver")
         view.addSubview(selectCategoryView)
         setupSelectCategoryView()
@@ -430,7 +434,7 @@ extension MainViewController: UICollectionViewDelegate {
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             // the number of cells are wholly dependent on the number of colours
             print("COLLECTION VIEW NUMBER OF ITEMS IN SECTION CALLED: \(profiles.count)")
-            return profiles.count
+            return bestSellersArray.count
         }
 
 
@@ -440,10 +444,11 @@ extension MainViewController: UICollectionViewDelegate {
             print("COLLECTIONVIEW CELL FOR ITEM CALLED")
 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BestSellersCell.identifier, for: indexPath) as! BestSellersCell
+            let product = bestSellersArray[indexPath.row]
+            cell.setup(with: product)
+            return cell
 
-                    let profile = profiles[indexPath.row]
-                    cell.setup(with: profile)
-                    return cell
+
         }
 
     }
@@ -470,4 +475,18 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     
 }
 
-
+extension MainViewController: HotSalesAndBestSellersManagerDelegate {
+    func didUpdateHotSales(_ hotSalessManager: HotSalesAndBAstSellersManager, hotSales: [HotSalesModel]) {}
+    
+    func didUpdateBestSellers(_ hotSalesAndBestSellersManager: HotSalesAndBAstSellersManager, bestSellers: [BestSellersModel]){
+        
+        DispatchQueue.main.async { [self] in
+        
+            bestSellersArray = bestSellers
+            collectionView.reloadData()
+        
+            
+        }
+    }
+    func didFailWithError(error: Error){}
+}

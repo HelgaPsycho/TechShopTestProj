@@ -13,7 +13,6 @@ final class BestSellersCell: UICollectionViewCell {
     private let productImageView: UIImageView = {
         let imageView = UIImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .blue
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 10
@@ -151,17 +150,18 @@ final class BestSellersCell: UICollectionViewCell {
         ])
     }
     
-       
-       func setup(with profile: Profile) {
-           print("SETUP COLLECTION CELL CALLED")
-          // profileImageView.image = UIImage(named: profile.name)
-//           name.text = profile.name
-//           locationLabel.text = profile.location
-//           professionLabel.text = profile.profession
-       }
+    
 
     func setup(with product: BestSellersModel){
         productImageView.sd_setImage(with: product.picture, placeholderImage: UIImage(named: "placeholder"))
+        if product.isFavorites == false {
+            favouriteView.image = UIImage(named: "heart.png")
+        } else {
+            favouriteView.image = UIImage(named: "fullHeart")
+        }
+        priceWithoutDiscoutLabel.text = String(product.priceWithoutDiscount)
+        priceWithDiscount.text = String(product.discountPrice)
+        titleLabel.text = product.title
     }
     
 }
