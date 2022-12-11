@@ -13,23 +13,33 @@ class MainViewCoordinator: Coordinator {
     
     var childCoordinators: [Coordinator] = []
     
-    unowned let navigationController:UINavigationController
+    unowned let navigationController: UINavigationController
     
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        print("MAIN VIEW COORDINATOR INIT")
     }
     
     func start() {
+        print("START MAIN VEW COORDINATOR CALLED")
         let mainViewController : MainViewController = MainViewController()
         mainViewController.delegate = self
         self.navigationController.viewControllers = [mainViewController]
+        print("NAVIGATION CONTOROLLER VIEW CONTROLLERS: \(self.navigationController.viewControllers)")
     }
+    
+    
+    func printMainViewCoordinator(){
+        print("PRINT MAIN VIEW COORDINATOR CALLED")
+    }
+
 }
 
 extension MainViewCoordinator: MainViewControllerDelegate {
-
+  
     // Navigate to next page
-    func navigateToNextPage() {
+    func navigateToProductDetailsController() {
+        print("NAVIGATE TO PRODUCT DELAILS CONTROLLER CALLED")
        let productDetailsViewCoordinator = ProductDetailsViewCoordinator(navigationController: navigationController)
        productDetailsViewCoordinator.delegate = self
        childCoordinators.append(productDetailsViewCoordinator)
@@ -40,8 +50,28 @@ extension MainViewCoordinator: MainViewControllerDelegate {
 extension MainViewCoordinator: BackToMainViewControllerDelegate {
     
     // Back from third page
-    func navigateBackToFirstPage(newOrderCoordinator: ProductDetailsViewCoordinator) {
+    func navigateBackToMainController(newOrderCoordinator: ProductDetailsViewCoordinator) {
         navigationController.popToRootViewController(animated: true)
         childCoordinators.removeLast()
     }
 }
+
+public protocol MainViewControllerDelegate: AnyObject {
+    func navigateToProductDetailsController()
+}
+
+//class FirstViewController: UIViewController {
+//
+//    public weak var delegate: MainViewControllerDelegate?
+//    
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        
+//        title = "FirstViewController"
+//        
+//    }
+//    
+//    @IBAction func goToSecondPageAction(_ sender: Any) {
+//        self.delegate?.navigateToProductDetailsController()
+//    }
+//}

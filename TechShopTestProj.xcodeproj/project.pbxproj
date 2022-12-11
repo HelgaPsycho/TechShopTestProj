@@ -35,6 +35,8 @@
 		9C0294AF294538AD00142A8F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0294AE294538AD00142A8F /* Coordinator.swift */; };
 		9C0294B12945E4EA00142A8F /* MainViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0294B02945E4EA00142A8F /* MainViewCoordinator.swift */; };
 		9C0294B32945E61C00142A8F /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0294B22945E61C00142A8F /* ProductDetailsViewController.swift */; };
+		9C0294B62945F24600142A8F /* ProductDetailsViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0294B52945F24600142A8F /* ProductDetailsViewCoordinator.swift */; };
+		9C0294B92945F47000142A8F /* MyCartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0294B82945F47000142A8F /* MyCartViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,8 @@
 		9C0294AE294538AD00142A8F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		9C0294B02945E4EA00142A8F /* MainViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewCoordinator.swift; sourceTree = "<group>"; };
 		9C0294B22945E61C00142A8F /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
+		9C0294B52945F24600142A8F /* ProductDetailsViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewCoordinator.swift; sourceTree = "<group>"; };
+		9C0294B82945F47000142A8F /* MyCartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCartViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,7 @@
 				9C029418293CCE9A00142A8F /* SceneDelegate.swift */,
 				9C02947E294208C300142A8F /* MainViewController */,
 				9C0294B42945E64100142A8F /* ProductDetailsViewController */,
+				9C0294B72945F43B00142A8F /* MyCartViewController */,
 				9C029473293F4FB600142A8F /* ViewModel */,
 				9C0294AD2945386F00142A8F /* Coordinator */,
 				9C029466293E2CFF00142A8F /* Model */,
@@ -167,6 +172,7 @@
 			children = (
 				9C0294AE294538AD00142A8F /* Coordinator.swift */,
 				9C0294B02945E4EA00142A8F /* MainViewCoordinator.swift */,
+				9C0294B52945F24600142A8F /* ProductDetailsViewCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -177,6 +183,14 @@
 				9C0294B22945E61C00142A8F /* ProductDetailsViewController.swift */,
 			);
 			path = ProductDetailsViewController;
+			sourceTree = "<group>";
+		};
+		9C0294B72945F43B00142A8F /* MyCartViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9C0294B82945F47000142A8F /* MyCartViewController.swift */,
+			);
+			path = MyCartViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,6 +285,8 @@
 				9C029417293CCE9A00142A8F /* AppDelegate.swift in Sources */,
 				9C0294A62943D88D00142A8F /* BestSellersCell.swift in Sources */,
 				9C029468293E8C1400142A8F /* MainControllerData.swift in Sources */,
+				9C0294B62945F24600142A8F /* ProductDetailsViewCoordinator.swift in Sources */,
+				9C0294B92945F47000142A8F /* MyCartViewController.swift in Sources */,
 				9C0294B12945E4EA00142A8F /* MainViewCoordinator.swift in Sources */,
 				9C0294B32945E61C00142A8F /* ProductDetailsViewController.swift in Sources */,
 				9C0294872942199500142A8F /* CarouselLayout.swift in Sources */,

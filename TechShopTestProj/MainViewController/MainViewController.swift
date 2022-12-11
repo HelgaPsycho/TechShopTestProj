@@ -9,6 +9,8 @@ import UIKit
 import SDWebImage
 
 class MainViewController: UIViewController {
+    
+    public weak var delegate: MainViewControllerDelegate?
 
     lazy var carousel = Carousel(frame: .zero)
     var managerAPI = HotSalesAndBAstSellersManager()
@@ -54,7 +56,7 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("MAIN VIEW CONTROLLER VIEW DID LOAD")
         managerAPI.delegate = self
         managerAPI.fetchHotSales()
         view.backgroundColor = UIColor(named: "lightSilver")
@@ -357,7 +359,9 @@ class MainViewController: UIViewController {
         sender.setImage(sender.currentImage?.withTintColor(sender.pictureColor, renderingMode: .alwaysOriginal), for: .selected)
         }
 
-    
+//    @objc func goToProductDetailsController (sender: UICollectionViewCell){
+//        self.delegate?.navigateToNextPage()
+//    }
 
 }
 
@@ -409,6 +413,11 @@ extension MainViewController {
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //   print("Collection view at row \(collectionView.tag) selected index path \(indexPath)")
+        // COORDINATOR
+        
+        print("DID SELECT ITEM AT CALLED")
+        
+        self.delegate?.navigateToProductDetailsController()
        }
     
     
@@ -485,7 +494,6 @@ extension MainViewController {
     
     @objc func filterButtonPresssed(sender: UIButton){
         filterOptionCalled()
-    
         
     }
     
