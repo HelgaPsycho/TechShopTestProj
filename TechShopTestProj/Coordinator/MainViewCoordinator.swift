@@ -4,7 +4,6 @@
 //
 //  Created by Ольга Егорова on 11.12.2022.
 //
-
 import Foundation
 
 import UIKit
@@ -45,6 +44,13 @@ extension MainViewCoordinator: MainViewControllerDelegate {
        childCoordinators.append(productDetailsViewCoordinator)
         productDetailsViewCoordinator.start()
     }
+    
+    
+}
+
+
+public protocol MainViewControllerDelegate: AnyObject {
+    func navigateToProductDetailsController()
 }
 
 extension MainViewCoordinator: BackToMainViewControllerDelegate {
@@ -55,23 +61,3 @@ extension MainViewCoordinator: BackToMainViewControllerDelegate {
         childCoordinators.removeLast()
     }
 }
-
-public protocol MainViewControllerDelegate: AnyObject {
-    func navigateToProductDetailsController()
-}
-
-//class FirstViewController: UIViewController {
-//
-//    public weak var delegate: MainViewControllerDelegate?
-//    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        
-//        title = "FirstViewController"
-//        
-//    }
-//    
-//    @IBAction func goToSecondPageAction(_ sender: Any) {
-//        self.delegate?.navigateToProductDetailsController()
-//    }
-//}

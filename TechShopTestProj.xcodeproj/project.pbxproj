@@ -37,6 +37,7 @@
 		9C0294B32945E61C00142A8F /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0294B22945E61C00142A8F /* ProductDetailsViewController.swift */; };
 		9C0294B62945F24600142A8F /* ProductDetailsViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0294B52945F24600142A8F /* ProductDetailsViewCoordinator.swift */; };
 		9C0294B92945F47000142A8F /* MyCartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0294B82945F47000142A8F /* MyCartViewController.swift */; };
+		9C0294BB2946258A00142A8F /* MyCartCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0294BA2946258A00142A8F /* MyCartCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		9C0294B22945E61C00142A8F /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		9C0294B52945F24600142A8F /* ProductDetailsViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewCoordinator.swift; sourceTree = "<group>"; };
 		9C0294B82945F47000142A8F /* MyCartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCartViewController.swift; sourceTree = "<group>"; };
+		9C0294BA2946258A00142A8F /* MyCartCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCartCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 				9C0294AE294538AD00142A8F /* Coordinator.swift */,
 				9C0294B02945E4EA00142A8F /* MainViewCoordinator.swift */,
 				9C0294B52945F24600142A8F /* ProductDetailsViewCoordinator.swift */,
+				9C0294BA2946258A00142A8F /* MyCartCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 			files = (
 				9C029477293F504500142A8F /* CircleButtonViewModel.swift in Sources */,
 				9C02946C293E92BD00142A8F /* SalesModels.swift in Sources */,
+				9C0294BB2946258A00142A8F /* MyCartCoordinator.swift in Sources */,
 				9C0294AF294538AD00142A8F /* Coordinator.swift in Sources */,
 				9C02941B293CCE9A00142A8F /* MainViewController.swift in Sources */,
 				9C0294A82943DB7700142A8F /* Profile.swift in Sources */,

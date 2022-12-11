@@ -27,24 +27,25 @@ class ProductDetailsViewCoordinator: Coordinator {
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
+    let productDetailsViewController: ProductDetailsViewController = ProductDetailsViewController()
     
     func start() {
-        let productDetailsViewController: ProductDetailsViewController = ProductDetailsViewController()
         productDetailsViewController.delegate = self
         self.navigationController.pushViewController(productDetailsViewController, animated: true)
     }
 }
 
-extension ProductDetailsViewCoordinator : ProductsDetailsControllerDelegate {
+extension ProductDetailsViewCoordinator: ProductsDetailsControllerDelegate {
     func navigateBackToMainController() {
         self.delegate?.navigateBackToMainController(newOrderCoordinator: self)
     }
     
     // Navigate to third page
     func navigateToMyCartController() {
-        let myCartController: MyCartViewController = MyCartViewController()
-       // myCartController.delegate = self
-        self.navigationController.pushViewController(myCartController, animated: true)
+        let myCartCoordinator = MyCartViewCoordinator(navigationController: navigationController)
+        myCartCoordinator.delegate = self
+        childCoordinators.append(myCartCoordinator)
+        myCartCoordinator.start()
     }
     
 }
@@ -53,4 +54,13 @@ extension ProductDetailsViewCoordinator : ProductsDetailsControllerDelegate {
 public protocol ProductsDetailsControllerDelegate: class {
     func navigateBackToMainController()
     func navigateToMyCartController()
+}
+
+extension ProductDetailsViewCoordinator: BackToProductsDetailsControllerDelegate {
+    func navigateBackToProductDetailsController(newOrderCoordinator: MyCartViewCoordinator){
+        print("NAVIGATE BACK TO PRODUCT DETAIL CONTROLLERS CALLED")
+        newOrderCoordinator.navigationController.popViewController(animated: true)
+        childCoordinators.removeLast()
+
+    }
 }
