@@ -11,10 +11,12 @@ class ProductDetailsViewController: UIViewController {
     
     public weak var delegate: ProductsDetailsControllerDelegate?
     
+    lazy var carousel = Carousel(frame: .zero)
+    var informationView = ProductInformationView(frame: .zero)
+    
     private lazy var topView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.yellow
         return view
     }()
     
@@ -50,23 +52,60 @@ class ProductDetailsViewController: UIViewController {
         return button
     }()
     
+    private lazy var topViewLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor =  UIColor.black
+        label.text = "Product Details"
+        label.textAlignment = .center
+        let font = UIFont(name: "MarkPro-Medium", size: 18)
+        label.font = font
+        return label
+    }()
+    
+    private lazy var informationViewContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
+        setupComponents()
         setupHierarhy()
         setupConstraints()
         // Do any additional setup after loading the view.
     }
+
     
-    func setupView(){
+    private func setupComponents() {
+        
         navigationController?.isNavigationBarHidden = true
         view.backgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
+        
+        carousel.translatesAutoresizingMaskIntoConstraints = false
+        carousel.backgroundColor = .orange
+        informationView.translatesAutoresizingMaskIntoConstraints = false
+//        collectionView.translatesAutoresizingMaskIntoConstraints = false
+//
+//        collectionView.layer.masksToBounds = true
+//        collectionView.layer.cornerRadius = 10
+//
+//        collectionView.backgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
     }
     
     private func setupHierarhy(){
         view.addSubview(topView)
         topView.addSubview(backButton)
         topView.addSubview(cartButton)
+        topView.addSubview(topViewLabel)
+        view.addSubview(carousel)
+        view.addSubview(informationViewContainer)
+        informationViewContainer.addSubview(informationView)
+        view.bringSubviewToFront(informationView)
     }
     
     private func setupConstraints(){
@@ -74,15 +113,31 @@ class ProductDetailsViewController: UIViewController {
             topView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             topView.leftAnchor.constraint(equalTo: view.leftAnchor),
             topView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            topView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/10),
+            topView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/10),
             
             backButton.centerYAnchor.constraint(equalTo: topView.centerYAnchor),
             backButton.leftAnchor.constraint(equalTo: topView.leftAnchor, constant: 40),
             
             cartButton.rightAnchor.constraint(equalTo: topView.rightAnchor, constant: -40),
-            cartButton.centerYAnchor.constraint(equalTo: topView.centerYAnchor)
+            cartButton.centerYAnchor.constraint(equalTo: topView.centerYAnchor),
             
+            topViewLabel.centerXAnchor.constraint(equalTo: topView.centerXAnchor),
+            topViewLabel.centerYAnchor.constraint(equalTo: topView.centerYAnchor),
             
+            carousel.rightAnchor.constraint(equalTo: view.rightAnchor),
+            carousel.leftAnchor.constraint(equalTo: view.leftAnchor),
+            carousel.topAnchor.constraint(equalTo: topView.bottomAnchor),
+            carousel.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 4/10),
+            
+            informationViewContainer.rightAnchor.constraint(equalTo: view.rightAnchor),
+            informationViewContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
+            informationViewContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            informationViewContainer.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/2),
+            
+            informationView.rightAnchor.constraint(equalTo: informationViewContainer.rightAnchor),
+            informationView.leftAnchor.constraint(equalTo: informationViewContainer.leftAnchor),
+            informationView.bottomAnchor.constraint(equalTo: informationViewContainer.bottomAnchor),
+            informationView.topAnchor.constraint(equalTo: informationViewContainer.topAnchor)
             
         ])
     }

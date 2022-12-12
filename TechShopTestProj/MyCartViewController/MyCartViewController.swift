@@ -14,7 +14,6 @@ class MyCartViewController: UIViewController {
     private lazy var topView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.yellow
         return view
     }()
     
@@ -40,7 +39,7 @@ class MyCartViewController: UIViewController {
         button.backgroundColor = UIColor(named: "peach") ?? UIColor.orange
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
-       // button.setImage(UIImage(named: "cart.png"), for: .normal)
+        button.setImage(UIImage(named: "adress.png"), for: .normal)
         
         button.widthAnchor.constraint(equalToConstant:  40).isActive = true
         button.heightAnchor.constraint(equalToConstant: 40).isActive = true
@@ -50,6 +49,16 @@ class MyCartViewController: UIViewController {
         return button
     }()
     
+    private lazy var topViewLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor =  UIColor.black
+        label.text = "Add adress"
+        label.textAlignment = .right
+        let font = UIFont(name: "MarkPro-Medium", size: 15)
+        label.font = font
+        return label
+    }()
    
 
     override func viewDidLoad() {
@@ -69,6 +78,7 @@ class MyCartViewController: UIViewController {
         view.addSubview(topView)
         topView.addSubview(backButton)
         topView.addSubview(adressButton)
+        topView.addSubview(topViewLabel)
     }
     
     private func setupConstraints(){
@@ -76,14 +86,16 @@ class MyCartViewController: UIViewController {
             topView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             topView.leftAnchor.constraint(equalTo: view.leftAnchor),
             topView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            topView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/10),
+            topView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/10),
             
             backButton.centerYAnchor.constraint(equalTo: topView.centerYAnchor),
             backButton.leftAnchor.constraint(equalTo: topView.leftAnchor, constant: 40),
             
             adressButton.rightAnchor.constraint(equalTo: topView.rightAnchor, constant: -40),
-            adressButton.centerYAnchor.constraint(equalTo: topView.centerYAnchor)
+            adressButton.centerYAnchor.constraint(equalTo: topView.centerYAnchor),
             
+            topViewLabel.centerYAnchor.constraint(equalTo: topView.centerYAnchor),
+            topViewLabel.rightAnchor.constraint(equalTo: adressButton.leftAnchor, constant: -5)
             
             
         ])
