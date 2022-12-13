@@ -37,6 +37,7 @@
 		9C0294B62945F24600142A8F /* ProductDetailsViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0294B52945F24600142A8F /* ProductDetailsViewCoordinator.swift */; };
 		9C0294B92945F47000142A8F /* MyCartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0294B82945F47000142A8F /* MyCartViewController.swift */; };
 		9C0294BB2946258A00142A8F /* MyCartCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0294BA2946258A00142A8F /* MyCartCoordinator.swift */; };
+		9C1A35D52949189900998FF6 /* SwiftDropdown in Frameworks */ = {isa = PBXBuildFile; productRef = 9C1A35D42949189900998FF6 /* SwiftDropdown */; };
 		9CD6B0B829467AB90085BF25 /* ProductDetailsControllerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD6B0B729467AB90085BF25 /* ProductDetailsControllerData.swift */; };
 		9CD6B0BA294680560085BF25 /* ProductDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD6B0B9294680560085BF25 /* ProductDetailsModel.swift */; };
 		9CD6B0BC2946829D0085BF25 /* ProductCarouselLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD6B0BB2946829D0085BF25 /* ProductCarouselLayout.swift */; };
@@ -89,6 +90,7 @@
 			files = (
 				9C029483294214A100142A8F /* SDWebImageMapKit in Frameworks */,
 				9C029481294214A100142A8F /* SDWebImage in Frameworks */,
+				9C1A35D52949189900998FF6 /* SwiftDropdown in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,6 +237,7 @@
 			packageProductDependencies = (
 				9C029480294214A100142A8F /* SDWebImage */,
 				9C029482294214A100142A8F /* SDWebImageMapKit */,
+				9C1A35D42949189900998FF6 /* SwiftDropdown */,
 			);
 			productName = TechShopTestProj;
 			productReference = 9C029413293CCE9A00142A8F /* TechShopTestProj.app */;
@@ -266,6 +269,7 @@
 			mainGroup = 9C02940A293CCE9A00142A8F;
 			packageReferences = (
 				9C02947F294214A100142A8F /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				9C1A35D32949189900998FF6 /* XCRemoteSwiftPackageReference "SwiftDropdown" */,
 			);
 			productRefGroup = 9C029414293CCE9A00142A8F /* Products */;
 			projectDirPath = "";
@@ -543,6 +547,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		9C1A35D32949189900998FF6 /* XCRemoteSwiftPackageReference "SwiftDropdown" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/giuseppebruno/SwiftDropdown";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -555,6 +567,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9C02947F294214A100142A8F /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImageMapKit;
+		};
+		9C1A35D42949189900998FF6 /* SwiftDropdown */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9C1A35D32949189900998FF6 /* XCRemoteSwiftPackageReference "SwiftDropdown" */;
+			productName = SwiftDropdown;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

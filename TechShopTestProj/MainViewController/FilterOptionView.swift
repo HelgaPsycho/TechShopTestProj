@@ -6,8 +6,14 @@
 //
 
 import UIKit
+import SwiftDropdown
 
-class FilterOptionView: UIView {
+class FilterOptionView: UIView, SwiftDropdownDelegate {
+    
+    lazy var dropDownTitlesArray: [String] = ["Brand", "Price", "Size"]
+    lazy var brandDropdownList: [String] = ["Apple", "Sumsung", "Xiaomy"]
+    lazy var priceDropdownList: [String] = ["$0 - $100", "$100 - $300", "$300 - $500", "$500 - $1000"]
+    lazy var sizeDropdownList: [String] = []
     
     var cancelButton: UIButton = {
         let button = UIButton()
@@ -67,45 +73,55 @@ class FilterOptionView: UIView {
     var verticalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.backgroundColor = .yellow
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.alignment = .leading
         return stackView
     }()
     
-    var brandLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor =  UIColor.black
-        label.text = "Brand"
-        label.textAlignment = .left
-        let font = UIFont(name: "MarkPro-Medium", size: 18)
-        label.font = font
-        return label
-    }()
     
-    var priceLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor =  UIColor.black
-        label.text = "Price"
-        label.textAlignment = .left
-        let font = UIFont(name: "MarkPro-Medium", size: 18)
-        label.font = font
-        return label
-    }()
     
-    var sizeLabel: UILabel = {
+    lazy var brandLabel: UILabel = getLabelWith(title: dropDownTitlesArray[0])
+    lazy var priceLabel: UILabel = getLabelWith(title: dropDownTitlesArray[1])
+    lazy var sizeLabel: UILabel = getLabelWith(title: dropDownTitlesArray[2])
+    
+    private func getLabelWith(title: String) -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor =  UIColor.black
-        label.text = "Size"
+        label.text = title
         label.textAlignment = .left
         let font = UIFont(name: "MarkPro-Medium", size: 18)
         label.font = font
         return label
-    }()
+    }
+    
+    lazy var brandDropdown: SwiftDropdown = getDropdownWith(name: dropDownTitlesArray[0], itemsArray: brandDropdownList)
+    lazy var priceDropdown: SwiftDropdown = getDropdownWith(name: dropDownTitlesArray[1], itemsArray: priceDropdownList)
+    lazy var sizeDropdown: SwiftDropdown = getDropdownWith(name: dropDownTitlesArray[2], itemsArray: sizeDropdownList)
+    
+    private func getDropdownWith(name: String, itemsArray: [String])-> SwiftDropdown {
+        let dropdown = SwiftDropdown()
+        dropdown.placeholderText = name
+        dropdown.options = itemsArray
+        dropdown.placeholderFont = UIFont(name: "MarkPro-Regular", size: 18)
+        dropdown.placeholderColor = UIColor.black
+        dropdown.arrowImage = UIImage(named: "downArrow")
+        dropdown.arrowPosition = .right
+        dropdown.borderWidth = 1
+//        dropdown.layer.masksToBounds = true
+//        dropdown.layer.cornerRadius = 10 - работает не коректно
+        dropdown.borderColor = UIColor(named: "lightGray")?.cgColor ?? UIColor.lightGray.cgColor
+        dropdown.disableArrowAnimation = false
+        dropdown.itemsFont = UIFont(name: "MarkPro-Regular", size: 18)
+        dropdown.itemsTextColor = UIColor.black
+        dropdown.checkmarkColor = UIColor(named: "darkSilver") ?? UIColor.darkGray
+        dropdown.selectedItemBackgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
+       // dropdown.dropdownHeight = 40
+        dropdown.dropdownExtraSpace = 450
+
+        return dropdown
+    }
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -113,6 +129,9 @@ class FilterOptionView: UIView {
         self.backgroundColor = UIColor.white
         self.layer.masksToBounds = true
         self.layer.cornerRadius = 20
+        brandDropdown.delegate = self
+        priceDropdown.delegate = self
+        priceDropdown.delegate = self
         setupHierarhy()
         setupConstraints()
         
@@ -129,10 +148,11 @@ class FilterOptionView: UIView {
         self.addSubview(filterOptionsTitle)
         self.addSubview(verticalStackView)
         verticalStackView.addArrangedSubview(brandLabel)
-        
+        verticalStackView.addArrangedSubview(brandDropdown)
         verticalStackView.addArrangedSubview(priceLabel)
-        
+        verticalStackView.addArrangedSubview(priceDropdown)
         verticalStackView.addArrangedSubview(sizeLabel)
+        verticalStackView.addArrangedSubview(sizeDropdown)
 
     }
     
@@ -152,7 +172,14 @@ class FilterOptionView: UIView {
         verticalStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
         verticalStackView.topAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant:  10).isActive = true
         
-       
+        brandDropdown.rightAnchor.constraint(equalTo: verticalStackView.rightAnchor).isActive = true
+        brandDropdown.leftAnchor.constraint(equalTo: verticalStackView.leftAnchor).isActive = true
+        
+        priceDropdown.rightAnchor.constraint(equalTo: verticalStackView.rightAnchor).isActive = true
+        priceDropdown.leftAnchor.constraint(equalTo: verticalStackView.leftAnchor).isActive = true
+        
+        sizeDropdown.rightAnchor.constraint(equalTo: verticalStackView.rightAnchor).isActive = true
+        sizeDropdown.leftAnchor.constraint(equalTo: verticalStackView.leftAnchor).isActive = true
     }
     
     @objc func cancelButtonPressed(sender: UIButton) {
@@ -160,10 +187,14 @@ class FilterOptionView: UIView {
     }
     
     @objc func doneButtonPressed(sender: UIButton){
-        //TODO запрос API
+        //TODO запрос API ?
 
         removeFromSuperview()
     }
-
+    
+    func dropdownItemSelected(index: Int, item: String) {
+        print("\(item) selected")
+        // TODO API
+    }
 
 }
