@@ -8,7 +8,7 @@
 import UIKit
 import SwiftDropdown
 
-class FilterOptionView: UIView, SwiftDropdownDelegate {
+class FilterOptionView: UIView {
     
     lazy var dropDownTitlesArray: [String] = ["Brand", "Price", "Size"]
     lazy var brandDropdownList: [String] = ["Apple", "Sumsung", "Xiaomy"]
@@ -109,17 +109,17 @@ class FilterOptionView: UIView, SwiftDropdownDelegate {
         dropdown.arrowImage = UIImage(named: "downArrow")
         dropdown.arrowPosition = .right
         dropdown.borderWidth = 1
-//        dropdown.layer.masksToBounds = true
-//        dropdown.layer.cornerRadius = 10 - работает не коректно
+        //        dropdown.layer.masksToBounds = true
+        //        dropdown.layer.cornerRadius = 10 - работает не коректно
         dropdown.borderColor = UIColor(named: "lightGray")?.cgColor ?? UIColor.lightGray.cgColor
         dropdown.disableArrowAnimation = false
         dropdown.itemsFont = UIFont(name: "MarkPro-Regular", size: 18)
         dropdown.itemsTextColor = UIColor.black
         dropdown.checkmarkColor = UIColor(named: "darkSilver") ?? UIColor.darkGray
         dropdown.selectedItemBackgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
-       // dropdown.dropdownHeight = 40
-        dropdown.dropdownExtraSpace = 450
-
+        // dropdown.dropdownHeight = 40
+        dropdown.dropdownExtraSpace = 450 // placeholder frame высчитывается от  родительской вьюшки, а options - от всего контроллера. TODO - оптимизировать без константых значений
+        
         return dropdown
     }
     
@@ -153,7 +153,7 @@ class FilterOptionView: UIView, SwiftDropdownDelegate {
         verticalStackView.addArrangedSubview(priceDropdown)
         verticalStackView.addArrangedSubview(sizeLabel)
         verticalStackView.addArrangedSubview(sizeDropdown)
-
+        
     }
     
     
@@ -188,10 +188,15 @@ class FilterOptionView: UIView, SwiftDropdownDelegate {
     
     @objc func doneButtonPressed(sender: UIButton){
         //TODO запрос API ?
-
+        
         removeFromSuperview()
     }
     
+}
+
+
+// РАСШИРЕНИЯ ДЛЯ ПЕРЕДАЧИ ДАННЫХ ИЗ DROPDOWN
+extension FilterOptionView: SwiftDropdownDelegate {
     func dropdownItemSelected(index: Int, item: String) {
         print("\(item) selected")
         // TODO API

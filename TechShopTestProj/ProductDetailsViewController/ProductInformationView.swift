@@ -77,47 +77,24 @@ class ProductInformationView: UIView {
         return stackView
     }()
     
-    private var buttonsArray: [UIButton] = []
-    private var labelsArray: [UILabel] = []
-
-    private lazy var shopButton = getSimpleButton()
-    private lazy var shopLabel = getLabelForButton(named: "Shop")
-
-    private lazy var detailsButton = getSimpleButton()
-    private lazy var detailsLabel = getLabelForButton(named: "Details")
-
-    private lazy var featuresButton = getSimpleButton()
-    private lazy var featuresLabel = getLabelForButton(named: "Features")
-
-    private func getSimpleButton() -> UIButton {
+    private lazy var shopButton = getSimpleButtonWith(label: "Shop")
+    private lazy var detailsButton = getSimpleButtonWith(label: "Details")
+    private lazy var featuresButton = getSimpleButtonWith(label: "Features")
+    
+    private var simpleButtonsWithLabelsArray: [UIButton] = []
+    
+    private func getSimpleButtonWith(label: String) -> UIButton {
         let button = UIButton()
-        buttonsArray.append(button)
         button.translatesAutoresizingMaskIntoConstraints = false
+        simpleButtonsWithLabelsArray.append(button)
+        button.setTitle(label, for: .normal)
+        button.setTitleColor(UIColor(named: "darkSilver"), for: .normal)
+        button.setTitleColor(UIColor.black, for: .selected)
+        button.titleLabel?.font = UIFont(name: "MarkPro-Regular", size: 20)
+        button.titleLabel?.textAlignment = .center
+        
         button.addTarget(self, action: #selector(textButtonPressed), for: .touchUpInside)
         return button
-    }
-
-    private func getLabelForButton (named: String)-> UILabel {
-        let label = UILabel()
-        labelsArray.append(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor =  UIColor(named: "darkSilver") ?? UIColor.darkGray
-        label.text = named
-        label.textAlignment = .center
-        let font = UIFont(name: "MarkPro-Regular", size: 20)
-        label.font = font
-        return label
-    }
-
-    private func getLabelForSelectButton (named: String)-> UILabel {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor =  UIColor.black
-        label.text = named
-        label.textAlignment = .center
-        let font = UIFont(name: "MarkPro-Bold", size: 20)
-        label.font = font
-        return label
     }
 
     private lazy var lineView: UIView = UIView()
@@ -276,20 +253,13 @@ class ProductInformationView: UIView {
         button.backgroundColor = UIColor(named: "peach") ?? UIColor.orange
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
+        button.setTitle("Add to Cart        $1,500", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(UIColor.lightGray, for: .highlighted)
+        button.titleLabel?.font = UIFont(name: "MarkPro-Bold", size: 20)
+        button.titleLabel?.textAlignment = .center
 
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor =  UIColor.white
-        label.text = "Add to Cart        $1,500"
-        label.textAlignment = .left
-        let font = UIFont(name: "MarkPro-Bold", size: 20)
-        label.font = font
-        button.addSubview(label)
-
-        label.leftAnchor.constraint(equalTo: button.leftAnchor, constant: 60).isActive = true
-        label.centerYAnchor.constraint(equalTo: button.centerYAnchor).isActive = true
-
-      //  button.addTarget(self, action: #selector(), for: .touchUpInside)
+       button.addTarget(self, action: #selector(addToCartButtonPressed), for: .touchUpInside)
 
         return button
     }()
@@ -381,9 +351,9 @@ class ProductInformationView: UIView {
         }
         
         
-        shopButton.addSubview(shopLabel)
-        detailsButton.addSubview(detailsLabel)
-        featuresButton.addSubview(featuresLabel)
+//        shopButton.addSubview(shopLabel)
+//        detailsButton.addSubview(detailsLabel)
+//        featuresButton.addSubview(featuresLabel)
 
 
     }
@@ -417,12 +387,12 @@ class ProductInformationView: UIView {
             simpleButtonsWithTextStack.topAnchor.constraint(equalTo: informationDetailsView.topAnchor),
             simpleButtonsWithTextStack.heightAnchor.constraint(equalTo: informationDetailsView.heightAnchor, multiplier: 1/6),
             
-            shopLabel.centerXAnchor.constraint(equalTo: shopButton.centerXAnchor),
-            shopLabel.centerYAnchor.constraint(equalTo: shopButton.centerYAnchor),
-            detailsLabel.centerXAnchor.constraint(equalTo: detailsButton.centerXAnchor),
-            detailsLabel.centerYAnchor.constraint(equalTo: detailsButton.centerYAnchor),
-            featuresLabel.centerXAnchor.constraint(equalTo: featuresButton.centerXAnchor),
-            featuresLabel.centerYAnchor.constraint(equalTo: featuresButton.centerYAnchor),
+//            shopLabel.centerXAnchor.constraint(equalTo: shopButton.centerXAnchor),
+//            shopLabel.centerYAnchor.constraint(equalTo: shopButton.centerYAnchor),
+//            detailsLabel.centerXAnchor.constraint(equalTo: detailsButton.centerXAnchor),
+//            detailsLabel.centerYAnchor.constraint(equalTo: detailsButton.centerYAnchor),
+//            featuresLabel.centerXAnchor.constraint(equalTo: featuresButton.centerXAnchor),
+//            featuresLabel.centerYAnchor.constraint(equalTo: featuresButton.centerYAnchor),
 
             lineView.rightAnchor.constraint(equalTo: informationDetailsView.rightAnchor),
             lineView.leftAnchor.constraint(equalTo: informationDetailsView.leftAnchor),
@@ -495,29 +465,16 @@ extension ProductInformationView {
     
     
     @objc private func textButtonPressed(sender: UIButton){
-       // var centerPosition = lineView.centerXAnchor.constraint(equalTo: lineView.centerXAnchor)
-        
-        var count = 0
-        for i in buttonsArray {
-            if i == sender {
-                sender.isSelected = true
-                labelsArray[count].textColor = UIColor.black
-                let font = UIFont(name: "MarkPro-Bold", size: 20)
-                labelsArray[count].font = font
-                //   labelsArray[count].text -  текст лейбла, можно использовать для запроса
-        
+        for button in simpleButtonsWithLabelsArray {
+            if button == sender {
+                button.isSelected = true
             } else {
-                i.isSelected = false
-                labelsArray[count].textColor = UIColor(named: "darkSilver") ?? UIColor.darkGray
-                let font = UIFont(name: "MarkPro-Regular", size: 20)
-                labelsArray[count].font = font
-                
+                button.isSelected = false
             }
-            count += 1
         }
-        
+                
     }
-       
+
     @objc private func colorButtonPressed(sender: UIButton){
         for i in colorsButtonsArray {
             if i == sender {
@@ -545,6 +502,10 @@ extension ProductInformationView {
         }
     }
     
+    @objc private func addToCartButtonPressed(sender: UIButton) {
+        //API - отправить модель
+        print("ADD TO CART BUTTON PRESSED")
+    }
 }
 
 
