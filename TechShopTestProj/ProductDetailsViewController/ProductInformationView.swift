@@ -27,7 +27,7 @@ class ProductInformationView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor =  UIColor.black
-        label.text = "Galaxy Note 20 Ultra"
+        label.text = title
         label.textAlignment = .left
         label.contentMode = .bottomLeft
         let font = UIFont(name: "MarkPro-Medium", size: 24)
@@ -63,7 +63,6 @@ class ProductInformationView: UIView {
 
     private lazy var informationDetailsView = {
         let view = UIView()
-        view.backgroundColor = .yellow
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
 
@@ -72,12 +71,14 @@ class ProductInformationView: UIView {
     private lazy var simpleButtonsWithTextStack = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.backgroundColor = .red
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.alignment = .fill
         return stackView
     }()
+    
+    private var buttonsArray: [UIButton] = []
+    private var labelsArray: [UILabel] = []
 
     private lazy var shopButton = getSimpleButton()
     private lazy var shopLabel = getLabelForButton(named: "Shop")
@@ -90,13 +91,15 @@ class ProductInformationView: UIView {
 
     private func getSimpleButton() -> UIButton {
         let button = UIButton()
+        buttonsArray.append(button)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor.red
+        button.addTarget(self, action: #selector(textButtonPressed), for: .touchUpInside)
         return button
     }
 
     private func getLabelForButton (named: String)-> UILabel {
         let label = UILabel()
+        labelsArray.append(label)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor =  UIColor(named: "darkSilver") ?? UIColor.darkGray
         label.text = named
@@ -118,11 +121,16 @@ class ProductInformationView: UIView {
     }
 
     private lazy var lineView: UIView = UIView()
+    
+    private lazy var lineImageView: UIImageView = {
+        let image = UIImage(named: "horizontalLine.png")
+        let imageView = UIImageView(image: image)
+        return imageView
+    }()
 
     private lazy var smallPicturesStack: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.backgroundColor = .blue
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.alignment = .fill
@@ -147,6 +155,15 @@ class ProductInformationView: UIView {
         return view
     }
     
+    private lazy var detailsLabelsStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        return stackView
+    }()
+    
     private lazy var cpuLabel: UILabel = getDetailsLabel(string: cpu)
     private lazy var cameraLabel: UILabel = getDetailsLabel(string: camera)
     private lazy var ssdLabel: UILabel = getDetailsLabel(string: ssd)
@@ -164,7 +181,95 @@ class ProductInformationView: UIView {
         return label
     }
 
+    private lazy var selectColorAndCapacityLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor =  UIColor.black
+        label.text = "Select color and capacity"
+        label.textAlignment = .left
+        let font = UIFont(name: "MarkPro-Medium", size: 16)
+        label.font = font
+        return label
+    }()
 
+    private lazy var colorsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .equalCentering
+        return stackView
+    }()
+    
+    private lazy var colorsButtonsArray = getColorButton(color)
+ 
+    private func getColorButton(_ colors: [String]) -> [UIButton]{
+        var array: [UIButton] = []
+        for color in colors {
+            let button = UIButton()
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.backgroundColor = UIColor(hex: color)
+            button.layer.masksToBounds = true
+            button.layer.cornerRadius = 25
+            button.setImage(UIImage(named: "checkMark.png"), for: .selected)
+            button.setImage(UIImage(named: ""), for: .normal)
+            button.addTarget(self, action: #selector(colorButtonPressed), for: .touchUpInside)
+
+            button.heightAnchor.constraint(equalToConstant: 50).isActive = true
+            button.widthAnchor.constraint(equalToConstant: 50).isActive = true
+           
+            array.append(button)
+        }
+        return array
+    }
+    
+    private lazy var capacityButtonsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .equalCentering
+        return stackView
+    }()
+    
+    private lazy var capacityButtonsArray = getCapacityButtons(capacityes: capacity)
+    private lazy var labelsForCapacityButtonsArray = getLabelsForCapacityButton(capacityes: capacity)
+    
+    private func getCapacityButtons(capacityes: [String]) -> [UIButton] {
+        var array: [UIButton] = []
+        for _ in capacityes {
+            let button = UIButton()
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.layer.masksToBounds = true
+            button.layer.cornerRadius = 10
+            
+            button.addTarget(self, action: #selector(capacityButtonPressed), for: .touchUpInside)
+
+            button.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            button.widthAnchor.constraint(equalToConstant: 60).isActive = true
+
+            array.append(button)
+        }
+
+        return array
+    }
+    
+    private func getLabelsForCapacityButton (capacityes: [String])-> [UILabel] {
+        var array: [UILabel] = []
+        for i in capacityes {
+            let label = UILabel()
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.textColor =  UIColor(named: "darkSilver") ?? UIColor.darkGray
+            label.textAlignment = .center
+            let font = UIFont(name: "MarkPro-Bold", size: 13)
+            label.font = font
+            label.text = i
+            array.append(label)
+        }
+        return array
+    }
+
+    
     private lazy var addToCartButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -184,7 +289,7 @@ class ProductInformationView: UIView {
         label.leftAnchor.constraint(equalTo: button.leftAnchor, constant: 60).isActive = true
         label.centerYAnchor.constraint(equalTo: button.centerYAnchor).isActive = true
 
-      //  button.addTarget(self, action: #selector(addToCartButtonPressed), for: .touchUpInside)
+      //  button.addTarget(self, action: #selector(), for: .touchUpInside)
 
         return button
     }()
@@ -226,7 +331,9 @@ class ProductInformationView: UIView {
         self.layer.cornerRadius = 20
 
         lineView.translatesAutoresizingMaskIntoConstraints = false
-        lineView.backgroundColor = .orange
+        lineImageView.isHidden = true
+        
+        colorsStackView.translatesAutoresizingMaskIntoConstraints = false
     }
 
     func setupHierarhy() {
@@ -239,16 +346,41 @@ class ProductInformationView: UIView {
         informationDetailsView.addSubview(simpleButtonsWithTextStack)
         informationDetailsView.addSubview(lineView)
         informationDetailsView.addSubview(smallPicturesStack)
+        informationDetailsView.addSubview(detailsLabelsStack)
+        informationDetailsView.addSubview(selectColorAndCapacityLabel)
+        informationDetailsView.addSubview(colorsStackView)
+        informationDetailsView.addSubview(capacityButtonsStackView)
 
         simpleButtonsWithTextStack.addArrangedSubview(shopButton)
         simpleButtonsWithTextStack.addArrangedSubview(detailsButton)
         simpleButtonsWithTextStack.addArrangedSubview(featuresButton)
+        
+        lineView.addSubview(lineImageView)
 
         smallPicturesStack.addArrangedSubview(smallCPUview)
         smallPicturesStack.addArrangedSubview(smallCameraView)
         smallPicturesStack.addArrangedSubview(smallSSDView)
         smallPicturesStack.addArrangedSubview(smallSDView)
+        
+        detailsLabelsStack.addArrangedSubview(cpuLabel)
+        detailsLabelsStack.addArrangedSubview(cameraLabel)
+        detailsLabelsStack.addArrangedSubview(ssdLabel)
+        detailsLabelsStack.addArrangedSubview(sdLabel)
 
+        for color in colorsButtonsArray {
+           colorsStackView.addArrangedSubview(color)
+        }
+        
+   //     привязка лейблов к кнопке и их расположение
+        for item in capacityButtonsArray {
+            capacityButtonsStackView.addArrangedSubview(item)
+            item.addSubview(labelsForCapacityButtonsArray[capacityButtonsArray.firstIndex(of: item)!])
+            labelsForCapacityButtonsArray[capacityButtonsArray.firstIndex(of: item)!].centerXAnchor.constraint(equalTo: item.centerXAnchor).isActive = true
+            labelsForCapacityButtonsArray[capacityButtonsArray.firstIndex(of: item)!].centerYAnchor.constraint(equalTo: item.centerYAnchor).isActive = true
+
+        }
+        
+        
         shopButton.addSubview(shopLabel)
         detailsButton.addSubview(detailsLabel)
         featuresButton.addSubview(featuresLabel)
@@ -270,7 +402,7 @@ class ProductInformationView: UIView {
             ratingImageView.heightAnchor.constraint(equalToConstant: 20),
             ratingImageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/3),
 
-            addToCartButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -40),
+            addToCartButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             addToCartButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30),
             addToCartButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -30),
             addToCartButton.heightAnchor.constraint(equalToConstant: 50),
@@ -301,8 +433,28 @@ class ProductInformationView: UIView {
             smallPicturesStack.rightAnchor.constraint(equalTo: informationDetailsView.rightAnchor),
             smallPicturesStack.leftAnchor.constraint(equalTo: informationDetailsView.leftAnchor),
             smallPicturesStack.topAnchor.constraint(equalTo: lineView.bottomAnchor),
-            smallPicturesStack.heightAnchor.constraint(equalTo: informationDetailsView.heightAnchor, multiplier: 1/4)
-
+            smallPicturesStack.heightAnchor.constraint(equalTo: informationDetailsView.heightAnchor, multiplier: 1/4),
+            
+            detailsLabelsStack.leftAnchor.constraint(equalTo: informationDetailsView.leftAnchor),
+            detailsLabelsStack.rightAnchor.constraint(equalTo: informationDetailsView.rightAnchor),
+            detailsLabelsStack.topAnchor.constraint(equalTo: smallPicturesStack.bottomAnchor),
+            detailsLabelsStack.heightAnchor.constraint(equalTo: informationDetailsView.heightAnchor, multiplier: 1/12),
+            
+            selectColorAndCapacityLabel.leftAnchor.constraint(equalTo: informationDetailsView.leftAnchor, constant: 40),
+            selectColorAndCapacityLabel.topAnchor.constraint(equalTo: detailsLabelsStack.bottomAnchor),
+            selectColorAndCapacityLabel.heightAnchor.constraint(equalTo: informationDetailsView.heightAnchor, multiplier: 1/12),
+            selectColorAndCapacityLabel.widthAnchor.constraint(equalTo: informationDetailsView.widthAnchor, multiplier: 2/3),
+            
+            colorsStackView.leftAnchor.constraint(equalTo: informationDetailsView.leftAnchor, constant: 30),
+            colorsStackView.topAnchor.constraint(equalTo: selectColorAndCapacityLabel.bottomAnchor),
+            colorsStackView.widthAnchor.constraint(equalTo: informationDetailsView.widthAnchor, multiplier: 1/3),
+            colorsStackView.heightAnchor.constraint(equalTo: informationDetailsView.heightAnchor, multiplier: 3/8),
+            
+            capacityButtonsStackView.rightAnchor.constraint(equalTo: informationDetailsView.rightAnchor, constant: -30),
+            capacityButtonsStackView.topAnchor.constraint(equalTo: selectColorAndCapacityLabel.bottomAnchor),
+            capacityButtonsStackView.widthAnchor.constraint(equalTo: informationDetailsView.widthAnchor, multiplier: 2/5),
+            capacityButtonsStackView.heightAnchor.constraint(equalTo: informationDetailsView.heightAnchor, multiplier: 3/8)
+    
 
         ])
         
@@ -337,3 +489,62 @@ class ProductInformationView: UIView {
         }
     }
 }
+
+
+extension ProductInformationView {
+    
+    
+    @objc private func textButtonPressed(sender: UIButton){
+       // var centerPosition = lineView.centerXAnchor.constraint(equalTo: lineView.centerXAnchor)
+        
+        var count = 0
+        for i in buttonsArray {
+            if i == sender {
+                sender.isSelected = true
+                labelsArray[count].textColor = UIColor.black
+                let font = UIFont(name: "MarkPro-Bold", size: 20)
+                labelsArray[count].font = font
+                //   labelsArray[count].text -  текст лейбла, можно использовать для запроса
+        
+            } else {
+                i.isSelected = false
+                labelsArray[count].textColor = UIColor(named: "darkSilver") ?? UIColor.darkGray
+                let font = UIFont(name: "MarkPro-Regular", size: 20)
+                labelsArray[count].font = font
+                
+            }
+            count += 1
+        }
+        
+    }
+       
+    @objc private func colorButtonPressed(sender: UIButton){
+        for i in colorsButtonsArray {
+            if i == sender {
+                i.isSelected = true
+            } else {
+                i.isSelected = false
+            }
+        }
+        
+    }
+    
+    @objc private func capacityButtonPressed(sender: UIButton){
+        var count = 0
+        for button in capacityButtonsArray {
+            if button == sender {
+                button.isSelected = true
+                button.backgroundColor = UIColor(named: "peach") ?? UIColor.orange
+                labelsForCapacityButtonsArray[count].textColor = UIColor.white
+            } else {
+                button.isSelected = false
+                button.backgroundColor = UIColor.clear
+                labelsForCapacityButtonsArray[count].textColor = UIColor(named: "darkSilveer") ?? UIColor.darkGray
+            }
+            count += 1
+        }
+    }
+    
+}
+
+

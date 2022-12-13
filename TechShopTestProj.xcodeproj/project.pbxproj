@@ -41,6 +41,7 @@
 		9CD6B0BA294680560085BF25 /* ProductDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD6B0B9294680560085BF25 /* ProductDetailsModel.swift */; };
 		9CD6B0BC2946829D0085BF25 /* ProductCarouselLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD6B0BB2946829D0085BF25 /* ProductCarouselLayout.swift */; };
 		9CD6B0BE2946872D0085BF25 /* ProductInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD6B0BD2946872D0085BF25 /* ProductInformationView.swift */; };
+		9CD6B0C32947CF210085BF25 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD6B0C22947CF210085BF25 /* UIColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +79,7 @@
 		9CD6B0B9294680560085BF25 /* ProductDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsModel.swift; sourceTree = "<group>"; };
 		9CD6B0BB2946829D0085BF25 /* ProductCarouselLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCarouselLayout.swift; sourceTree = "<group>"; };
 		9CD6B0BD2946872D0085BF25 /* ProductInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInformationView.swift; sourceTree = "<group>"; };
+		9CD6B0C22947CF210085BF25 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 		9C029415293CCE9A00142A8F /* TechShopTestProj */ = {
 			isa = PBXGroup;
 			children = (
+				9CD6B0C12947CEF40085BF25 /* UIElements Ext */,
 				9C02942A293CCEA400142A8F /* Fonts */,
 				9C029416293CCE9A00142A8F /* AppDelegate.swift */,
 				9C029418293CCE9A00142A8F /* SceneDelegate.swift */,
@@ -203,6 +206,14 @@
 				9C0294B82945F47000142A8F /* MyCartViewController.swift */,
 			);
 			path = MyCartViewController;
+			sourceTree = "<group>";
+		};
+		9CD6B0C12947CEF40085BF25 /* UIElements Ext */ = {
+			isa = PBXGroup;
+			children = (
+				9CD6B0C22947CF210085BF25 /* UIColor.swift */,
+			);
+			path = "UIElements Ext";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,6 +313,7 @@
 				9CD6B0B829467AB90085BF25 /* ProductDetailsControllerData.swift in Sources */,
 				9C0294B12945E4EA00142A8F /* MainViewCoordinator.swift in Sources */,
 				9C0294B32945E61C00142A8F /* ProductDetailsViewController.swift in Sources */,
+				9CD6B0C32947CF210085BF25 /* UIColor.swift in Sources */,
 				9C0294872942199500142A8F /* CarouselLayout.swift in Sources */,
 				9C0294892942245C00142A8F /* Carousel.swift in Sources */,
 				9CD6B0BE2946872D0085BF25 /* ProductInformationView.swift in Sources */,
