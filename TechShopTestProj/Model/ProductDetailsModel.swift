@@ -7,18 +7,19 @@
 
 import Foundation
 
-struct ProductDetailsModel: Codable {
+struct ProductDetailsModel  {
     
     let CPU: String
     let camera: String
-    let capaciry: [Int]
+    let capacity: [String]
     let color: [String]
-    let id: Int
-    let images: [URL]
-    let isFavourites: Bool
+    let id: String
+    let images: [String]
+    let isFavorites: Bool
     let price: Double
     let rating: Double
     let ssd: String
+    let sd: String
     let title: String
     
 }

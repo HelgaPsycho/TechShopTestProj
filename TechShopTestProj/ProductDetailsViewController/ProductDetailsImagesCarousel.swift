@@ -87,6 +87,18 @@ class ProductDetailsImagesCarousel: UIView {
             selectedIndex = index
             collectionView.scrollToItem(at: IndexPath(item: selectedIndex, section: 0), at: .centeredHorizontally, animated: true)
         }
+    
+    func getImageStrings(_ imageStrings: [String]) {
+        urls = imageStrings.compactMap{ URL(string:$0)}
+        DispatchQueue.main.async { [self] in
+        
+          collectionView.reloadData()
+          print("GET IMAGES STRINGS CALLED: \(urls)")
+            
+        }
+    
+    }
+    
         
 }
 extension ProductDetailsImagesCarousel: UICollectionViewDataSource {

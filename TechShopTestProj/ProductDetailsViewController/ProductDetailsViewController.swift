@@ -9,14 +9,13 @@ import UIKit
 
 class ProductDetailsViewController: UIViewController {
     
-    let urls: [URL] =
-    [URL(string: "https://avatars.mds.yandex.net/get-mpic/5235334/img_id5575010630545284324.png/orig")!,
-    URL(string: "https://www.manualspdf.ru/thumbs/products/l/1260237-samsung-galaxy-note-20-ultra.jpg")!]
-
+    var APImanager = ProductDetailsManager()
+    
+    var urls: [String] = []
+    
     public weak var delegate: ProductsDetailsControllerDelegate?
     
-    lazy var carousel = ProductDetailsImagesCarousel(frame: .zero, urls: urls)
-                                 
+    lazy var carousel = ProductDetailsImagesCarousel(frame: .zero)
     var informationView = ProductInformationView(frame: .zero)
     
     private lazy var topView: UIView = {
@@ -85,6 +84,8 @@ class ProductDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        APImanager.delegate = self
+        APImanager.fetchProductDetails()
         setupHierarhy()
         setupComponents()
         setupConstraints()
@@ -179,3 +180,25 @@ extension ProductDetailsViewController {
     }
 }
 
+extension ProductDetailsViewController: ProductDetailsManagerDelegate {
+    func didUpdateProductImages(_ productDetailsManager: ProductDetailsManager, imagesStrings: [String]) {
+        DispatchQueue.main.async { [self] in
+            self.urls = imagesStrings
+            carousel.getImageStrings(urls)
+          
+            print ("DID UPDATE PRODUCT IMAGES CALLED: \(urls)")
+            
+        }
+    }
+    
+    func didUpdateProductDetails(_ productDetailsManager: ProductDetailsManager, productDetails: ProductDetailsModel) {
+    
+    }
+    
+
+    func didFailWithError(error: Error) {
+        print(error)
+    }
+    
+    
+}

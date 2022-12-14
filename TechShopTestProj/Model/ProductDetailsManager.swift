@@ -9,12 +9,17 @@ import Foundation
 import Foundation
 
 protocol ProductDetailsManagerDelegate {
-    func didUpdateProductDetails(_ productDetailsManager: ProductDetailsManager, productDetails: [ProductDetailsModel])
+    func didUpdateProductDetails(_ productDetailsManager: ProductDetailsManager, productDetails: ProductDetailsModel)
+    
+    func didUpdateProductImages(_ productDetailsManager: ProductDetailsManager, imagesStrings: [String])
+    
     func didFailWithError(error: Error)
 }
 
 
 struct ProductDetailsManager {
+    
+    //TODO передать ссылку через Coordinator
     let productDetailsURL = "https://run.mocky.io/v3/6c14c560-15c6-4248-b9d2-b4508df7d4f5"
     
     var delegate: ProductDetailsManagerDelegate?
@@ -24,6 +29,7 @@ struct ProductDetailsManager {
     }
     
     func performRequest(with urlString: String){
+        print("PERFORM REQUEST \(urlString)")
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
@@ -32,11 +38,13 @@ struct ProductDetailsManager {
                     return
                 }
                 if let safeData = data {
-                    if let hotSales = self.parseJSON(hotSalesData: safeData) {
-                        self.delegate?.didUpdateHotSales(self, hotSales: hotSales)
+                    if let productDetails = self.parseJSON(productDetailsData: safeData) {
+                        self.delegate?.didUpdateProductDetails(self, productDetails: productDetails)
+                        
                     }
-                    if let bestSellers = self.parseJSON(bestSellersData: safeData){
-                        self.delegate?.didUpdateBestSellers(self, bestSellers: bestSellers)
+                    if let productDetails = self.parseJSON(imagesStrings: safeData) {
+                        self.delegate?.didUpdateProductImages(self, imagesStrings: productDetails)
+                        print("IMAGES URLS: \(productDetails)")
                     }
                 }
             }
@@ -44,58 +52,48 @@ struct ProductDetailsManager {
         }
     }
     
-    func parseJSON(hotSalesData: Data) -> [HotSalesModel]? {
+    func parseJSON(productDetailsData: Data) -> ProductDetailsModel? {
         let decoder = JSONDecoder()
         do {
-            let decodedData = try decoder.decode(MainControllerData.self, from: hotSalesData)
-            var hotSalesModelsArray: [HotSalesModel] = []
-            for element in decodedData.home_store {
-                let id: Int = element.id
-                let isNew: Bool = element.is_new ?? false
-                let title: String = element.title
-                let subtitle: String = element.subtitle
-                let picture: URL = element.picture
-                let isBuy: Bool = element.is_buy ?? false
-                
-                let hotSalesElement = HotSalesModel(id: id, isNew: isNew, title: title, subtitle: subtitle, picture: picture, isBuy: isBuy)
-                hotSalesModelsArray.append(hotSalesElement)
-                
-            }
+            let decodedData = try decoder.decode(ProductDetailsControllerData.self, from: productDetailsData)
+            let CPU: String = decodedData.CPU
+            let camera: String = decodedData.camera
+            let capacity: [String] = decodedData.capacity
+            let color: [String] = decodedData.color
+            let id: String = decodedData.id
+            let images: [String] = decodedData.images
+            let isFavourites: Bool = decodedData.isFavorites ?? false
+            let price: Double = decodedData.price
+            let rating: Double = decodedData.rating
+            let ssd: String = decodedData.ssd
+            let sd: String = decodedData.sd
+            let title: String = decodedData.title
             
-            return hotSalesModelsArray
+            let productDetails = ProductDetailsModel(CPU: CPU, camera: camera, capacity: capacity, color: color, id: id, images: images, isFavorites: isFavourites, price: price, rating: rating, ssd: ssd, sd: sd, title: title)
+           print(productDetails)
+            return productDetails
             
         } catch {
             delegate?.didFailWithError(error: error)
             return nil
+            
         }
     }
     
-    func parseJSON(bestSellersData: Data) -> [BestSellersModel]? {
+    func parseJSON(imagesStrings: Data) -> [String]? {
         let decoder = JSONDecoder()
         do {
-            let decodedData = try decoder.decode(MainControllerData.self, from: bestSellersData)
-            var bestSellersModelsArray: [BestSellersModel] = []
-            for element in decodedData.best_seller {
-                let id: Int = element.id
-                let isFavorites: Bool = element.is_favorites ?? false
-                let title: String = element.title
-                let priceWithoutDiscount: Int = element.price_without_discount
-                let discountPrice: Int = element.discount_Price ?? element.price_without_discount
-                let picture: URL = element.picture
-                
-                let bestSellersElement = BestSellersModel(id: id, isFavorites: isFavorites, title: title, priceWithoutDiscount: priceWithoutDiscount, discountPrice: discountPrice, picture: picture)
-                bestSellersModelsArray.append(bestSellersElement)
-                
-            }
-            
-            return bestSellersModelsArray
+            let decodedData = try decoder.decode(ProductDetailsControllerData.self, from: imagesStrings)
+            let images: [String] = decodedData.images
+            print ("PARSING IMAGES")
+            return images
             
         } catch {
             delegate?.didFailWithError(error: error)
             return nil
+            
         }
-        
-        
-        
     }
+    
+    
 }

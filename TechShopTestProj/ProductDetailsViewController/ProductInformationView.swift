@@ -17,7 +17,7 @@ class ProductInformationView: UIView {
     var id = ""
     var images: [String] = []
     var isFavourites: Bool = false
-    var price: String = ""
+    var price: Double = 0
     var rating: Double = 0
     var ssd: String = ""
     var sd: String = ""
@@ -268,27 +268,26 @@ class ProductInformationView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        setupModel()
+    
         setupView()
         setupHierarhy()
         setupConstraints()
     }
+    
+    func setupModel(model: ProductDetailsModel){
 
-    func setupModel(){
-
-        cpu = "Exynos 990"
-        camera = "108 + 12 mp"
-        capacity = ["126", "252"]
-        color =  ["#772D03", "#010035"]
-        id = "3"
-        images = ["https://avatars.mds.yandex.net/get-mpic/5235334/img_id5575010630545284324.png/orig",
-            "https://www.manualspdf.ru/thumbs/products/l/1260237-samsung-galaxy-note-20-ultra.jpg"]
-        isFavourites = true
-        price = String(1500)
-        rating = 4.5
-        ssd = "256 GB"
-        sd = "8 GB"
-        title  = "Galaxy Note 20 Ultra"
+        cpu = model.CPU
+        camera = model.camera
+        capacity = model.capacity
+        color =  model.color
+        id = model.id
+        images = model.images
+        isFavourites = model.isFavorites
+        price = model.price
+        rating = model.rating
+        ssd = model.ssd
+        sd = model.sd
+        title  = model.title
     }
 
     required init?(coder: NSCoder) {
