@@ -9,15 +9,26 @@ import UIKit
 
 class ProductDetailsViewController: UIViewController {
     
+    let urls: [URL] =
+    [URL(string: "https://avatars.mds.yandex.net/get-mpic/5235334/img_id5575010630545284324.png/orig")!,
+    URL(string: "https://www.manualspdf.ru/thumbs/products/l/1260237-samsung-galaxy-note-20-ultra.jpg")!]
+
     public weak var delegate: ProductsDetailsControllerDelegate?
     
-    lazy var carousel = Carousel(frame: .zero)
+    lazy var carousel = ProductDetailsImagesCarousel(frame: .zero, urls: urls)
+                                 
     var informationView = ProductInformationView(frame: .zero)
     
     private lazy var topView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    
+    private let collectionView: UICollectionView = {
+        let viewLayout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
+        return collectionView
     }()
     
     private lazy var backButton: UIButton = {
@@ -74,28 +85,12 @@ class ProductDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupComponents()
         setupHierarhy()
+        setupComponents()
         setupConstraints()
         // Do any additional setup after loading the view.
     }
 
-    
-    private func setupComponents() {
-        
-        navigationController?.isNavigationBarHidden = true
-        view.backgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
-        
-        carousel.translatesAutoresizingMaskIntoConstraints = false
-        carousel.backgroundColor = .orange
-        informationView.translatesAutoresizingMaskIntoConstraints = false
-//        collectionView.translatesAutoresizingMaskIntoConstraints = false
-//
-//        collectionView.layer.masksToBounds = true
-//        collectionView.layer.cornerRadius = 10
-//
-//        collectionView.backgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
-    }
     
     private func setupHierarhy(){
         view.addSubview(topView)
@@ -106,6 +101,22 @@ class ProductDetailsViewController: UIViewController {
         view.addSubview(informationViewContainer)
         informationViewContainer.addSubview(informationView)
         view.bringSubviewToFront(informationView)
+    }
+    
+    private func setupComponents() {
+        
+        navigationController?.isNavigationBarHidden = true
+        view.backgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
+        
+        carousel.translatesAutoresizingMaskIntoConstraints = false
+        carousel.backgroundColor = .clear
+        informationView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+
+        collectionView.layer.masksToBounds = true
+        collectionView.layer.cornerRadius = 10
+
+        collectionView.backgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
     }
     
     private func setupConstraints(){
@@ -132,7 +143,7 @@ class ProductDetailsViewController: UIViewController {
             informationViewContainer.rightAnchor.constraint(equalTo: view.rightAnchor),
             informationViewContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
             informationViewContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            informationViewContainer.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/2),
+            informationViewContainer.topAnchor.constraint(equalTo: carousel.bottomAnchor, constant: 5),
             
             informationView.rightAnchor.constraint(equalTo: informationViewContainer.rightAnchor),
             informationView.leftAnchor.constraint(equalTo: informationViewContainer.leftAnchor),
