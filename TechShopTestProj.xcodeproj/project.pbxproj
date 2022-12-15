@@ -291,7 +291,6 @@
 			packageReferences = (
 				9C02947F294214A100142A8F /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				9C1A35D32949189900998FF6 /* XCRemoteSwiftPackageReference "SwiftDropdown" */,
-				9C1A35E4294BB73C00998FF6 /* XCRemoteSwiftPackageReference "Stepperier" */,
 			);
 			productRefGroup = 9C029414293CCE9A00142A8F /* Products */;
 			projectDirPath = "";
@@ -579,14 +578,6 @@
 		9C1A35D32949189900998FF6 /* XCRemoteSwiftPackageReference "SwiftDropdown" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/giuseppebruno/SwiftDropdown";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-		9C1A35E4294BB73C00998FF6 /* XCRemoteSwiftPackageReference "Stepperier" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/NSDavidObject/Stepperier";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
