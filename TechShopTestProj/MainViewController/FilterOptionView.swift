@@ -128,7 +128,7 @@ class FilterOptionView: UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = UIColor.white
         self.layer.masksToBounds = true
-        self.layer.cornerRadius = 20
+        self.layer.cornerRadius = 30
         brandDropdown.delegate = self
         priceDropdown.delegate = self
         priceDropdown.delegate = self

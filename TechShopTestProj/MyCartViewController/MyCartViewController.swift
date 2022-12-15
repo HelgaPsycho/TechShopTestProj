@@ -59,7 +59,106 @@ class MyCartViewController: UIViewController {
         label.font = font
         return label
     }()
+    
+    
+    private lazy var titleView = UIView()
+    
+    private lazy var titleLable: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "My Cart"
+        let font = UIFont(name: "MarkPro-Bold", size: 35)
+        label.font = font
+        label.textColor = UIColor.black
+        label.textAlignment = .left
+        return label
+    }()
+    
+    private var tableView: UITableView = {
+        let tableView = UITableView ()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = UIColor(named: "indigo") ?? UIColor.black
+        tableView.layer.masksToBounds = true
+        tableView.layer.cornerRadius = 30
+        return tableView
+    }()
    
+    private lazy var totalPriceView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor(named: "indigo") ?? UIColor.black
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor(named: "darkSilver")?.cgColor ?? UIColor.darkGray.cgColor
+        return view
+    }()
+
+    private lazy var totalAndDeliveryStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.alignment = .leading
+        return stackView
+    }()
+    
+    
+    private lazy var labelsForTotalAndDeliveryStackView: [UILabel] = []
+    private func getLabelsToTotalAndDeliveryStackView(with strings: [String]) -> [UILabel] {
+        var labels: [UILabel] = []
+        for string in strings {
+            let label = UILabel()
+                    label.translatesAutoresizingMaskIntoConstraints = false
+                    label.text = string
+                    let font = UIFont(name: "MarkPro-Regular", size: 15)
+                    label.font = font
+                    label.textColor = UIColor.white
+                    label.textAlignment = .left
+            labels.append(label)
+        }
+        return labels
+    }
+    
+    private lazy var costStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.alignment = .leading
+        return stackView
+    }()
+    
+    private lazy var totalCostLabel: UILabel = {
+                let label = UILabel()
+                label.translatesAutoresizingMaskIntoConstraints = false
+                label.text = "$6,000 us"
+                let font = UIFont(name: "MarkPro-Bold", size: 15)
+                label.font = font
+                label.textColor = UIColor.white
+                label.textAlignment = .left
+                return label
+    }()
+    
+    private lazy var delivaryCostLabel: UILabel = {
+                let label = UILabel()
+                label.translatesAutoresizingMaskIntoConstraints = false
+                label.text = "Free"
+                let font = UIFont(name: "MarkPro-Bold", size: 15)
+                label.font = font
+                label.textColor = UIColor.white
+                label.textAlignment = .left
+                return label
+    }()
+    
+    
+    private lazy var checkoutButtonView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor(named: "indigo") ?? UIColor.black
+        return view
+    }()
+    
+    private lazy var checkoutButton: UIButton = UIButton().getBigOrangeButton(named: "Checkout")
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +171,7 @@ class MyCartViewController: UIViewController {
     func setupView(){
         navigationController?.isNavigationBarHidden = true
         view.backgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
+        titleView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setupHierarhy(){
@@ -79,7 +179,21 @@ class MyCartViewController: UIViewController {
         topView.addSubview(backButton)
         topView.addSubview(adressButton)
         topView.addSubview(topViewLabel)
+        view.addSubview(titleView)
+        titleView.addSubview(titleLable)
+        view.addSubview(checkoutButtonView)
+        checkoutButtonView.addSubview(checkoutButton)
+        view.addSubview(tableView)
+        view.addSubview(totalPriceView)
+        totalPriceView.addSubview(totalAndDeliveryStackView)
+        for label in getLabelsToTotalAndDeliveryStackView(with:["Total", "Delivery"]){
+            totalAndDeliveryStackView.addArrangedSubview(label)
+        }
+        totalPriceView.addSubview(costStackView)
+        costStackView.addArrangedSubview(totalCostLabel)
+        costStackView.addArrangedSubview(delivaryCostLabel)
     }
+
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
@@ -95,16 +209,71 @@ class MyCartViewController: UIViewController {
             adressButton.centerYAnchor.constraint(equalTo: topView.centerYAnchor),
             
             topViewLabel.centerYAnchor.constraint(equalTo: topView.centerYAnchor),
-            topViewLabel.rightAnchor.constraint(equalTo: adressButton.leftAnchor, constant: -5)
+            topViewLabel.rightAnchor.constraint(equalTo: adressButton.leftAnchor, constant: -5),
+            
+            titleView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 20),
+            titleView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40),
+            titleView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40),
+            titleView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/15),
+
+            titleLable.centerXAnchor.constraint(equalTo: titleView.centerXAnchor),
+            titleLable.leftAnchor.constraint(equalTo: titleView.leftAnchor),
+            
+            checkoutButtonView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            checkoutButtonView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            checkoutButtonView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            checkoutButtonView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.5/10),
+            
+            checkoutButton.centerXAnchor.constraint(equalTo: checkoutButtonView.centerXAnchor),
+            checkoutButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            
+            totalPriceView.bottomAnchor.constraint(equalTo: checkoutButtonView.topAnchor),
+            totalPriceView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: -1),
+            totalPriceView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 1),
+            totalPriceView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/10),
+            
+            totalAndDeliveryStackView.leftAnchor.constraint(equalTo: totalPriceView.leftAnchor, constant: 50),
+            totalAndDeliveryStackView.rightAnchor.constraint(equalTo: totalPriceView.centerXAnchor),
+            totalAndDeliveryStackView.topAnchor.constraint(equalTo: totalPriceView.topAnchor),
+            totalAndDeliveryStackView.bottomAnchor.constraint(equalTo: totalPriceView.bottomAnchor, constant: -10),
+            
+            costStackView.leftAnchor.constraint(equalTo: totalPriceView.centerXAnchor, constant: 70),
+            costStackView.rightAnchor.constraint(equalTo: totalPriceView.rightAnchor, constant: -30),
+            costStackView.topAnchor.constraint(equalTo: totalPriceView.topAnchor),
+            costStackView.bottomAnchor.constraint(equalTo: totalPriceView.bottomAnchor, constant: -10),
+            
+            tableView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 10),
+            tableView.bottomAnchor.constraint(equalTo: totalPriceView.topAnchor, constant: 30),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor)
             
             
         ])
     }
 }
+
+extension MyCartViewController: UITableViewDelegate {
+    
+}
     
     
  
-
+extension MyCartViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? TableViewProductCell else { fatalError("could not dequeueReausablleCell") }
+        
+        return cell
+            
+        }
+    }
+    
+    
+    
+    
     /*
     // MARK: - Navigation
 
@@ -125,4 +294,5 @@ extension MyCartViewController {
     
    
 }
+
 

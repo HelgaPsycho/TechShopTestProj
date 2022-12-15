@@ -224,24 +224,7 @@ class ProductInformationView: UIView {
     }
 
     
-    private lazy var addToCartButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor(named: "peach") ?? UIColor.orange
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 10
-        button.setTitle("Add to Cart        $1,500", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.setTitleColor(UIColor.lightGray, for: .highlighted)
-        button.titleLabel?.font = UIFont(name: "MarkPro-Bold", size: 20)
-        button.titleLabel?.textAlignment = .center
-
-       button.addTarget(self, action: #selector(addToCartButtonPressed), for: .touchUpInside)
-
-        return button
-    }()
-
-
+    private lazy var addToCartButton: UIButton = UIButton().getBigOrangeButton(named: "Add to Cart      $1,500")
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -289,7 +272,7 @@ class ProductInformationView: UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = UIColor.white
         self.layer.masksToBounds = true
-        self.layer.cornerRadius = 20
+        self.layer.cornerRadius = 30
 
         lineView.translatesAutoresizingMaskIntoConstraints = false
         lineImageView.isHidden = true
@@ -343,11 +326,9 @@ class ProductInformationView: UIView {
             ratingImageView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor),
             ratingImageView.heightAnchor.constraint(equalToConstant: 20),
             ratingImageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/3),
-
+            
+            addToCartButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             addToCartButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            addToCartButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30),
-            addToCartButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -30),
-            addToCartButton.heightAnchor.constraint(equalToConstant: 50),
 
             informationDetailsView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: 0),
             informationDetailsView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 0),

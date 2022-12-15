@@ -40,6 +40,8 @@
 		9C1A35D52949189900998FF6 /* SwiftDropdown in Frameworks */ = {isa = PBXBuildFile; productRef = 9C1A35D42949189900998FF6 /* SwiftDropdown */; };
 		9C1A35D72949CFD300998FF6 /* ProductDetailsImagesCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1A35D62949CFD300998FF6 /* ProductDetailsImagesCarousel.swift */; };
 		9C1A35D9294A31B900998FF6 /* ProductDetailsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1A35D8294A31B900998FF6 /* ProductDetailsManager.swift */; };
+		9C1A35DB294B47EB00998FF6 /* UIButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1A35DA294B47EB00998FF6 /* UIButtons.swift */; };
+		9C1A35DD294B53FC00998FF6 /* TableViewProductCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1A35DC294B53FC00998FF6 /* TableViewProductCellTableViewCell.swift */; };
 		9CD6B0B829467AB90085BF25 /* ProductDetailsControllerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD6B0B729467AB90085BF25 /* ProductDetailsControllerData.swift */; };
 		9CD6B0BA294680560085BF25 /* ProductDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD6B0B9294680560085BF25 /* ProductDetailsModel.swift */; };
 		9CD6B0BC2946829D0085BF25 /* ProductCarouselLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD6B0BB2946829D0085BF25 /* ProductCarouselLayout.swift */; };
@@ -80,6 +82,8 @@
 		9C0294BA2946258A00142A8F /* MyCartCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCartCoordinator.swift; sourceTree = "<group>"; };
 		9C1A35D62949CFD300998FF6 /* ProductDetailsImagesCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsImagesCarousel.swift; sourceTree = "<group>"; };
 		9C1A35D8294A31B900998FF6 /* ProductDetailsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsManager.swift; sourceTree = "<group>"; };
+		9C1A35DA294B47EB00998FF6 /* UIButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtons.swift; sourceTree = "<group>"; };
+		9C1A35DC294B53FC00998FF6 /* TableViewProductCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewProductCellTableViewCell.swift; sourceTree = "<group>"; };
 		9CD6B0B729467AB90085BF25 /* ProductDetailsControllerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsControllerData.swift; sourceTree = "<group>"; };
 		9CD6B0B9294680560085BF25 /* ProductDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsModel.swift; sourceTree = "<group>"; };
 		9CD6B0BB2946829D0085BF25 /* ProductCarouselLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCarouselLayout.swift; sourceTree = "<group>"; };
@@ -212,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				9C0294B82945F47000142A8F /* MyCartViewController.swift */,
+				9C1A35DC294B53FC00998FF6 /* TableViewProductCellTableViewCell.swift */,
 			);
 			path = MyCartViewController;
 			sourceTree = "<group>";
@@ -220,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				9CD6B0C22947CF210085BF25 /* UIColor.swift */,
+				9C1A35DA294B47EB00998FF6 /* UIButtons.swift */,
 			);
 			path = "UIElements Ext";
 			sourceTree = "<group>";
@@ -319,6 +325,7 @@
 				9C029417293CCE9A00142A8F /* AppDelegate.swift in Sources */,
 				9C0294A62943D88D00142A8F /* BestSellersCell.swift in Sources */,
 				9C029468293E8C1400142A8F /* MainControllerData.swift in Sources */,
+				9C1A35DD294B53FC00998FF6 /* TableViewProductCellTableViewCell.swift in Sources */,
 				9C0294B62945F24600142A8F /* ProductDetailsViewCoordinator.swift in Sources */,
 				9C0294B92945F47000142A8F /* MyCartViewController.swift in Sources */,
 				9CD6B0B829467AB90085BF25 /* ProductDetailsControllerData.swift in Sources */,
@@ -334,6 +341,7 @@
 				9CD6B0BA294680560085BF25 /* ProductDetailsModel.swift in Sources */,
 				9C029465293E2CF900142A8F /* CircleButtonStruct.swift in Sources */,
 				9CD6B0BC2946829D0085BF25 /* ProductCarouselLayout.swift in Sources */,
+				9C1A35DB294B47EB00998FF6 /* UIButtons.swift in Sources */,
 				9C029419293CCE9A00142A8F /* SceneDelegate.swift in Sources */,
 				9C0294AC2944FBB200142A8F /* FilterOptionView.swift in Sources */,
 			);
