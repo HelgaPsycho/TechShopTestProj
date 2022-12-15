@@ -437,7 +437,6 @@ extension ProductInformationView {
             if button == sender {
                 button.isSelected = true
                 button.backgroundColor = UIColor(named: "peach") ?? UIColor.orange
-                print("CAPACITY BUTTON PRESSED")
     
             } else {
                 button.isSelected = false
@@ -448,7 +447,7 @@ extension ProductInformationView {
     
     @objc private func addToCartButtonPressed(sender: UIButton) {
         //API - отправить модель
-        print("ADD TO CART BUTTON PRESSED")
+
     }
 }
 

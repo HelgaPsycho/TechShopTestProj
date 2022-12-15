@@ -38,7 +38,7 @@ class MyCartViewCoordinator: Coordinator {
 extension MyCartViewCoordinator: MyCartControllerDelegate {
     func navigateBackToLastController() {
         self.delegate?.navigateBackToProductDetailsController(newOrderCoordinator: self)
-        print("2 NAVIGATE BACT TO PRODUCT DETAIL CONTROLLER")
+        
     }
     
     

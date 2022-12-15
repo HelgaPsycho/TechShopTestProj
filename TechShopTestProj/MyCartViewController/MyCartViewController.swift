@@ -9,7 +9,9 @@ import UIKit
 
 class MyCartViewController: UIViewController {
     
+    var myCartManager = MyCartManager()
     public weak var delegate: MyCartControllerDelegate?
+    lazy var productModel: [ProductModel] = []
     
     private lazy var topView: UIView = {
         let view = UIView()
@@ -74,12 +76,19 @@ class MyCartViewController: UIViewController {
         return label
     }()
     
+    private var tableViewConteiner: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor(named: "indigo") ?? UIColor.black
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 30
+        return view
+    }()
+    
     private var tableView: UITableView = {
-        let tableView = UITableView ()
+        let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = UIColor(named: "indigo") ?? UIColor.black
-        tableView.layer.masksToBounds = true
-        tableView.layer.cornerRadius = 30
         return tableView
     }()
    
@@ -130,7 +139,7 @@ class MyCartViewController: UIViewController {
     private lazy var totalCostLabel: UILabel = {
                 let label = UILabel()
                 label.translatesAutoresizingMaskIntoConstraints = false
-                label.text = "$6,000 us"
+                label.text = ""
                 let font = UIFont(name: "MarkPro-Bold", size: 15)
                 label.font = font
                 label.textColor = UIColor.white
@@ -141,7 +150,7 @@ class MyCartViewController: UIViewController {
     private lazy var delivaryCostLabel: UILabel = {
                 let label = UILabel()
                 label.translatesAutoresizingMaskIntoConstraints = false
-                label.text = "Free"
+                label.text = ""
                 let font = UIFont(name: "MarkPro-Bold", size: 15)
                 label.font = font
                 label.textColor = UIColor.white
@@ -162,10 +171,25 @@ class MyCartViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureTableView()
+        myCartManager.delegate = self
+        myCartManager.fetchMyCartInfo()
         setupView()
         setupHierarhy()
         setupConstraints()
        
+    }
+    
+    func configureTableView() {
+    
+        tableView.delegate = self
+        tableView.dataSource = self
+//        tableView.estimatedRowHeight = 120
+//        tableView.rowHeight = UITableView.automaticDimension
+        tableView.rowHeight = 120
+        tableView.register(TableViewProductCell.self, forCellReuseIdentifier: "cell")
+
+        
     }
     
     func setupView(){
@@ -183,7 +207,8 @@ class MyCartViewController: UIViewController {
         titleView.addSubview(titleLable)
         view.addSubview(checkoutButtonView)
         checkoutButtonView.addSubview(checkoutButton)
-        view.addSubview(tableView)
+        view.addSubview(tableViewConteiner)
+        tableViewConteiner.addSubview(tableView)
         view.addSubview(totalPriceView)
         totalPriceView.addSubview(totalAndDeliveryStackView)
         for label in getLabelsToTotalAndDeliveryStackView(with:["Total", "Delivery"]){
@@ -242,10 +267,15 @@ class MyCartViewController: UIViewController {
             costStackView.topAnchor.constraint(equalTo: totalPriceView.topAnchor),
             costStackView.bottomAnchor.constraint(equalTo: totalPriceView.bottomAnchor, constant: -10),
             
-            tableView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 10),
-            tableView.bottomAnchor.constraint(equalTo: totalPriceView.topAnchor, constant: 30),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor)
+            tableViewConteiner.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 10),
+            tableViewConteiner.bottomAnchor.constraint(equalTo: totalPriceView.topAnchor, constant: 30),
+            tableViewConteiner.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableViewConteiner.leftAnchor.constraint(equalTo: view.leftAnchor),
+            
+            tableView.rightAnchor.constraint(equalTo: tableViewConteiner.rightAnchor),
+            tableView.leftAnchor.constraint(equalTo: tableViewConteiner.leftAnchor),
+            tableView.topAnchor.constraint(equalTo: tableViewConteiner.topAnchor, constant: 70),
+            tableView.bottomAnchor.constraint(equalTo: totalPriceView.topAnchor)
             
             
         ])
@@ -260,12 +290,15 @@ extension MyCartViewController: UITableViewDelegate {
  
 extension MyCartViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return productModel.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? TableViewProductCell else { fatalError("could not dequeueReausablleCell") }
-        
+        print("TABLE VIEW CELL FOR ROW AT CALLED")
+      //  cell.translatesAutoresizingMaskIntoConstraints = false
+       // cell.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        cell.data = self.productModel[indexPath.row]
         return cell
             
         }
@@ -296,3 +329,29 @@ extension MyCartViewController {
 }
 
 
+extension MyCartViewController: MyCartManagerDelegate {
+    
+    func didUpdateMyCart(_ myCartManager: MyCartManager, myCart: MyCartModel) {
+        DispatchQueue.main.async { [self] in
+            delivaryCostLabel.text = myCart.delivery
+            totalCostLabel.text = String(myCart.total)
+            
+            //   formationView.setupModel(model: productDetails)
+        }
+       
+    }
+    
+    func didUpdateBasketProducts(_ myCartManager: MyCartManager, productsDetails: [ProductModel]) {
+        productModel = productsDetails
+        DispatchQueue.main.async { [self] in
+        tableView.reloadData()
+            
+        }
+    }
+    
+    func didFailWithError(error: Error) {
+    
+            print ("error")
+    }
+    
+}

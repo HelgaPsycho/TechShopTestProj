@@ -198,7 +198,6 @@ class FilterOptionView: UIView {
 // РАСШИРЕНИЯ ДЛЯ ПЕРЕДАЧИ ДАННЫХ ИЗ DROPDOWN
 extension FilterOptionView: SwiftDropdownDelegate {
     func dropdownItemSelected(index: Int, item: String) {
-        print("\(item) selected")
         // TODO API
     }
 

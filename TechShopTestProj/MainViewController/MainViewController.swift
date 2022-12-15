@@ -56,7 +56,6 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("MAIN VIEW CONTROLLER VIEW DID LOAD")
         managerAPI.delegate = self
         managerAPI.fetchHotSales()
         view.backgroundColor = UIColor(named: "lightSilver")

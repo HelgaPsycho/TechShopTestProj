@@ -19,11 +19,8 @@ class Carousel: UIView {
     
 
     public init(frame: CGRect, data: [HotSalesModel]) {
-        print(data)
         self.hotSalesModelsArray = data
         super.init(frame: frame)
-        print("DATA: \(data)")
-        print("HOT SALES ARRAY: \(hotSalesModelsArray)")
         setupView()
     }
     

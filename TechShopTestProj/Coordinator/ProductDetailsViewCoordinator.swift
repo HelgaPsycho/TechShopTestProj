@@ -58,7 +58,7 @@ public protocol ProductsDetailsControllerDelegate: class {
 
 extension ProductDetailsViewCoordinator: BackToProductsDetailsControllerDelegate {
     func navigateBackToProductDetailsController(newOrderCoordinator: MyCartViewCoordinator){
-        print("NAVIGATE BACK TO PRODUCT DETAIL CONTROLLERS CALLED")
+
         newOrderCoordinator.navigationController.popViewController(animated: true)
         childCoordinators.removeLast()
 

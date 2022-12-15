@@ -93,7 +93,7 @@ class ProductDetailsImagesCarousel: UIView {
         DispatchQueue.main.async { [self] in
         
           collectionView.reloadData()
-          print("GET IMAGES STRINGS CALLED: \(urls)")
+    
             
         }
     
@@ -103,7 +103,7 @@ class ProductDetailsImagesCarousel: UIView {
 }
 extension ProductDetailsImagesCarousel: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("\(urls.count): \(urls)")
+     
         return urls.count
     }
     

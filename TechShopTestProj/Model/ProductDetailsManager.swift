@@ -44,7 +44,7 @@ struct ProductDetailsManager {
                     }
                     if let productDetails = self.parseJSON(imagesStrings: safeData) {
                         self.delegate?.didUpdateProductImages(self, imagesStrings: productDetails)
-                        print("IMAGES URLS: \(productDetails)")
+                        
                     }
                 }
             }
@@ -70,7 +70,7 @@ struct ProductDetailsManager {
             let title: String = decodedData.title
             
             let productDetails = ProductDetailsModel(CPU: CPU, camera: camera, capacity: capacity, color: color, id: id, images: images, isFavorites: isFavourites, price: price, rating: rating, ssd: ssd, sd: sd, title: title)
-           print(productDetails)
+          
             return productDetails
             
         } catch {
@@ -85,7 +85,7 @@ struct ProductDetailsManager {
         do {
             let decodedData = try decoder.decode(ProductDetailsControllerData.self, from: imagesStrings)
             let images: [String] = decodedData.images
-            print ("PARSING IMAGES")
+           
             return images
             
         } catch {

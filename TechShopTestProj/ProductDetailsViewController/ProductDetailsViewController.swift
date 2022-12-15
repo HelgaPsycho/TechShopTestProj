@@ -185,8 +185,6 @@ extension ProductDetailsViewController: ProductDetailsManagerDelegate {
         DispatchQueue.main.async { [self] in
             self.urls = imagesStrings
             carousel.getImageStrings(urls)
-          
-            print ("DID UPDATE PRODUCT IMAGES CALLED: \(urls)")
             
         }
     }
@@ -197,7 +195,6 @@ extension ProductDetailsViewController: ProductDetailsManagerDelegate {
             informationView.setupModel(model: productDetails)
            // informationView.reloadInputViews()
           
-            print ("DID UPDATE PRODUCT IMAGES CALLED: \(urls)")
             
         }
     
