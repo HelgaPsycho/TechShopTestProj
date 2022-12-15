@@ -192,6 +192,14 @@ extension ProductDetailsViewController: ProductDetailsManagerDelegate {
     }
     
     func didUpdateProductDetails(_ productDetailsManager: ProductDetailsManager, productDetails: ProductDetailsModel) {
+        DispatchQueue.main.async { [self] in
+            
+            informationView.setupModel(model: productDetails)
+           // informationView.reloadInputViews()
+          
+            print ("DID UPDATE PRODUCT IMAGES CALLED: \(urls)")
+            
+        }
     
     }
     
