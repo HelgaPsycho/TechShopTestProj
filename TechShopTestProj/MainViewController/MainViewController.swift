@@ -136,6 +136,9 @@ class MainViewController: UIViewController {
         setupTitleLabels(label: selectCategoryLabel)
         setupTitleLabels(label: bestSellersLabel)
         
+        phonesButton.isSelected = true
+        phonesButton.backgroundColor = UIColor(named: "peach") ?? UIColor.orange
+        
         carousel.translatesAutoresizingMaskIntoConstraints = false
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false

@@ -75,7 +75,7 @@ class ProductInformationView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
+        stackView.distribution =  .equalCentering
         stackView.alignment = .fill
         return stackView
     }()
@@ -92,21 +92,18 @@ class ProductInformationView: UIView {
         simpleButtonsWithLabelsArray.append(button)
         button.setTitle(label, for: .normal)
         button.setTitleColor(UIColor(named: "darkSilver"), for: .normal)
-        button.setTitleColor(UIColor.black, for: .selected)
+        button.setTitleColor(.black, for: .selected)
         button.titleLabel?.font = UIFont(name: "MarkPro-Regular", size: 20)
         button.titleLabel?.textAlignment = .center
+        button.setImage(UIImage(named: "horizontalLine.png"), for: .selected)
+        button.imageView?.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.centerXAnchor.constraint(equalTo: button.centerXAnchor).isActive = true
+        button.imageView?.topAnchor.constraint(equalTo: button.bottomAnchor).isActive = true
         
         button.addTarget(self, action: #selector(textButtonPressed), for: .touchUpInside)
         return button
     }
 
-    private lazy var lineView: UIView = UIView()
-    
-    private lazy var lineImageView: UIImageView = {
-        let image = UIImage(named: "horizontalLine.png")
-        let imageView = UIImageView(image: image)
-        return imageView
-    }()
 
     private lazy var smallPicturesStack: UIStackView = {
         let stackView = UIStackView()
@@ -285,9 +282,6 @@ class ProductInformationView: UIView {
         self.backgroundColor = UIColor.white
         self.layer.masksToBounds = true
         self.layer.cornerRadius = 30
-
-        lineView.translatesAutoresizingMaskIntoConstraints = false
-        lineImageView.isHidden = true
         
         colorsStackView.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -300,7 +294,6 @@ class ProductInformationView: UIView {
 
         self.addSubview(informationDetailsView)
         informationDetailsView.addSubview(simpleButtonsWithTextStack)
-        informationDetailsView.addSubview(lineView)
         informationDetailsView.addSubview(smallPicturesStack)
         informationDetailsView.addSubview(detailsLabelsStack)
         informationDetailsView.addSubview(selectColorAndCapacityLabel)
@@ -310,8 +303,6 @@ class ProductInformationView: UIView {
         simpleButtonsWithTextStack.addArrangedSubview(shopButton)
         simpleButtonsWithTextStack.addArrangedSubview(detailsButton)
         simpleButtonsWithTextStack.addArrangedSubview(featuresButton)
-        
-        lineView.addSubview(lineImageView)
 
         smallPicturesStack.addArrangedSubview(smallCPUview)
         smallPicturesStack.addArrangedSubview(smallCameraView)
@@ -351,16 +342,10 @@ class ProductInformationView: UIView {
             simpleButtonsWithTextStack.leftAnchor.constraint(equalTo: informationDetailsView.leftAnchor),
             simpleButtonsWithTextStack.topAnchor.constraint(equalTo: informationDetailsView.topAnchor),
             simpleButtonsWithTextStack.heightAnchor.constraint(equalTo: informationDetailsView.heightAnchor, multiplier: 1/6),
-            
-            lineView.rightAnchor.constraint(equalTo: informationDetailsView.rightAnchor),
-            lineView.leftAnchor.constraint(equalTo: informationDetailsView.leftAnchor),
-            lineView.topAnchor.constraint(equalTo: simpleButtonsWithTextStack.bottomAnchor),
-            lineView.heightAnchor.constraint(equalTo: informationDetailsView.heightAnchor, multiplier: 1/24),
-            
-    
+                  
             smallPicturesStack.rightAnchor.constraint(equalTo: informationDetailsView.rightAnchor),
             smallPicturesStack.leftAnchor.constraint(equalTo: informationDetailsView.leftAnchor),
-            smallPicturesStack.topAnchor.constraint(equalTo: lineView.bottomAnchor),
+           smallPicturesStack.topAnchor.constraint(equalTo: simpleButtonsWithTextStack.bottomAnchor),
             smallPicturesStack.heightAnchor.constraint(equalTo: informationDetailsView.heightAnchor, multiplier: 1/4),
             
             detailsLabelsStack.leftAnchor.constraint(equalTo: informationDetailsView.leftAnchor),
