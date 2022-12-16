@@ -23,6 +23,41 @@ class MainViewController: UIViewController {
         return view
     }()
     
+    private lazy var selectCategoryLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Select Category"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var filterButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "filter.png"), for: .normal)
+        button.addTarget(self, action: #selector(filterButtonPresssed), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var buttonsScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
+    }()
+    
+    private lazy var scrollContentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var phonesButton: UIButton = getCircleButton(with: "Phones",and: UIImage(systemName: "iphone")!)
+    lazy var computersButton: UIButton = getCircleButton(with: "Computer", and: UIImage(systemName: "laptopcomputer")!)
+    lazy var healthButton: UIButton = getCircleButton(with: "Health", and: UIImage(systemName: "waveform.path.ecg")!)
+    lazy var booksButton: UIButton = getCircleButton(with: "Books", and: UIImage(systemName: "books.vertical")!)
+    lazy var toolsButton: UIButton = getCircleButton(with: "Tools", and: UIImage(systemName: "wrench.and.screwdriver")!)
+    
+    var buttonsArrray: [UIButton] = []
     
     private lazy var hotSalesView: UIView = {
         let view = UIView()
@@ -38,47 +73,7 @@ class MainViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    private lazy var selectCategoryLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Select Category"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    
-    private lazy var filterButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "filter.png"), for: .normal)
-        button.addTarget(self, action: #selector(filterButtonPresssed), for: .touchUpInside)
-        return button
-    }()
-    
-    
-    private lazy var buttonsScrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.showsHorizontalScrollIndicator = false
-        return scrollView
-    }()
-    
-    
-    private lazy var scrollContentView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    
-    lazy var phonesButton: UIButton = getCircleButton(with: "Phones",and: UIImage(systemName: "iphone")!)
-    lazy var computersButton: UIButton = getCircleButton(with: "Computer", and: UIImage(systemName: "laptopcomputer")!)
-    lazy var healthButton: UIButton = getCircleButton(with: "Health", and: UIImage(systemName: "waveform.path.ecg")!)
-    lazy var booksButton: UIButton = getCircleButton(with: "Books", and: UIImage(systemName: "books.vertical")!)
-    lazy var toolsButton: UIButton = getCircleButton(with: "Tools", and: UIImage(systemName: "wrench.and.screwdriver")!)
-    
-    var buttonsArrray: [UIButton] = []
-    
+
     var bestSellersLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -104,27 +99,24 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         managerAPI.delegate = self
         managerAPI.fetchHotSales()
         
-        
         view.backgroundColor = UIColor(named: "lightSilver")
-        view.addSubview(selectCategoryView)
         
+        view.addSubview(selectCategoryView)
         view.addSubview(hotSalesView)
+        view.addSubview(carousel)
         view.addSubview(bestSellerView)
-    
-        bestSellerView.addSubview(bestSellersLabel)
-        setupTitleLabels(label: bestSellersLabel)
-    
         view.addSubview(collectionView)
+    
         collectionView.dataSource = self
         collectionView.delegate = self
-        
         collectionView.register(BestSellersCell.self, forCellWithReuseIdentifier: BestSellersCell.identifier)
         
-        setupHierarchy()
         setupComponents()
+        setupHierarchy()
         setupConstraints()
         
         collectionView.reloadData()
@@ -139,22 +131,20 @@ class MainViewController: UIViewController {
         
     }
     
-    
     private func setupComponents() {
         
         setupTitleLabels(label: selectCategoryLabel)
+        setupTitleLabels(label: bestSellersLabel)
         
         carousel.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.layer.masksToBounds = true
         collectionView.layer.cornerRadius = 10
-        
         collectionView.backgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
     }
     
     private func setupHierarchy() {
-        self.view.addSubview(carousel)
         
         selectCategoryView.addSubview(selectCategoryLabel)
         selectCategoryView.addSubview(filterButton)
@@ -168,6 +158,8 @@ class MainViewController: UIViewController {
         scrollContentView.addSubview(healthButton)
         scrollContentView.addSubview(booksButton)
         scrollContentView.addSubview(toolsButton)
+        
+        bestSellerView.addSubview(bestSellersLabel)
 
 
     }
