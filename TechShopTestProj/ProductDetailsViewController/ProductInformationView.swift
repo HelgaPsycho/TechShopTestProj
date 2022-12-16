@@ -75,7 +75,7 @@ class ProductInformationView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.distribution =  .equalCentering
+        stackView.distribution =  .fillEqually
         stackView.alignment = .fill
         return stackView
     }()
@@ -95,6 +95,8 @@ class ProductInformationView: UIView {
         button.setTitleColor(.black, for: .selected)
         button.titleLabel?.font = UIFont(name: "MarkPro-Regular", size: 20)
         button.titleLabel?.textAlignment = .center
+        button.titleLabel?.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.centerXAnchor.constraint(equalTo: button.centerXAnchor).isActive = true
         button.setImage(UIImage(named: "horizontalLine.png"), for: .selected)
         button.imageView?.translatesAutoresizingMaskIntoConstraints = false
         button.imageView?.centerXAnchor.constraint(equalTo: button.centerXAnchor).isActive = true
