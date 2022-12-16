@@ -270,6 +270,9 @@ class ProductInformationView: UIView {
             button.addTarget(self, action: #selector(colorButtonPressed), for: .touchUpInside)
             colorsStackView.addArrangedSubview(button)
         }
+        colorsButtonsArray[0].isSelected = true
+        capacityButtonsArray[0].isSelected = true
+        capacityButtonsArray[0].backgroundColor = UIColor(named: "peach")
         
         
     }

@@ -58,8 +58,12 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         managerAPI.delegate = self
         managerAPI.fetchHotSales()
+        
+        
         view.backgroundColor = UIColor(named: "lightSilver")
         view.addSubview(selectCategoryView)
+        
+        
         setupSelectCategoryView()
         view.addSubview(hotSalesView)
         setupHotSalesView()
@@ -97,28 +101,7 @@ class MainViewController: UIViewController {
     //MARK:  - setup select category view
     
     func setupSelectCategoryView() {
-        
-        setupSelectCategoryConstraints()
-        selectCategoryView.addSubview(selectCategoryLabel)
-        setupTitleLabels(label: selectCategoryLabel)
-        setupSelectCategoryLabelConstraints()
-        selectCategoryView.addSubview(filterButton)
-        setupFilterButtonConstraints ()
-        selectCategoryView.addSubview(buttonsStackView)
-        setupButtonsStackViewConstrains()
-        
-        addAndSetupCirclesToButtonStackView()
-        
-        selectCategoryView.addSubview(labelsHorizontalStackView)
-        setuplabelsHorizontalStackView()
-        
-        labelsHorizontalStackView.addArrangedSubview(phoneLabel)
-        labelsHorizontalStackView.addArrangedSubview(computerLabel)
-        labelsHorizontalStackView.addArrangedSubview(healthLabel)
-        labelsHorizontalStackView.addArrangedSubview(booksLabel)
-
-        setupLabelsUnderButtons ()
-
+    
 
     }
     
@@ -138,122 +121,61 @@ class MainViewController: UIViewController {
         button.addTarget(self, action: #selector(filterButtonPresssed), for: .touchUpInside)
         return button
     }()
+    
+    
+    private lazy var buttonsScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    
+    private lazy var scrollContentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
 
+    lazy var phonesButton: UIButton = getCircleButton(with: "Phones",and: UIImage(systemName: "iphone")!)
+    lazy var computersButton: UIButton = getCircleButton(with: "Computer", and: UIImage(systemName: "laptopcomputer")!)
+    lazy var healthButton: UIButton = getCircleButton(with: "Health", and: UIImage(systemName: "waveform.path.ecg")!)
+    lazy var booksButton: UIButton = getCircleButton(with: "Books", and: UIImage(systemName: "books.vertical")!)
+    lazy var toolsButton: UIButton = getCircleButton(with: "Tools", and: UIImage(systemName: "wrench.and.screwdriver")!)
     
-    private lazy var buttonsStackView: UIStackView  = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.distribution = .equalCentering
-        stackView.alignment = .center
-        return stackView
-        
-    }()
+    var buttonsArrray: [UIButton] = []
     
-    
-    lazy var circle1: CircleButtonViewModel = {
-        var button = CircleButtonViewModel()
-        //button.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
-        button.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
-        return button
-    }()
-    
-    lazy var circle2: CircleButtonViewModel = {
-        var button = CircleButtonViewModel()
-       // button.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
-        button.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
-        return button
-    }()
-    
-    lazy var circle3: CircleButtonViewModel = {
-        var button = CircleButtonViewModel()
-      //  button.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
-        button.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
-        return button
-    }()
-    
-    lazy var circle4: CircleButtonViewModel = {
-        var button = CircleButtonViewModel()
-      //  button.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
-        button.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
-        return button
-    }()
-
-    
-    var circleButtonsArray: [UIButton] = []
-    var symbolsForButtonsArray: [String] = []
-    
-    
-    func addAndSetupCirclesToButtonStackView(){
-        var index = 0
-        
-        circleButtonsArray = [circle1, circle2, circle3, circle4]
-        symbolsForButtonsArray = ["iphone", "laptopcomputer", "waveform.path.ecg", "books.vertical"]
-        
-        for button in circleButtonsArray {
-            buttonsStackView.addArrangedSubview(button)
-            setupCircleButton(button: button, image: (UIImage(systemName: symbolsForButtonsArray[index]) ?? UIImage(systemName:  "questionmark.square.dashed"))!)
-            index += 1
-        }
-        
-    }
-    
-    
-    func  setupCircleButton(button: UIButton, image: UIImage){
-        var buttonImage = image
-        let color = UIColor(named: "darkSilver")
-        let colorConfig = UIImage.SymbolConfiguration(paletteColors: [color!])
-        let sizeConfig = UIImage.SymbolConfiguration(scale: .large)
-        buttonImage  = buttonImage.withConfiguration(sizeConfig)
-        buttonImage = buttonImage.withConfiguration(colorConfig)
-        button.backgroundColor = .white
-        button.layer.cornerRadius = 35
+    func  getCircleButton(with title: String, and image: UIImage)-> UIButton{
+        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
+        let normalColorConfig = UIImage.SymbolConfiguration(paletteColors: [UIColor(named: "darkSilver") ?? UIColor.darkGray])
+        let normalImage = image.withConfiguration(normalColorConfig)
+        button.setImage(normalImage, for: .normal)
+        let selectedColorConfig = UIImage.SymbolConfiguration(paletteColors: [UIColor.white])
+        let selectedImage = image.withConfiguration(selectedColorConfig)
+        button.setImage(selectedImage, for: .selected)
+        button.imageView?.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.centerXAnchor.constraint(equalTo: button.centerXAnchor).isActive = true
+        button.imageView?.centerYAnchor.constraint(equalTo: button.centerYAnchor).isActive = true
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.setTitleColor(UIColor(named: "peach"), for: .selected)
+        button.titleLabel?.font = UIFont(name: "MarkPro-Medium", size: 12)
+        button.titleLabel?.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .white
+        //button.layer.masksToBounds = true
+        button.layer.cornerRadius = 35
         button.widthAnchor.constraint(equalToConstant: 70).isActive = true
         button.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        button.setImage(buttonImage, for: .normal)
+        button.titleLabel?.centerXAnchor.constraint(equalTo: button.centerXAnchor).isActive = true
+        button.titleLabel?.topAnchor.constraint(equalTo: button.bottomAnchor,constant: 10).isActive = true
+        buttonsArrray.append(button)
+
+        return button
     }
 
-    var labelsHorizontalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.alignment = .top
-        return stackView
-        
-    }()
-    
-    
-    var phoneLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Phones"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    var computerLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Computer"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    var healthLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Health"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    var booksLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Books"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    var labelsUnderButtonsArray: [UILabel] = []
+
+ 
     
     var bestSellersLabel: UILabel = {
         let label = UILabel()
@@ -270,33 +192,7 @@ class MainViewController: UIViewController {
         label.font = UIFont(name: "MarkPro-Heavy", size: 25)
     }
     
-    func setupLabelsUnderButtons (){
-        labelsUnderButtonsArray = [phoneLabel, computerLabel, healthLabel, booksLabel]
-        for label in labelsUnderButtonsArray {
-            label.textAlignment = .center
-            label.textColor = .black
-            label.font = UIFont(name: "MarkPro-Medium", size: 12)
-        }
-    }
-    
-    //MARK: - setup constraints
-    
-    
-    private func setupSelectCategoryConstraints(){
-        
-        selectCategoryView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
-        selectCategoryView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
-        selectCategoryView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
-        selectCategoryView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 3/10).isActive = true
-    }
-    
-    private func setupSelectCategoryLabelConstraints () {
-        selectCategoryLabel.leftAnchor.constraint(equalTo: selectCategoryView.leftAnchor).isActive = true
-        selectCategoryLabel.topAnchor.constraint(equalTo: selectCategoryView.topAnchor).isActive = true
-        selectCategoryLabel.widthAnchor.constraint(equalTo: selectCategoryView.widthAnchor, multiplier: 3/4).isActive = true
-        selectCategoryLabel.heightAnchor.constraint(equalTo: selectCategoryView.heightAnchor, multiplier: 1/3).isActive = true
-    }
-    
+
     private func setupFilterButtonConstraints () {
         filterButton.rightAnchor.constraint(equalTo: selectCategoryView.rightAnchor, constant: -4).isActive = true
         filterButton.centerYAnchor.constraint(equalTo: selectCategoryLabel.centerYAnchor).isActive = true
@@ -305,20 +201,7 @@ class MainViewController: UIViewController {
     
     }
     
-    private func setupButtonsStackViewConstrains() {
-        buttonsStackView.centerYAnchor.constraint(equalTo: selectCategoryView.centerYAnchor).isActive = true
-        buttonsStackView.heightAnchor.constraint(equalTo: selectCategoryView.heightAnchor, multiplier: 1/3).isActive = true
-        buttonsStackView.rightAnchor.constraint(equalTo: selectCategoryView.rightAnchor, constant: -10).isActive = true
-        buttonsStackView.leftAnchor.constraint(equalTo: selectCategoryView.leftAnchor, constant: 10).isActive = true
-    }
-    
-    private func setuplabelsHorizontalStackView() {
-        labelsHorizontalStackView.bottomAnchor.constraint(equalTo: selectCategoryView.bottomAnchor).isActive = true
-        labelsHorizontalStackView.leftAnchor.constraint(equalTo: selectCategoryView.leftAnchor).isActive = true
-        labelsHorizontalStackView.rightAnchor.constraint(equalTo: selectCategoryView.rightAnchor).isActive = true
-        labelsHorizontalStackView.topAnchor.constraint(equalTo: buttonsStackView.bottomAnchor, constant: 10).isActive = true
-        
-    }
+
     private func  setupHotSalesView() {
         hotSalesView.topAnchor.constraint(equalTo: selectCategoryView.bottomAnchor, constant: 0).isActive = true
         hotSalesView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
@@ -375,10 +258,27 @@ extension MainViewController {
     
     private func setupHierarchy() {
         self.view.addSubview(carousel)
-    
+        
+        selectCategoryView.addSubview(selectCategoryLabel)
+        selectCategoryView.addSubview(filterButton)
+        selectCategoryView.addSubview(buttonsScrollView)
+        selectCategoryView.addSubview(buttonsScrollView)
+        
+        selectCategoryView.addSubview(buttonsScrollView)
+        buttonsScrollView.addSubview(scrollContentView)
+        scrollContentView.addSubview(phonesButton)
+        scrollContentView.addSubview(computersButton)
+        scrollContentView.addSubview(healthButton)
+        scrollContentView.addSubview(booksButton)
+        scrollContentView.addSubview(toolsButton)
+
+
     }
     
     private func setupComponents() {
+        
+        setupTitleLabels(label: selectCategoryLabel)
+        
         carousel.translatesAutoresizingMaskIntoConstraints = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -389,7 +289,44 @@ extension MainViewController {
     }
     
     private func setupConstraints() {
+        
+        setupFilterButtonConstraints ()
         NSLayoutConstraint.activate([
+            selectCategoryView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            selectCategoryView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+            selectCategoryView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
+            selectCategoryView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 3/10),
+            
+            selectCategoryLabel.leftAnchor.constraint(equalTo: selectCategoryView.leftAnchor),
+            selectCategoryLabel.topAnchor.constraint(equalTo: selectCategoryView.topAnchor),
+            selectCategoryLabel.widthAnchor.constraint(equalTo: selectCategoryView.widthAnchor, multiplier: 3/4),
+            selectCategoryLabel.heightAnchor.constraint(equalTo: selectCategoryView.heightAnchor, multiplier: 1/3),
+            
+            buttonsScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            buttonsScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            buttonsScrollView.bottomAnchor.constraint(equalTo: selectCategoryView.bottomAnchor),
+            buttonsScrollView.topAnchor.constraint(equalTo: selectCategoryLabel.bottomAnchor),
+            
+            scrollContentView.leadingAnchor.constraint(equalTo: buttonsScrollView.leadingAnchor),
+            scrollContentView.trailingAnchor.constraint(equalTo: buttonsScrollView.trailingAnchor),
+            scrollContentView.bottomAnchor.constraint(equalTo: buttonsScrollView.bottomAnchor),
+            scrollContentView.topAnchor.constraint(equalTo: buttonsScrollView.topAnchor),
+            
+            scrollContentView.heightAnchor.constraint(equalTo: buttonsScrollView.heightAnchor),
+            scrollContentView.widthAnchor.constraint(equalTo: buttonsScrollView.widthAnchor, multiplier: 1.2)
+        
+
+        ])
+        var leftAnchor = scrollContentView.leftAnchor
+        for button in buttonsArrray {
+            button.centerYAnchor.constraint(equalTo: scrollContentView.centerYAnchor, constant: -20).isActive = true
+            button.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
+            leftAnchor = button.rightAnchor
+        }
+        
+   
+        NSLayoutConstraint.activate([
+            
             carousel.rightAnchor.constraint(equalTo: hotSalesView.rightAnchor),
             carousel.leftAnchor.constraint(equalTo: hotSalesView.leftAnchor),
             carousel.bottomAnchor.constraint(equalTo: hotSalesView.bottomAnchor),

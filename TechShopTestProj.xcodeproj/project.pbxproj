@@ -164,13 +164,10 @@
 		9C029466293E2CFF00142A8F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9C02946F293E938300142A8F /* HotSalesAndBAstSellersManager.swift */,
 				9C029467293E8C1400142A8F /* MainControllerData.swift */,
 				9C02946B293E92BD00142A8F /* SalesModels.swift */,
-				9C1A35D8294A31B900998FF6 /* ProductDetailsManager.swift */,
 				9CD6B0B729467AB90085BF25 /* ProductDetailsControllerData.swift */,
 				9CD6B0B9294680560085BF25 /* ProductDetailsModel.swift */,
-				9C1A35DE294B68F200998FF6 /* MyCartManager.swift */,
 				9C1A35E0294B6C0400998FF6 /* MyCartData.swift */,
 				9C1A35E2294B6C1C00998FF6 /* MyCartModel.swift */,
 			);
@@ -180,6 +177,9 @@
 		9C029473293F4FB600142A8F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				9C02946F293E938300142A8F /* HotSalesAndBAstSellersManager.swift */,
+				9C1A35D8294A31B900998FF6 /* ProductDetailsManager.swift */,
+				9C1A35DE294B68F200998FF6 /* MyCartManager.swift */,
 				9C029464293E2CF900142A8F /* CircleButtonStruct.swift */,
 				9C029476293F504500142A8F /* CircleButtonViewModel.swift */,
 			);
