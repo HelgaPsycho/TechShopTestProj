@@ -46,27 +46,6 @@ class TableViewProductCell: UITableViewCell {
         return button
     }()
     
-//    lazy var stepper: UIStepper = {
-//        let stepper = UIStepper()
-//        stepper.translatesAutoresizingMaskIntoConstraints = false
-//        stepper.isContinuous = true
-//        stepper.minimumValue = 0
-//        stepper.minimumValue = 10
-//        stepper.stepValue = 1
-//        stepper.transform = CGAffineTransform(rotationAngle: CGFloat.pi/2)
-//        stepper.backgroundColor = .clear
-//        stepper.tintColor = .clear
-//     //   stepper.setIncrementImage(UIImage(systemName: "plus")!, for: .normal)
-////        stepper.incrementImage(for: .normal)?.withTintColor(UIColor.white)
-////        stepper.incrementImage(for: .focused)?.withTintColor(UIColor.gray)
-//    //    stepper.setDecrementImage(UIImage(systemName: "minus")!, for: .normal)
-//        stepper.setIncrementImage(UIImage(named: "plus.png"), for: .application)
-//        stepper.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
-//        //stepper.setDividerImage(UIImage(systemName: ""), forLeftSegmentState: .normal, rightSegmentState: .normal)
-////        stepper.widthAnchor.constraint(equalToConstant: 60).isActive = true
-////        stepper.heightAnchor.constraint(equalToConstant: 20).isActive = true
-//        return stepper
-//    }()
     
     private lazy var stepper: UIView = {
         let view = UIView()
@@ -165,10 +144,10 @@ class TableViewProductCell: UITableViewCell {
         // Initialization code
     }
     
-    func setupInformation(id: Int, image: String, price: Double, title: String) {
-        print("===================SETUP PRODUCT INFORMATION CALLED===================")
-        productImageView.sd_setImage(with: URL(string: image), placeholderImage: UIImage(named: "placeholder"))
-    }
+//    func setupInformation(id: Int, image: String, price: Double, title: String) {
+//        print("===================SETUP PRODUCT INFORMATION CALLED===================")
+//        productImageView.sd_setImage(with: URL(string: image), placeholderImage: UIImage(named: "placeholder"))
+//    }
 
     private func setupHierarhy() {
         contentView.addSubview(productImageView)

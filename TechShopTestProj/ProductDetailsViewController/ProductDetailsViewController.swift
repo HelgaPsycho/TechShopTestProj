@@ -9,7 +9,18 @@ import UIKit
 
 class ProductDetailsViewController: UIViewController {
     
+    var productsInCart: Int = 0 {
+        didSet {
+            if productsInCart > 0 {
+                productsInCartView.isHidden = false
+                productsInCartLabel.text = "\(productsInCart)"
+                productsInCartLabel.isHidden = false
+            }
+        }
+    }
+    
     var APImanager = ProductDetailsManager()
+    var cartManager = MyCartManager()
     
     var urls: [String] = []
     
@@ -62,6 +73,31 @@ class ProductDetailsViewController: UIViewController {
         return button
     }()
     
+    private lazy var productsInCartView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 10
+        
+        view.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        view.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        return view
+    }()
+    
+    private lazy var productsInCartLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor =  UIColor(named: "peach")
+        label.text = ""
+        label.textAlignment = .center
+        let font = UIFont(name: "MarkPro-Medium", size: 15)
+        label.font = font
+        
+        return label
+    }()
+    
     private lazy var topViewLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -86,6 +122,8 @@ class ProductDetailsViewController: UIViewController {
         super.viewDidLoad()
         APImanager.delegate = self
         APImanager.fetchProductDetails()
+        cartManager.delegate = self
+        cartManager.fetchMyCartInfo()
         setupHierarhy()
         setupComponents()
         setupConstraints()
@@ -102,6 +140,8 @@ class ProductDetailsViewController: UIViewController {
         view.addSubview(informationViewContainer)
         informationViewContainer.addSubview(informationView)
         view.bringSubviewToFront(informationView)
+        cartButton.addSubview(productsInCartView)
+        productsInCartView.addSubview(productsInCartLabel)
     }
     
     private func setupComponents() {
@@ -118,6 +158,7 @@ class ProductDetailsViewController: UIViewController {
         collectionView.layer.cornerRadius = 10
 
         collectionView.backgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
+        
     }
     
     private func setupConstraints(){
@@ -149,7 +190,13 @@ class ProductDetailsViewController: UIViewController {
             informationView.rightAnchor.constraint(equalTo: informationViewContainer.rightAnchor),
             informationView.leftAnchor.constraint(equalTo: informationViewContainer.leftAnchor),
             informationView.bottomAnchor.constraint(equalTo: informationViewContainer.bottomAnchor),
-            informationView.topAnchor.constraint(equalTo: informationViewContainer.topAnchor)
+            informationView.topAnchor.constraint(equalTo: informationViewContainer.topAnchor),
+            
+            productsInCartView.topAnchor.constraint(equalTo: cartButton.topAnchor, constant: 2),
+            productsInCartView.leftAnchor.constraint(equalTo: cartButton.leftAnchor, constant: 2),
+            
+            productsInCartLabel.centerYAnchor.constraint(equalTo: productsInCartView.centerYAnchor),
+            productsInCartLabel.centerXAnchor.constraint(equalTo: productsInCartView.centerXAnchor)
             
         ])
     }
@@ -203,6 +250,24 @@ extension ProductDetailsViewController: ProductDetailsManagerDelegate {
 
     func didFailWithError(error: Error) {
         print(error)
+    }
+    
+    
+}
+
+extension ProductDetailsViewController: MyCartManagerDelegate {
+    func didUpdateMyCart(_ myCartManager: MyCartManager, myCart: MyCartModel) {
+        //
+    }
+    
+    func didUpdateBasketProducts(_ myCartManager: MyCartManager, productsDetails: [ProductModel]) {
+       
+        DispatchQueue.main.async { [self] in
+        
+            productsInCart = productsDetails.count
+        
+            
+        }
     }
     
     

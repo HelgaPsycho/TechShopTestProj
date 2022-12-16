@@ -14,7 +14,7 @@ class ProductInformationView: UIView {
     var color: [String] = []
     var id = ""
     var images: [String] = []
-    var isFavourites: Bool = false
+    var isFavourites: Bool?
     var price: Double = 0
     var rating: Double = 0
 
@@ -37,9 +37,17 @@ class ProductInformationView: UIView {
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.setImage(UIImage(named: "whiteHeart.png"), for: .normal)
+        button.setImage(UIImage(named: "fullWhiteHeart"), for: .selected)
+        if isFavourites == false {
+            button.isSelected = false
+        } else {
+            button.isSelected = true
+        }
 
         button.widthAnchor.constraint(equalToConstant:  40).isActive = true
         button.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        button.addTarget(self, action: #selector(favouriteButtonPressed), for: .touchUpInside)
 
         return button
     }()
@@ -243,6 +251,7 @@ class ProductInformationView: UIView {
         sdLabel.text = model.sd
         capacity = model.capacity
         color =  model.color
+        isFavourites = model.isFavorites
 
         
         for capacity in model.capacity {
@@ -409,6 +418,13 @@ class ProductInformationView: UIView {
 
 extension ProductInformationView {
     
+    @objc private func favouriteButtonPressed(sender: UIButton) {
+        if sender.isSelected == true {
+            sender.isSelected = false
+        } else {
+            sender.isSelected = true
+        }
+    }
     
     @objc private func textButtonPressed(sender: UIButton){
         for button in simpleButtonsWithLabelsArray {
