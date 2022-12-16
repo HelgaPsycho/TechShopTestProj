@@ -12,22 +12,10 @@ class MainViewController: UIViewController {
     
     public weak var delegate: MainViewControllerDelegate?
     
-    lazy var carousel = Carousel(frame: .zero)
     var managerAPI = HotSalesAndBAstSellersManager()
     
     var bestSellersArray: [BestSellersModel] = []
     var hotSalesArray: [HotSalesModel] = []
-    
-    private let collectionView: UICollectionView = {
-        let viewLayout = UICollectionViewFlowLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
-        return collectionView
-    }()
-    
-    private enum LayoutConstant {
-        static let spacing: CGFloat = 8.0
-        static let itemHeight: CGFloat = 230.0
-    }
     
     private lazy var selectCategoryView: UIView = {
         let view = UIView()
@@ -35,12 +23,15 @@ class MainViewController: UIViewController {
         return view
     }()
     
+    
     private lazy var hotSalesView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    lazy var carousel = Carousel(frame: .zero)
     
     private lazy var bestSellerView: UIView = {
         let view = UIView()
@@ -88,6 +79,26 @@ class MainViewController: UIViewController {
     
     var buttonsArrray: [UIButton] = []
     
+    var bestSellersLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Best Sellers"
+        return label
+        
+    }()
+    
+    private let collectionView: UICollectionView = {
+        let viewLayout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
+        return collectionView
+    }()
+    
+    private enum LayoutConstant {
+        static let spacing: CGFloat = 8.0
+        static let itemHeight: CGFloat = 230.0
+    }
+
+    
     
     // MARK: - viewDidLoad
     
@@ -101,13 +112,11 @@ class MainViewController: UIViewController {
         view.addSubview(selectCategoryView)
         
         view.addSubview(hotSalesView)
-        setupHotSalesView()
         view.addSubview(bestSellerView)
-        setupBestSellersView()
+    
         bestSellerView.addSubview(bestSellersLabel)
         setupTitleLabels(label: bestSellersLabel)
-        setupBestSellersLabelContstraints()
-        
+    
         view.addSubview(collectionView)
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -130,49 +139,6 @@ class MainViewController: UIViewController {
         
     }
     
-    
-    var bestSellersLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Best Sellers"
-        return label
-        
-    }()
-
-    
-    private func setupFilterButtonConstraints () {
-        filterButton.rightAnchor.constraint(equalTo: selectCategoryView.rightAnchor, constant: -4).isActive = true
-        filterButton.centerYAnchor.constraint(equalTo: selectCategoryLabel.centerYAnchor).isActive = true
-        filterButton.widthAnchor.constraint(equalToConstant: 11).isActive = true
-        filterButton.heightAnchor.constraint(equalToConstant: 13).isActive = true
-        
-    }
-    
-    
-    private func  setupHotSalesView() {
-        hotSalesView.topAnchor.constraint(equalTo: selectCategoryView.bottomAnchor, constant: 0).isActive = true
-        hotSalesView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
-        hotSalesView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
-        hotSalesView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 2/10).isActive = true
-    }
-    
-    
-    private func setupBestSellersView() {
-        bestSellerView.topAnchor.constraint(equalTo: hotSalesView.bottomAnchor, constant: 0).isActive = true
-        bestSellerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
-        bestSellerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
-        bestSellerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
-        
-    }
-    
-    private func setupBestSellersLabelContstraints() {
-        bestSellersLabel.topAnchor.constraint(equalTo: bestSellerView.topAnchor).isActive = true
-        bestSellersLabel.rightAnchor.constraint(equalTo: bestSellerView.rightAnchor).isActive = true
-        bestSellersLabel.leftAnchor.constraint(equalTo: bestSellerView.leftAnchor).isActive = true
-        bestSellersLabel.heightAnchor.constraint(equalTo: bestSellerView.heightAnchor, multiplier: 4/30).isActive = true
-        
-        
-    }
     
     private func setupComponents() {
         
@@ -208,7 +174,6 @@ class MainViewController: UIViewController {
     
     private func setupConstraints() {
         
-        setupFilterButtonConstraints ()
         NSLayoutConstraint.activate([
             selectCategoryView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             selectCategoryView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
@@ -220,6 +185,11 @@ class MainViewController: UIViewController {
             selectCategoryLabel.widthAnchor.constraint(equalTo: selectCategoryView.widthAnchor, multiplier: 3/4),
             selectCategoryLabel.heightAnchor.constraint(equalTo: selectCategoryView.heightAnchor, multiplier: 1/3),
             
+            filterButton.rightAnchor.constraint(equalTo: selectCategoryView.rightAnchor, constant: -4),
+            filterButton.centerYAnchor.constraint(equalTo: selectCategoryLabel.centerYAnchor),
+            filterButton.widthAnchor.constraint(equalToConstant: 11),
+            filterButton.heightAnchor.constraint(equalToConstant: 13),
+
             buttonsScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             buttonsScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             buttonsScrollView.bottomAnchor.constraint(equalTo: selectCategoryView.bottomAnchor),
@@ -244,15 +214,26 @@ class MainViewController: UIViewController {
         
    
         NSLayoutConstraint.activate([
+            hotSalesView.topAnchor.constraint(equalTo: selectCategoryView.bottomAnchor, constant: 0),
+            hotSalesView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+            hotSalesView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
+            hotSalesView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 2/10),
             
             carousel.rightAnchor.constraint(equalTo: hotSalesView.rightAnchor),
             carousel.leftAnchor.constraint(equalTo: hotSalesView.leftAnchor),
             carousel.bottomAnchor.constraint(equalTo: hotSalesView.bottomAnchor),
-            carousel.topAnchor.constraint(equalTo: hotSalesView.topAnchor)
+            carousel.topAnchor.constraint(equalTo: hotSalesView.topAnchor),
         
-        ])
-        
-        NSLayoutConstraint.activate([
+            bestSellerView.topAnchor.constraint(equalTo: hotSalesView.bottomAnchor, constant: 0),
+            bestSellerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+            bestSellerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
+            bestSellerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
+            
+            bestSellersLabel.topAnchor.constraint(equalTo: bestSellerView.topAnchor),
+            bestSellersLabel.rightAnchor.constraint(equalTo: bestSellerView.rightAnchor),
+            bestSellersLabel.leftAnchor.constraint(equalTo: bestSellerView.leftAnchor),
+            bestSellersLabel.heightAnchor.constraint(equalTo: bestSellerView.heightAnchor, multiplier: 4/30),
+            
             collectionView.rightAnchor.constraint(equalTo: bestSellerView.rightAnchor),
             collectionView.leftAnchor.constraint(equalTo: bestSellerView.leftAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bestSellerView.bottomAnchor),
