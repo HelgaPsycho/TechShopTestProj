@@ -22,7 +22,6 @@ class HotSalesCell: UICollectionViewCell {
                 newView.isHidden = true
             
             }
-            
         }
     }
     
@@ -34,57 +33,6 @@ class HotSalesCell: UICollectionViewCell {
         return imageView
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
-        setupHierarhy()
-        setupConatraints()
-        
-        contentView.layer.masksToBounds = true
-        contentView.layer.cornerRadius = 10
-        
-        imageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
-        imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-        
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupHierarhy (){
-        contentView.addSubview(imageView)
-        contentView.addSubview(stackView)
-        stackView.addArrangedSubview(newView)
-        stackView.addArrangedSubview(labelsStackView)
-        stackView.addArrangedSubview(buyNowButton)
-        labelsStackView.addArrangedSubview(titleLabel)
-        labelsStackView.addArrangedSubview(subtitleLabel)
-        
-    }
-    
-    func setupConatraints(){
-        contentView.layer.masksToBounds = true
-        contentView.layer.cornerRadius = 10
-        
-        imageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
-        imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-        
-        stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20).isActive = true
-        stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
-        stackView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1/2).isActive = true
-        
-      
-    buyNowButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
-    buyNowButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1/4).isActive = true
-        
-    }
-    
-
     var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -175,5 +123,59 @@ class HotSalesCell: UICollectionViewCell {
         
     }()
 
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
+        setupHierarhy()
+        setupConatraints()
+        
+        contentView.layer.masksToBounds = true
+        contentView.layer.cornerRadius = 10
+        
+        imageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+        imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupHierarhy (){
+        contentView.addSubview(imageView)
+        contentView.addSubview(stackView)
+        stackView.addArrangedSubview(newView)
+        stackView.addArrangedSubview(labelsStackView)
+        stackView.addArrangedSubview(buyNowButton)
+        labelsStackView.addArrangedSubview(titleLabel)
+        labelsStackView.addArrangedSubview(subtitleLabel)
+        
+    }
+    
+    func setupConatraints(){
+        contentView.layer.masksToBounds = true
+        contentView.layer.cornerRadius = 10
+        
+        imageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+        imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
+        
+        stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20).isActive = true
+        stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
+        stackView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1/2).isActive = true
+        
+      
+    buyNowButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
+    buyNowButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1/4).isActive = true
+        
+    }
+    
+
+   
 }
 

@@ -43,8 +43,10 @@ final class BestSellersCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.textColor = .black
-        label.text = "$1,047"
-        label.font = UIFont(name: "MarkPro", size: 16)
+        label.text = ""
+        label.font = UIFont(name: "MarkPro-Bold", size: 16)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         return label
     }()
     
@@ -53,10 +55,10 @@ final class BestSellersCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.textColor = UIColor.lightGray
-        let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "$1,500")
+        let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "")
         attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
         label.attributedText = attributeString
-        label.text = "$1,500"
+        label.text = ""
         label.font = UIFont(name: "MarkPro", size: 10)
     
         return label
@@ -151,6 +153,7 @@ final class BestSellersCell: UICollectionViewCell {
     }
     
     
+    //MARK: - Настройка содержимого ячейки
 
     func setup(with product: BestSellersModel){
         productImageView.sd_setImage(with: product.picture, placeholderImage: UIImage(named: "placeholder"))
@@ -159,8 +162,8 @@ final class BestSellersCell: UICollectionViewCell {
         } else {
             favouriteView.image = UIImage(named: "fullHeart.png")
         }
-        priceWithoutDiscoutLabel.text = String(product.priceWithoutDiscount)
-        priceWithDiscount.text = String(product.discountPrice)
+        priceWithoutDiscoutLabel.text = "  $\(product.priceWithoutDiscount)"
+        priceWithDiscount.text = "$\(product.discountPrice)"
         titleLabel.text = product.title
     }
     

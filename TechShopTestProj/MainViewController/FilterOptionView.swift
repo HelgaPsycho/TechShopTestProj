@@ -79,8 +79,6 @@ class FilterOptionView: UIView {
         return stackView
     }()
     
-    
-    
     lazy var brandLabel: UILabel = getLabelWith(title: dropDownTitlesArray[0])
     lazy var priceLabel: UILabel = getLabelWith(title: dropDownTitlesArray[1])
     lazy var sizeLabel: UILabel = getLabelWith(title: dropDownTitlesArray[2])

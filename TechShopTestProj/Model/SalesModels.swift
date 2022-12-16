@@ -22,8 +22,8 @@ struct BestSellersModel {
     let id: Int
     let isFavorites: Bool
     let title: String
-    let priceWithoutDiscount: Int
-    let discountPrice: Int
+    let priceWithoutDiscount: Double
+    let discountPrice: Double
     let picture: URL
 }
 

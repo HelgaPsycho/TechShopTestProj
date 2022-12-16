@@ -28,8 +28,8 @@ struct BestSeller: Codable {
     let id: Int
     let is_favorites: Bool?
     let title: String
-    let price_without_discount: Int
-    let discount_Price: Int?
+    let price_without_discount: Double
+    let discount_Price: Double?
     let picture: URL
   
 }

@@ -92,6 +92,8 @@ class Carousel: UIView {
    
 }
 
+//MARK: - extension UICollectionViewDataSource
+
 extension Carousel: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -107,6 +109,7 @@ extension Carousel: UICollectionViewDataSource {
     
 }
 
+//MARK: - extension UICollectionViewDelegate
 extension Carousel: UICollectionViewDelegate {
     
 }

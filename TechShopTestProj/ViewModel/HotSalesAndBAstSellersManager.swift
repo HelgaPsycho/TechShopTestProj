@@ -79,8 +79,8 @@ struct HotSalesAndBAstSellersManager {
                 let id: Int = element.id
                 let isFavorites: Bool = element.is_favorites ?? false
                 let title: String = element.title
-                let priceWithoutDiscount: Int = element.price_without_discount
-                let discountPrice: Int = element.discount_Price ?? element.price_without_discount
+                let priceWithoutDiscount: Double = element.price_without_discount
+                let discountPrice: Double = element.discount_Price ?? element.price_without_discount
                 let picture: URL = element.picture
                 
                 let bestSellersElement = BestSellersModel(id: id, isFavorites: isFavorites, title: title, priceWithoutDiscount: priceWithoutDiscount, discountPrice: discountPrice, picture: picture)
