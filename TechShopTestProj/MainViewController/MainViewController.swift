@@ -29,9 +29,6 @@ class MainViewController: UIViewController {
         static let itemHeight: CGFloat = 230.0
     }
     
-    
-    // MARK: - initialized elements
-    
     private lazy var selectCategoryView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -50,61 +47,6 @@ class MainViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    
-    // MARK: - viewDidLoad
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        managerAPI.delegate = self
-        managerAPI.fetchHotSales()
-        
-        
-        view.backgroundColor = UIColor(named: "lightSilver")
-        view.addSubview(selectCategoryView)
-        
-        
-        setupSelectCategoryView()
-        view.addSubview(hotSalesView)
-        setupHotSalesView()
-        view.addSubview(bestSellerView)
-        setupBestSellersView()
-        bestSellerView.addSubview(bestSellersLabel)
-        setupTitleLabels(label: bestSellersLabel)
-        setupBestSellersLabelContstraints()
-        
-        view.addSubview(collectionView)
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        
-        collectionView.register(BestSellersCell.self, forCellWithReuseIdentifier: BestSellersCell.identifier)
-        
-        setupHierarchy()
-        setupComponents()
-        setupConstraints()
-        
-        collectionView.reloadData()
-        
-    }
-    
-    //Carousel
-    override func loadView() {
-        let view = UIView()
-        view.backgroundColor = .systemBackground
-        self.view = view
-        
-    }
-    
-    
-    // MARK: - setup elements
-    
-    //MARK:  - setup select category view
-    
-    func setupSelectCategoryView() {
-        
-        
-    }
-    
     
     private lazy var selectCategoryLabel: UILabel = {
         let label = UILabel()
@@ -146,37 +88,47 @@ class MainViewController: UIViewController {
     
     var buttonsArrray: [UIButton] = []
     
-    func  getCircleButton(with title: String, and image: UIImage)-> UIButton{
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        let normalColorConfig = UIImage.SymbolConfiguration(paletteColors: [UIColor(named: "darkSilver") ?? UIColor.darkGray])
-        let normalImage = image.withConfiguration(normalColorConfig)
-        button.setImage(normalImage, for: .normal)
-        let selectedColorConfig = UIImage.SymbolConfiguration(paletteColors: [UIColor.white])
-        let selectedImage = image.withConfiguration(selectedColorConfig)
-        button.setImage(selectedImage, for: .selected)
-        button.imageView?.translatesAutoresizingMaskIntoConstraints = false
-        button.imageView?.centerXAnchor.constraint(equalTo: button.centerXAnchor).isActive = true
-        button.imageView?.centerYAnchor.constraint(equalTo: button.centerYAnchor).isActive = true
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.setTitleColor(UIColor(named: "peach"), for: .selected)
-        button.titleLabel?.font = UIFont(name: "MarkPro-Medium", size: 12)
-        button.titleLabel?.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .white
-        //button.layer.masksToBounds = true
-        button.layer.cornerRadius = 35
-        button.widthAnchor.constraint(equalToConstant: 70).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        button.titleLabel?.centerXAnchor.constraint(equalTo: button.centerXAnchor).isActive = true
-        button.titleLabel?.topAnchor.constraint(equalTo: button.bottomAnchor,constant: 10).isActive = true
-        buttonsArrray.append(button)
-        button.addTarget(self, action: #selector(categoryButtonPressed), for: .touchUpInside)
+    
+    // MARK: - viewDidLoad
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        managerAPI.delegate = self
+        managerAPI.fetchHotSales()
         
-        return button
+        
+        view.backgroundColor = UIColor(named: "lightSilver")
+        view.addSubview(selectCategoryView)
+        
+        view.addSubview(hotSalesView)
+        setupHotSalesView()
+        view.addSubview(bestSellerView)
+        setupBestSellersView()
+        bestSellerView.addSubview(bestSellersLabel)
+        setupTitleLabels(label: bestSellersLabel)
+        setupBestSellersLabelContstraints()
+        
+        view.addSubview(collectionView)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
+        collectionView.register(BestSellersCell.self, forCellWithReuseIdentifier: BestSellersCell.identifier)
+        
+        setupHierarchy()
+        setupComponents()
+        setupConstraints()
+        
+        collectionView.reloadData()
+        
     }
     
-    
+    //Carousel
+    override func loadView() {
+        let view = UIView()
+        view.backgroundColor = .systemBackground
+        self.view = view
+        
+    }
     
     
     var bestSellersLabel: UILabel = {
@@ -186,14 +138,7 @@ class MainViewController: UIViewController {
         return label
         
     }()
-    
-    
-    func setupTitleLabels (label: UILabel) {
-        label.textAlignment = .left
-        label.textColor = .black
-        label.font = UIFont(name: "MarkPro-Heavy", size: 25)
-    }
-    
+
     
     private func setupFilterButtonConstraints () {
         filterButton.rightAnchor.constraint(equalTo: selectCategoryView.rightAnchor, constant: -4).isActive = true
@@ -229,27 +174,18 @@ class MainViewController: UIViewController {
         
     }
     
-    //MARK: - BUTTONS FUNCS
-    
-    
-    @objc func categoryButtonPressed (sender: UIButton){
-        for button in buttonsArrray {
-            button.isSelected = false
-            button.backgroundColor = .white
-        }
-        sender.isSelected = true
-        sender.backgroundColor = UIColor(named: "peach") ?? UIColor.orange
+    private func setupComponents() {
+        
+        setupTitleLabels(label: selectCategoryLabel)
+        
+        carousel.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        collectionView.layer.masksToBounds = true
+        collectionView.layer.cornerRadius = 10
+        
+        collectionView.backgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
     }
-    
-}
-
-extension MainViewController {
-
-}
-
-//MARK: - CAROUSEL EXT  + BEST SELLERS COLLECTION VIEW SETUP
-
-extension MainViewController {
     
     private func setupHierarchy() {
         self.view.addSubview(carousel)
@@ -268,19 +204,6 @@ extension MainViewController {
         scrollContentView.addSubview(toolsButton)
 
 
-    }
-    
-    private func setupComponents() {
-        
-        setupTitleLabels(label: selectCategoryLabel)
-        
-        carousel.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
-        collectionView.layer.masksToBounds = true
-        collectionView.layer.cornerRadius = 10
-        
-        collectionView.backgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
     }
     
     private func setupConstraints() {
@@ -339,21 +262,102 @@ extension MainViewController {
         
     }
     
+    
+    
+//MARK: - SETUP OBJECTS FUNC
+    
+    func setupTitleLabels (label: UILabel) {
+        label.textAlignment = .left
+        label.textColor = .black
+        label.font = UIFont(name: "MarkPro-Heavy", size: 25)
+    }
+
+    
+    func  getCircleButton(with title: String, and image: UIImage)-> UIButton{
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let normalColorConfig = UIImage.SymbolConfiguration(paletteColors: [UIColor(named: "darkSilver") ?? UIColor.darkGray])
+        let normalImage = image.withConfiguration(normalColorConfig)
+        button.setImage(normalImage, for: .normal)
+        let selectedColorConfig = UIImage.SymbolConfiguration(paletteColors: [UIColor.white])
+        let selectedImage = image.withConfiguration(selectedColorConfig)
+        button.setImage(selectedImage, for: .selected)
+        button.imageView?.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.centerXAnchor.constraint(equalTo: button.centerXAnchor).isActive = true
+        button.imageView?.centerYAnchor.constraint(equalTo: button.centerYAnchor).isActive = true
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.setTitleColor(UIColor(named: "peach"), for: .selected)
+        button.titleLabel?.font = UIFont(name: "MarkPro-Medium", size: 12)
+        button.titleLabel?.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .white
+        //button.layer.masksToBounds = true
+        button.layer.cornerRadius = 35
+        button.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        button.titleLabel?.centerXAnchor.constraint(equalTo: button.centerXAnchor).isActive = true
+        button.titleLabel?.topAnchor.constraint(equalTo: button.bottomAnchor,constant: 10).isActive = true
+        buttonsArrray.append(button)
+        button.addTarget(self, action: #selector(categoryButtonPressed), for: .touchUpInside)
+        
+        return button
+    }
+    
+    //MARK: - OBJC BUTTONS FUNCS
+    
+    
+    @objc func categoryButtonPressed (sender: UIButton){
+        for button in buttonsArrray {
+            button.isSelected = false
+            button.backgroundColor = .white
+        }
+        sender.isSelected = true
+        sender.backgroundColor = UIColor(named: "peach") ?? UIColor.orange
+    }
+    
+    @objc func filterButtonPresssed(sender: UIButton){
+        filterOptionCalled()
+        
+    }
+    
 }
+
+
+//MARK: - extension FilterOptionView CALLED
+
+extension MainViewController {
+
+    
+    func filterOptionCalled () {
+        let filterOptionView = FilterOptionView()
+        
+        view.addSubview(filterOptionView)
+        view.bringSubviewToFront(filterOptionView)
+
+        filterOptionView.leftAnchor.constraint(equalTo: bestSellerView.leftAnchor, constant: -8).isActive = true
+        filterOptionView.rightAnchor.constraint(equalTo: bestSellerView.rightAnchor, constant: 8).isActive = true
+        filterOptionView.bottomAnchor.constraint(equalTo: bestSellerView.bottomAnchor).isActive = true
+        filterOptionView.topAnchor.constraint(equalTo: bestSellerView.topAnchor, constant: 10).isActive = true
+    
+    }
+
+}
+
+
+//MARK: - extension UICollectionViewDelegate
 
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //   print("Collection view at row \(collectionView.tag) selected index path \(indexPath)")
-        // COORDINATOR
         
         print("DID SELECT ITEM AT CALLED")
         
         self.delegate?.navigateToProductDetailsController()
        }
     
-    
-    
 }
+
+
+//MARK: - extension UICollectionViewDataSourse
 
     extension MainViewController: UICollectionViewDataSource {
 
@@ -362,20 +366,16 @@ extension MainViewController: UICollectionViewDelegate {
             return bestSellersArray.count
         }
 
-
-
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BestSellersCell.identifier, for: indexPath) as! BestSellersCell
             let product = bestSellersArray[indexPath.row]
             cell.setup(with: product)
             return cell
-
-
         }
-
     }
 
+//MARK: - extension UICollectionViewLDelegateFlowLayout
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     
@@ -395,8 +395,9 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         return finalWidth - 5
     }
     
-    
 }
+
+// MARK: - extension HotSalesAndBestSellersManagerDelegate
 
 extension MainViewController: HotSalesAndBestSellersManagerDelegate {
     func didUpdateHotSales(_ hotSalessManager: HotSalesAndBAstSellersManager, hotSales: [HotSalesModel]) {
@@ -419,27 +420,3 @@ extension MainViewController: HotSalesAndBestSellersManagerDelegate {
 }
 
 
-//MARK: - FILTER OPTIONS
-
-extension MainViewController {
-    
-    @objc func filterButtonPresssed(sender: UIButton){
-        filterOptionCalled()
-        
-    }
-    
-    func filterOptionCalled () {
-        let filterOptionView = FilterOptionView()
-        
-        view.addSubview(filterOptionView)
-        view.bringSubviewToFront(filterOptionView)
-
-        filterOptionView.leftAnchor.constraint(equalTo: bestSellerView.leftAnchor, constant: -8).isActive = true
-        filterOptionView.rightAnchor.constraint(equalTo: bestSellerView.rightAnchor, constant: 8).isActive = true
-        filterOptionView.bottomAnchor.constraint(equalTo: bestSellerView.bottomAnchor).isActive = true
-        filterOptionView.topAnchor.constraint(equalTo: bestSellerView.topAnchor, constant: 10).isActive = true
-    
-    }
-    
-
-}
