@@ -17,6 +17,18 @@ class MainViewController: UIViewController {
     var bestSellersArray: [BestSellersModel] = []
     var hotSalesArray: [HotSalesModel] = []
     
+    private var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    private var contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private lazy var selectCategoryView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -42,6 +54,7 @@ class MainViewController: UIViewController {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.showsHorizontalScrollIndicator = false
+        scrollView.isScrollEnabled = true
         return scrollView
     }()
     
@@ -85,6 +98,7 @@ class MainViewController: UIViewController {
     private lazy var collectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
+        collectionView.isScrollEnabled = false
         return collectionView
     }()
     
@@ -104,17 +118,12 @@ class MainViewController: UIViewController {
         managerAPI.fetchHotSales()
         
         view.backgroundColor = UIColor(named: "lightSilver")
-        
-        view.addSubview(selectCategoryView)
-        view.addSubview(hotSalesView)
-        view.addSubview(carousel)
-        view.addSubview(bestSellerView)
-        view.addSubview(collectionView)
     
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(BestSellersCell.self, forCellWithReuseIdentifier: BestSellersCell.identifier)
         
+        view.addSubview(scrollView)
         setupComponents()
         setupHierarchy()
         setupConstraints()
@@ -148,11 +157,18 @@ class MainViewController: UIViewController {
     }
     
     private func setupHierarchy() {
+       // scrollView.backgroundColor = .red
+        scrollView.addSubview(contentView)
+        contentView.addSubview(selectCategoryView)
+        contentView.addSubview(hotSalesView)
+        contentView.addSubview(bestSellerView)
         
         selectCategoryView.addSubview(selectCategoryLabel)
         selectCategoryView.addSubview(filterButton)
         selectCategoryView.addSubview(buttonsScrollView)
         selectCategoryView.addSubview(buttonsScrollView)
+        
+        hotSalesView.addSubview(carousel)
         
         selectCategoryView.addSubview(buttonsScrollView)
         buttonsScrollView.addSubview(scrollContentView)
@@ -162,6 +178,8 @@ class MainViewController: UIViewController {
         scrollContentView.addSubview(booksButton)
         scrollContentView.addSubview(toolsButton)
         
+        bestSellerView.addSubview(collectionView)
+        bestSellerView.addSubview(collectionView)
         bestSellerView.addSubview(bestSellersLabel)
 
 
@@ -170,9 +188,35 @@ class MainViewController: UIViewController {
     private func setupConstraints() {
         
         NSLayoutConstraint.activate([
-            selectCategoryView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            selectCategoryView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
-            selectCategoryView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor)
+            ])
+        
+        
+        let contentViewCenterY = contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)
+        contentViewCenterY.priority = .defaultLow
+
+        let contentViewHeight = contentView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor)
+        contentViewHeight.priority = .defaultLow
+
+        NSLayoutConstraint.activate([
+            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            contentViewCenterY,
+            contentViewHeight
+        ])
+        
+        NSLayoutConstraint.activate([
+            
+            selectCategoryView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
+            selectCategoryView.rightAnchor.constraint(equalTo: collectionView.rightAnchor, constant: -10),
+            selectCategoryView.leftAnchor.constraint(equalTo: collectionView.leftAnchor, constant: 10),
             selectCategoryView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 3/10),
             
             selectCategoryLabel.leftAnchor.constraint(equalTo: selectCategoryView.leftAnchor),
@@ -194,12 +238,25 @@ class MainViewController: UIViewController {
             scrollContentView.trailingAnchor.constraint(equalTo: buttonsScrollView.trailingAnchor),
             scrollContentView.bottomAnchor.constraint(equalTo: buttonsScrollView.bottomAnchor),
             scrollContentView.topAnchor.constraint(equalTo: buttonsScrollView.topAnchor),
-            
+        
             scrollContentView.heightAnchor.constraint(equalTo: buttonsScrollView.heightAnchor),
             scrollContentView.widthAnchor.constraint(equalTo: buttonsScrollView.widthAnchor, multiplier: 1.2)
         
 
         ])
+//
+//        let scrollContentViewCenterX = scrollContentView.centerXAnchor.constraint(equalTo: buttonsScrollView.centerXAnchor)
+//        scrollContentViewCenterX.priority = .defaultLow
+//
+//        let scrollContentWidth = scrollContentView.widthAnchor.constraint(greaterThanOrEqualTo: view.widthAnchor)
+//        scrollContentWidth.priority = .defaultLow
+//
+//        NSLayoutConstraint.activate([
+//            scrollContentView.centerYAnchor.constraint(equalTo: buttonsScrollView.centerYAnchor),
+//            scrollContentViewCenterX, scrollContentWidth
+//
+  //      ])
+        
         var leftAnchor = scrollContentView.leftAnchor
         for button in buttonsArrray {
             button.centerYAnchor.constraint(equalTo: scrollContentView.centerYAnchor, constant: -20).isActive = true
