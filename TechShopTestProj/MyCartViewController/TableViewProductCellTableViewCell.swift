@@ -9,19 +9,21 @@ import UIKit
 
 class TableViewProductCell: UITableViewCell {
     
+    var counter = 1 {
+        didSet {
+            stepperLabel.text = "\(counter)"
+        }
+    }
+    
     var data: ProductModel? {
         didSet {
             guard let data = data else {return}
             productImageView.sd_setImage(with: URL(string: data.images), placeholderImage: UIImage(named: "placeholder"))
             print("CELL DATA \(data)")
-//            titleLabel.text = data.title
-//            subtitleLabel.text = data.subtitle
-//            if !data.isNew {
-//                newView.isHidden = true
-            
-            }
-            
+            titleLabel.text = data.title
+            priceLabel.text = "$\(data.price)"
         }
+    }
     
     lazy var productImageView: UIImageView = {
         let imageView = UIImageView()
@@ -30,6 +32,120 @@ class TableViewProductCell: UITableViewCell {
         imageView.layer.cornerRadius = 10
         imageView.contentMode = .scaleAspectFill
         return imageView
+    }()
+    
+    
+    lazy var trashButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(named: "trash.png")
+        button.setImage(image, for: .normal)
+        button.contentMode = .center
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        return button
+    }()
+    
+//    lazy var stepper: UIStepper = {
+//        let stepper = UIStepper()
+//        stepper.translatesAutoresizingMaskIntoConstraints = false
+//        stepper.isContinuous = true
+//        stepper.minimumValue = 0
+//        stepper.minimumValue = 10
+//        stepper.stepValue = 1
+//        stepper.transform = CGAffineTransform(rotationAngle: CGFloat.pi/2)
+//        stepper.backgroundColor = .clear
+//        stepper.tintColor = .clear
+//     //   stepper.setIncrementImage(UIImage(systemName: "plus")!, for: .normal)
+////        stepper.incrementImage(for: .normal)?.withTintColor(UIColor.white)
+////        stepper.incrementImage(for: .focused)?.withTintColor(UIColor.gray)
+//    //    stepper.setDecrementImage(UIImage(systemName: "minus")!, for: .normal)
+//        stepper.setIncrementImage(UIImage(named: "plus.png"), for: .application)
+//        stepper.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+//        //stepper.setDividerImage(UIImage(systemName: ""), forLeftSegmentState: .normal, rightSegmentState: .normal)
+////        stepper.widthAnchor.constraint(equalToConstant: 60).isActive = true
+////        stepper.heightAnchor.constraint(equalToConstant: 20).isActive = true
+//        return stepper
+//    }()
+    
+    private lazy var stepper: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor(named: "lightIndigo") ?? UIColor.darkGray
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 15
+        
+        view.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 90).isActive = true
+        
+        return view
+    }()
+    
+    
+    private lazy var plusButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let image = UIImage(named: "plus.png")
+        button.setImage(image, for: .normal)
+        
+        button.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        
+        button.addTarget(self, action: #selector(plusPressed), for: .touchUpInside)
+        
+        return button
+        
+    }()
+    
+    private lazy var minusButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let image = UIImage(named: "minus.png")
+        button.setImage(image, for: .normal)
+        
+        button.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        
+        button.addTarget(self, action: #selector(minusPressed), for: .touchUpInside)
+        
+        return button
+        
+    }()
+    
+    private lazy var stepperLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor =  UIColor.white
+        label.text = "\(counter)"
+        label.textAlignment = .center
+        label.numberOfLines = 2
+        let font = UIFont(name: "MarkPro-Medium", size: 20)
+        label.font = font
+        return label
+    }()
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor =  UIColor.white
+        label.text = ""
+        label.textAlignment = .left
+        label.numberOfLines = 2
+        let font = UIFont(name: "MarkPro-Medium", size: 20)
+        label.font = font
+        return label
+    }()
+    
+    private lazy var priceLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor =  UIColor(named: "peach") ?? UIColor.orange
+        label.text = ""
+        label.textAlignment = .left
+        label.numberOfLines = 1
+        let font = UIFont(name: "MarkPro-Medium", size: 20)
+        label.font = font
+        return label
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -56,7 +172,13 @@ class TableViewProductCell: UITableViewCell {
 
     private func setupHierarhy() {
         contentView.addSubview(productImageView)
-        
+        contentView.addSubview(trashButton)
+        contentView.addSubview(stepper)
+        stepper.addSubview(plusButton)
+        stepper.addSubview(minusButton)
+        stepper.addSubview(stepperLabel)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(priceLabel)
     }
     
     private func setupConstraints(){
@@ -64,7 +186,31 @@ class TableViewProductCell: UITableViewCell {
             productImageView.widthAnchor.constraint(equalToConstant: 100),
             productImageView.heightAnchor.constraint(equalToConstant: 100),
             productImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            productImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 40)
+            productImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 40),
+            
+            trashButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            trashButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
+            
+            stepper.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            stepper.rightAnchor.constraint(equalTo: trashButton.leftAnchor, constant: -10),
+            
+            plusButton.centerXAnchor.constraint(equalTo: stepper.centerXAnchor),
+            plusButton.bottomAnchor.constraint(equalTo: stepper.bottomAnchor),
+            
+            minusButton.centerXAnchor.constraint(equalTo: stepper.centerXAnchor),
+            minusButton.topAnchor.constraint(equalTo: stepper.topAnchor),
+            
+            stepperLabel.centerXAnchor.constraint(equalTo: stepper.centerXAnchor),
+            stepperLabel.centerYAnchor.constraint(equalTo: stepper.centerYAnchor),
+            
+            titleLabel.leftAnchor.constraint(equalTo: productImageView.rightAnchor, constant: 10),
+            titleLabel.rightAnchor.constraint(equalTo: stepper.leftAnchor, constant: -10),
+            titleLabel.topAnchor.constraint(equalTo: productImageView.topAnchor),
+            
+            priceLabel.leftAnchor.constraint(equalTo: productImageView.rightAnchor, constant: 10),
+            priceLabel.rightAnchor.constraint(equalTo: stepper.leftAnchor, constant: -10),
+            priceLabel.bottomAnchor.constraint(equalTo: productImageView.bottomAnchor)
+            
         ])
     }
     
@@ -77,4 +223,19 @@ class TableViewProductCell: UITableViewCell {
     
 
 
+}
+
+//MARK: - STEPPER FUNC
+
+extension TableViewProductCell {
+
+    @objc func plusPressed(sender: UIButton) {
+        self.counter = counter + 1
+    }
+    
+    @objc func minusPressed(sender: UIButton) {
+        if counter > 0 {
+            self.counter = counter - 1
+        }
+    }
 }
