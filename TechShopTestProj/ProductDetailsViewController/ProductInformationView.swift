@@ -16,7 +16,12 @@ class ProductInformationView: UIView {
     var images: [String] = []
     var isFavourites: Bool?
     var price: Double = 0
-    var rating: Double = 0
+    var rating: Double = 0 {
+        didSet {
+            let ratingImage = setRatingImage(rating: rating)
+            ratingImageView.image = ratingImage
+        }
+    }
 
 
     private lazy var titleLabel: UILabel = {
@@ -53,16 +58,7 @@ class ProductInformationView: UIView {
     }()
 
 
-    private lazy var ratingImageView = getRatingImageView()
-
-    private func getRatingImageView() -> UIImageView {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        let image = getRatingImage()
-        imageView.image = image
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }
+    private var ratingImageView: UIImageView = UIImageView(frame: .zero)
 
     private lazy var informationDetailsView = {
         let view = UIView()
@@ -179,6 +175,7 @@ class ProductInformationView: UIView {
         return stackView
     }()
     
+    
     private lazy var colorsButtonsArray: [UIButton] = []
  
     private func getColorButton(_ color: String) -> UIButton{
@@ -222,7 +219,7 @@ class ProductInformationView: UIView {
             button.titleLabel?.font = UIFont(name: "MarkPro-Bold", size: 13)
             button.titleLabel?.textAlignment = .center
             
-           // button.addTarget(self, action: #selector(capacityButtonPressed), for: .touchUpInside)
+            button.addTarget(self, action: #selector(capacityButtonPressed), for: .touchUpInside)
 
             button.heightAnchor.constraint(equalToConstant: 30).isActive = true
             button.widthAnchor.constraint(equalToConstant: 60).isActive = true
@@ -251,13 +248,12 @@ class ProductInformationView: UIView {
         capacity = model.capacity
         color =  model.color
         isFavourites = model.isFavorites
+        rating = model.rating
 
-        
         for capacity in model.capacity {
             capacityButtonsArray.append(getCapacityButtons(capacity: capacity))
         }
         for button in capacityButtonsArray {
-            button.addTarget(self, action: #selector(capacityButtonPressed), for: .touchUpInside)
             capacityButtonsStackView.addArrangedSubview(button)
         }
         
@@ -266,7 +262,6 @@ class ProductInformationView: UIView {
         }
         
         for button in colorsButtonsArray {
-            button.addTarget(self, action: #selector(colorButtonPressed), for: .touchUpInside)
             colorsStackView.addArrangedSubview(button)
         }
         colorsButtonsArray[0].isSelected = true
@@ -284,6 +279,8 @@ class ProductInformationView: UIView {
         self.backgroundColor = UIColor.white
         self.layer.masksToBounds = true
         self.layer.cornerRadius = 30
+        ratingImageView.translatesAutoresizingMaskIntoConstraints = false
+        shopButton.isSelected = true
         
         colorsStackView.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -375,7 +372,7 @@ class ProductInformationView: UIView {
         
     }
 
-    func getRatingImage()-> UIImage {
+    func setRatingImage(rating: Double)-> UIImage {
         switch rating {
         case 4.8...  :
            return UIImage(named: "5stars.png")!
