@@ -12,7 +12,7 @@ class Carousel: UIView {
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: CarouselLayout())
     
-   var hotSalesModelsArray: [HotSalesModel] = []
+    private var hotSalesModelsArray: [HotSalesModel] = []
     
     var selectedIndex: Int = 0
     private var timer: Timer?

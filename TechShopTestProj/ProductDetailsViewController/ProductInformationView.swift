@@ -8,7 +8,9 @@ import Foundation
 import UIKit
 
 class ProductInformationView: UIView {
-
+    
+    let productInformationManager = ProductInformationManager()
+    
     //Model
     var capacity: [String] = []
     var color: [String] = []
@@ -18,7 +20,7 @@ class ProductInformationView: UIView {
     var price: Double = 0
     var rating: Double = 0 {
         didSet {
-            let ratingImage = setRatingImage(rating: rating)
+            let ratingImage = productInformationManager.setRatingImage(rating: rating)
             ratingImageView.image = ratingImage
         }
     }
@@ -117,7 +119,7 @@ class ProductInformationView: UIView {
     private lazy var smallSSDView: UIView = getSmallViewWithPicture(name: "SSD.png")
     private lazy var smallSDView: UIView = getSmallViewWithPicture(name: "SD.png")
 
-    func getSmallViewWithPicture(name: String) -> UIView {
+    private func getSmallViewWithPicture(name: String) -> UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         let imageView = UIImageView(image: UIImage(named: name))
@@ -145,7 +147,7 @@ class ProductInformationView: UIView {
     private lazy var sdLabel: UILabel = getDetailsLabel()
     
     
-    func getDetailsLabel() -> UILabel {
+    private func getDetailsLabel() -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor =  UIColor(named: "darkSilver") ?? UIColor.darkGray
@@ -274,7 +276,7 @@ class ProductInformationView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func setupView(){
+    private func setupView(){
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = UIColor.white
         self.layer.masksToBounds = true
@@ -285,7 +287,7 @@ class ProductInformationView: UIView {
         colorsStackView.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    func setupHierarhy() {
+    private func setupHierarhy() {
         self.addSubview(titleLabel)
         self.addSubview(favouriteButton)
         self.addSubview(ratingImageView)
@@ -314,7 +316,7 @@ class ProductInformationView: UIView {
         detailsLabelsStack.addArrangedSubview(sdLabel)
 
     }
-    func setupConstraints() {
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
 
             titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
@@ -372,34 +374,6 @@ class ProductInformationView: UIView {
         
     }
 
-    func setRatingImage(rating: Double)-> UIImage {
-        switch rating {
-        case 4.8...  :
-           return UIImage(named: "5stars.png")!
-        case 4.3... :
-          return UIImage(named: "4.5stars.png")!
-        case 3.8... :
-            return UIImage(named: "4stars.png")!
-        case 3.3...:
-            return UIImage(named: "3.5stars.png")!
-        case 2.8... :
-            return UIImage(named: "3.0stars.png")!
-        case 2.3... :
-            return UIImage(named: "2.5stars.png")!
-        case 1.8...:
-            return UIImage(named: "2.0stars.png")!
-        case 1.3...:
-            return UIImage(named: "1.5stars.png")!
-        case 0.8...:
-            return UIImage(named: "1.0stars.png")!
-        case 0.3...:
-            return UIImage(named: "0.5stars.png")!
-        case 0.0... :
-            return UIImage(named: "0stars.png")!
-        default:
-            return UIImage(named: "5stars.png")!
-        }
-    }
 }
 
 

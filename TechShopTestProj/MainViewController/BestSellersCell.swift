@@ -10,7 +10,7 @@ import SDWebImage
 
 final class BestSellersCell: UICollectionViewCell {
     
-    private let productImageView: UIImageView = {
+    private lazy var productImageView: UIImageView = {
         let imageView = UIImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
@@ -19,7 +19,7 @@ final class BestSellersCell: UICollectionViewCell {
         return imageView
     }()
     
-    var favouriteView: UIImageView = {
+    private lazy var favouriteView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = UIColor.white
@@ -38,7 +38,7 @@ final class BestSellersCell: UICollectionViewCell {
         
     }()
     
-    private let priceWithDiscount: UILabel = {
+    private lazy var priceWithDiscount: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
@@ -50,7 +50,7 @@ final class BestSellersCell: UICollectionViewCell {
         return label
     }()
     
-    private let priceWithoutDiscoutLabel: UILabel = {
+    private lazy var priceWithoutDiscoutLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
@@ -64,7 +64,7 @@ final class BestSellersCell: UICollectionViewCell {
         return label
     }()
     
-    private let emptyLabel: UILabel = {
+    private lazy var emptyLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
@@ -74,7 +74,7 @@ final class BestSellersCell: UICollectionViewCell {
         return label
     }()
     
-    private let titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
@@ -84,7 +84,7 @@ final class BestSellersCell: UICollectionViewCell {
         return label
     }()
     
-    private let labelsStackView: UIStackView = {
+    private lazy var labelsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -93,7 +93,7 @@ final class BestSellersCell: UICollectionViewCell {
         return stackView
     }()
     
-    private let priceStackView: UIStackView = {
+    private lazy var priceStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal

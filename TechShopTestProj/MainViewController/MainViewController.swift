@@ -57,7 +57,7 @@ class MainViewController: UIViewController {
     lazy var booksButton: UIButton = getCircleButton(with: "Books", and: UIImage(systemName: "books.vertical")!)
     lazy var toolsButton: UIButton = getCircleButton(with: "Tools", and: UIImage(systemName: "wrench.and.screwdriver")!)
     
-    var buttonsArrray: [UIButton] = []
+    private var buttonsArrray: [UIButton] = []
     
     private lazy var hotSalesView: UIView = {
         let view = UIView()
@@ -74,7 +74,7 @@ class MainViewController: UIViewController {
         return view
     }()
 
-    var bestSellersLabel: UILabel = {
+    private lazy var bestSellersLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Best Sellers"
@@ -82,7 +82,7 @@ class MainViewController: UIViewController {
         
     }()
     
-    private let collectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
         return collectionView
@@ -242,14 +242,14 @@ class MainViewController: UIViewController {
     
 //MARK: - SETUP OBJECTS FUNC
     
-    func setupTitleLabels (label: UILabel) {
+    private func setupTitleLabels (label: UILabel) {
         label.textAlignment = .left
         label.textColor = .black
         label.font = UIFont(name: "MarkPro-Heavy", size: 25)
     }
 
     
-    func  getCircleButton(with title: String, and image: UIImage)-> UIButton{
+    private func  getCircleButton(with title: String, and image: UIImage)-> UIButton{
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         let normalColorConfig = UIImage.SymbolConfiguration(paletteColors: [UIColor(named: "darkSilver") ?? UIColor.darkGray])
@@ -282,7 +282,7 @@ class MainViewController: UIViewController {
     //MARK: - OBJC BUTTONS FUNCS
     
     
-    @objc func categoryButtonPressed (sender: UIButton){
+    @objc private func categoryButtonPressed (sender: UIButton){
         for button in buttonsArrray {
             button.isSelected = false
             button.backgroundColor = .white
@@ -291,7 +291,7 @@ class MainViewController: UIViewController {
         sender.backgroundColor = UIColor(named: "peach") ?? UIColor.orange
     }
     
-    @objc func filterButtonPresssed(sender: UIButton){
+    @objc private func filterButtonPresssed(sender: UIButton){
         filterOptionCalled()
         
     }
@@ -304,7 +304,7 @@ class MainViewController: UIViewController {
 extension MainViewController {
 
     
-    func filterOptionCalled () {
+   private func filterOptionCalled () {
         let filterOptionView = FilterOptionView()
         
         view.addSubview(filterOptionView)

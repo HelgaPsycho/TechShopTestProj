@@ -12,7 +12,7 @@ import SDWebImage
 class HotSalesCell: UICollectionViewCell {
 
     
-    var data: HotSalesModel? {
+     var data: HotSalesModel? {
         didSet {
             guard let data = data else {return}
             imageView.sd_setImage(with: data.picture, placeholderImage: UIImage(named: "placeholder"))
@@ -26,14 +26,14 @@ class HotSalesCell: UICollectionViewCell {
     }
     
     
-    var imageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let imageView = UIImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
-    var stackView: UIStackView = {
+    private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -43,7 +43,7 @@ class HotSalesCell: UICollectionViewCell {
         
     }()
     
-    var newView: UIView = {
+    private lazy var newView: UIView = {
         let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor(named: "peach") ?? UIColor.orange
@@ -67,7 +67,7 @@ class HotSalesCell: UICollectionViewCell {
     }()
     
     
-    var labelsStackView: UIStackView = {
+    private lazy var labelsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -76,7 +76,7 @@ class HotSalesCell: UICollectionViewCell {
         return stackView
     }()
     
-    var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.layer.borderColor = UIColor.black.cgColor
@@ -89,7 +89,7 @@ class HotSalesCell: UICollectionViewCell {
         return label
     }()
     
-    var subtitleLabel: UILabel = {
+    private lazy var subtitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Description"
@@ -102,7 +102,7 @@ class HotSalesCell: UICollectionViewCell {
         return label
     }()
     
-    var buyNowButton: UIButton = {
+    private lazy var buyNowButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = UIColor(named: "white") ?? UIColor.white
@@ -140,7 +140,7 @@ class HotSalesCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupHierarhy (){
+    private func setupHierarhy (){
         contentView.addSubview(imageView)
         contentView.addSubview(stackView)
         stackView.addArrangedSubview(newView)
@@ -151,7 +151,7 @@ class HotSalesCell: UICollectionViewCell {
         
     }
     
-    func setupConatraints(){
+    private func setupConatraints(){
         contentView.layer.masksToBounds = true
         contentView.layer.cornerRadius = 10
         

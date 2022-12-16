@@ -26,8 +26,8 @@ class ProductDetailsViewController: UIViewController {
     
     public weak var delegate: ProductsDetailsControllerDelegate?
     
-    lazy var carousel = ProductDetailsImagesCarousel(frame: .zero)
-    var informationView = ProductInformationView(frame: .zero)
+    private lazy var carousel = ProductDetailsImagesCarousel(frame: .zero)
+    private lazy var informationView = ProductInformationView(frame: .zero)
     
     private lazy var topView: UIView = {
         let view = UIView()
@@ -35,7 +35,7 @@ class ProductDetailsViewController: UIViewController {
         return view
     }()
     
-    private let collectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
         return collectionView
@@ -203,11 +203,11 @@ class ProductDetailsViewController: UIViewController {
 //MARK: - COORDINATOR
 extension ProductDetailsViewController {
     
-    @objc func navigateBackToMainController(sender: UIButton) {
+    @objc private func navigateBackToMainController(sender: UIButton) {
         self.delegate?.navigateBackToMainController()
     }
     
-    @objc func navigateToMyCartController(sender: UIButton){
+    @objc private func navigateToMyCartController(sender: UIButton){
         self.delegate?.navigateToMyCartController()
     }
 }
