@@ -38,6 +38,7 @@ final class BestSellersCell: UICollectionViewCell {
         
     }()
     
+    
     private lazy var priceWithDiscount: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false

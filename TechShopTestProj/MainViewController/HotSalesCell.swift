@@ -16,6 +16,7 @@ class HotSalesCell: UICollectionViewCell {
         didSet {
             guard let data = data else {return}
             imageView.sd_setImage(with: data.picture, placeholderImage: UIImage(named: "placeholder"))
+            addGradient()
             titleLabel.text = data.title
             subtitleLabel.text = data.subtitle
             if !data.isNew {
@@ -25,13 +26,24 @@ class HotSalesCell: UICollectionViewCell {
         }
     }
     
-    
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
+    
+    private func addGradient() {
+        let gradient = CAGradientLayer()
+        gradient.frame = imageView.bounds
+        let startColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
+        let endColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor
+        gradient.colors = [startColor, endColor]
+        gradient.startPoint = CGPoint(x: 0, y: 0.5)
+        gradient.endPoint = CGPoint(x: 0.5, y: 0.7)
+        
+        imageView.layer.insertSublayer(gradient, at: 0)
+    }
     
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -44,7 +56,7 @@ class HotSalesCell: UICollectionViewCell {
     }()
     
     private lazy var newView: UIView = {
-        let view = UIButton()
+        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor(named: "peach") ?? UIColor.orange
         view.layer.masksToBounds = true
