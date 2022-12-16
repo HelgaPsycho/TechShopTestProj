@@ -108,16 +108,12 @@ class HotSalesCell: UICollectionViewCell {
         button.backgroundColor = UIColor(named: "white") ?? UIColor.white
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 5
-        let title = UILabel()
-        title.translatesAutoresizingMaskIntoConstraints = false
-        title.textColor = UIColor.black
-        title.text = "Buy now!"
+        button.setTitle("By now!", for: .normal)
         let font = UIFont(name: "SFProDisplay-Bold", size: 11)
-        title.font = font
-        button.addSubview(title)
-        
-        title.centerXAnchor.constraint(equalTo: button.centerXAnchor).isActive = true
-        title.centerYAnchor.constraint(equalTo: button.centerYAnchor).isActive = true
+        button.titleLabel?.font = font
+        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(UIColor.lightGray, for: .highlighted)
+        button.titleLabel?.textAlignment = .center
         
         return button
         
