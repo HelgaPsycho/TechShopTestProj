@@ -11,13 +11,13 @@ import SDWebImage
 class MainViewController: UIViewController {
     
     public weak var delegate: MainViewControllerDelegate?
-
+    
     lazy var carousel = Carousel(frame: .zero)
     var managerAPI = HotSalesAndBAstSellersManager()
     
     var bestSellersArray: [BestSellersModel] = []
     var hotSalesArray: [HotSalesModel] = []
-
+    
     private let collectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
@@ -28,8 +28,8 @@ class MainViewController: UIViewController {
         static let spacing: CGFloat = 8.0
         static let itemHeight: CGFloat = 230.0
     }
-
-
+    
+    
     // MARK: - initialized elements
     
     private lazy var selectCategoryView: UIView = {
@@ -50,10 +50,10 @@ class MainViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
     
     // MARK: - viewDidLoad
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         managerAPI.delegate = self
@@ -82,9 +82,9 @@ class MainViewController: UIViewController {
         setupHierarchy()
         setupComponents()
         setupConstraints()
-    
+        
         collectionView.reloadData()
-    
+        
     }
     
     //Carousel
@@ -94,15 +94,15 @@ class MainViewController: UIViewController {
         self.view = view
         
     }
-   
+    
     
     // MARK: - setup elements
     
     //MARK:  - setup select category view
     
     func setupSelectCategoryView() {
-    
-
+        
+        
     }
     
     
@@ -126,6 +126,7 @@ class MainViewController: UIViewController {
     private lazy var buttonsScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.showsHorizontalScrollIndicator = false
         return scrollView
     }()
     
@@ -136,7 +137,7 @@ class MainViewController: UIViewController {
         return view
     }()
     
-
+    
     lazy var phonesButton: UIButton = getCircleButton(with: "Phones",and: UIImage(systemName: "iphone")!)
     lazy var computersButton: UIButton = getCircleButton(with: "Computer", and: UIImage(systemName: "laptopcomputer")!)
     lazy var healthButton: UIButton = getCircleButton(with: "Health", and: UIImage(systemName: "waveform.path.ecg")!)
@@ -170,12 +171,13 @@ class MainViewController: UIViewController {
         button.titleLabel?.centerXAnchor.constraint(equalTo: button.centerXAnchor).isActive = true
         button.titleLabel?.topAnchor.constraint(equalTo: button.bottomAnchor,constant: 10).isActive = true
         buttonsArrray.append(button)
-
+        button.addTarget(self, action: #selector(categoryButtonPressed), for: .touchUpInside)
+        
         return button
     }
-
-
- 
+    
+    
+    
     
     var bestSellersLabel: UILabel = {
         let label = UILabel()
@@ -192,16 +194,16 @@ class MainViewController: UIViewController {
         label.font = UIFont(name: "MarkPro-Heavy", size: 25)
     }
     
-
+    
     private func setupFilterButtonConstraints () {
         filterButton.rightAnchor.constraint(equalTo: selectCategoryView.rightAnchor, constant: -4).isActive = true
         filterButton.centerYAnchor.constraint(equalTo: selectCategoryLabel.centerYAnchor).isActive = true
         filterButton.widthAnchor.constraint(equalToConstant: 11).isActive = true
         filterButton.heightAnchor.constraint(equalToConstant: 13).isActive = true
-    
+        
     }
     
-
+    
     private func  setupHotSalesView() {
         hotSalesView.topAnchor.constraint(equalTo: selectCategoryView.bottomAnchor, constant: 0).isActive = true
         hotSalesView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
@@ -215,7 +217,7 @@ class MainViewController: UIViewController {
         bestSellerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
         bestSellerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
         bestSellerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
-    
+        
     }
     
     private func setupBestSellersLabelContstraints() {
@@ -228,25 +230,18 @@ class MainViewController: UIViewController {
     }
     
     //MARK: - BUTTONS FUNCS
-
     
-    @objc func circleButtonPressed (sender: CircleButtonViewModel){
-        for button in CircleButtonViewModel.circleButtonsArray {
+    
+    @objc func categoryButtonPressed (sender: UIButton){
+        for button in buttonsArrray {
             button.isSelected = false
-            button.backgroundColor = button.backgroundCircleColor
-            sender.setImage(sender.currentImage?.withTintColor(button.pictureColor, renderingMode: .alwaysOriginal), for: .selected)
+            button.backgroundColor = .white
         }
         sender.isSelected = true
-        sender.backgroundColor = sender.backgroundCircleColor
-        sender.setImage(sender.currentImage?.withTintColor(sender.pictureColor, renderingMode: .alwaysOriginal), for: .selected)
-        }
-
-//    @objc func goToProductDetailsController (sender: UICollectionViewCell){
-//        self.delegate?.navigateToNextPage()
-//    }
-
+        sender.backgroundColor = UIColor(named: "peach") ?? UIColor.orange
+    }
+    
 }
-
 
 extension MainViewController {
 
