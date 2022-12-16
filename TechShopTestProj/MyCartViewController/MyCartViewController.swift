@@ -19,21 +19,7 @@ class MyCartViewController: UIViewController {
         return view
     }()
     
-    private lazy var backButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor(named: "indigo") ?? UIColor.black
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 10
-        button.setImage(UIImage(named: "back.png"), for: .normal)
-        
-        button.widthAnchor.constraint(equalToConstant:  40).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        button.addTarget(self, action: #selector(navigateBackToProductsDetailController), for: .touchUpInside)
-        
-        return button
-    }()
+    private lazy var backButton: UIButton = UIButton().getBackButton(with: "back.png")
     
     private lazy var adressButton: UIButton = {
         let button = UIButton()
@@ -184,18 +170,16 @@ class MyCartViewController: UIViewController {
     
         tableView.delegate = self
         tableView.dataSource = self
-//        tableView.estimatedRowHeight = 120
-//        tableView.rowHeight = UITableView.automaticDimension
         tableView.rowHeight = 120
         tableView.register(TableViewProductCell.self, forCellReuseIdentifier: "cell")
 
-        
     }
     
     func setupView(){
         navigationController?.isNavigationBarHidden = true
         view.backgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
         titleView.translatesAutoresizingMaskIntoConstraints = false
+        backButton.addTarget(self, action: #selector(navigateBackToProductsDetailController), for: .touchUpInside)
     }
     
     private func setupHierarhy(){

@@ -15,22 +15,8 @@ class FilterOptionView: UIView {
     lazy var priceDropdownList: [String] = ["$0 - $100", "$100 - $300", "$300 - $500", "$500 - $1000"]
     lazy var sizeDropdownList: [String] = []
     
-    var cancelButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor(named: "indigo") ?? UIColor.black
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 10
-        button.setImage(UIImage(named: "cross.png"), for: .normal)
-        
-        button.widthAnchor.constraint(equalToConstant:  40).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        button.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
-        
-        return button
-    }()
-    
+    var cancelButton: UIButton = UIButton().getBackButton(with: "cross.png")
+
     var filterOptionsTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -130,6 +116,7 @@ class FilterOptionView: UIView {
         brandDropdown.delegate = self
         priceDropdown.delegate = self
         priceDropdown.delegate = self
+        cancelButton.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
         setupHierarhy()
         setupConstraints()
         

@@ -24,8 +24,15 @@ extension UIButton {
         return button
     }
     
-    func getBackButton() -> UIButton {
+    func getBackButton(with imageName: String) -> UIButton {
         let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = UIColor(named: "indigo") ?? UIColor.black
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 10
+        button.setImage(UIImage(named: imageName), for: .normal)
+        button.widthAnchor.constraint(equalToConstant:  40).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
         return button
     }
 }

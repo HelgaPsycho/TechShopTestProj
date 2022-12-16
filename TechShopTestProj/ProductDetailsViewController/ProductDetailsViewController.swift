@@ -41,21 +41,7 @@ class ProductDetailsViewController: UIViewController {
         return collectionView
     }()
     
-    private lazy var backButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor(named: "indigo") ?? UIColor.black
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 10
-        button.setImage(UIImage(named: "back.png"), for: .normal)
-        
-        button.widthAnchor.constraint(equalToConstant:  40).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        button.addTarget(self, action: #selector(navigateBackToMainController), for: .touchUpInside)
-        
-        return button
-    }()
+    private lazy var backButton: UIButton = UIButton().getBackButton(with: "back.png")
     
     private lazy var cartButton: UIButton = {
         let button = UIButton()
@@ -145,6 +131,8 @@ class ProductDetailsViewController: UIViewController {
         
         navigationController?.isNavigationBarHidden = true
         view.backgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
+        
+        backButton.addTarget(self, action: #selector(navigateBackToMainController), for: .touchUpInside)
         
         carousel.translatesAutoresizingMaskIntoConstraints = false
         carousel.backgroundColor = .clear
