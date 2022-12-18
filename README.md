@@ -5,7 +5,7 @@
 </div>
 <div id="discription" align = "start">
 An online store project written programmatically without storyboard and xib.<br>
-<b>Tech Stack</b>
+<b>Tech Stack: </b>
 <div id = "Tech Stack" align = "start"
      <ul>
       <li> IOS </li> 
