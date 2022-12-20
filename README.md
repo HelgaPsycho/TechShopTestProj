@@ -4,18 +4,19 @@
   </h2>
 </div>
 <div id="discription" align = "start">
-An online store project written programmatically without storyboard and xib.
+An online store project written programmatically without storyboard and xib.<br>
+<b>Tech Stack: </b>
+<div id = "Tech Stack" align = "start"
+     <ul>
+      <li> IOS </li> 
+      <li> Swift </li> 
+      <li> UIKit </li>  
+      <li> Programmatic Interface </li> 
+      <li> MVVM + Coordinator </li>  
+      <li> URLSession </li>  
+     </ul>
 </div>
 
-<div id="Patterns" align = "center">
-  <h4> <b> Design Patterns
-    </b>
-  </h2>
-  <div id = "patterns" align = "start"
-     <ul>
-      <li> Coordinator </li> 
-      <li> Delegate </li>   
-     </ul>
 </div>
 
 <div id="Used lybraries" align = "center">
@@ -28,3 +29,14 @@ An online store project written programmatically without storyboard and xib.
       <li> SwiftDrodown 1.0.0 </li>   
      </ul>
 </div>
+<div id = "gif" alighn = "center">
+<h2></h2>
+</div>
+<div>
+  <img src="https://github.com/HelgaPsycho/TechShopTestProj/blob/main/TechShop0.gif" width="320"/>
+  <img src="https://github.com/HelgaPsycho/TechShopTestProj/blob/main/TachShop1.gif" width="320"/> 
+</div>
+<div>
+  <img src="https://github.com/HelgaPsycho/TechShopTestProj/blob/main/TechShop2.gif" width="320"/>
+  <img src="https://github.com/HelgaPsycho/TechShopTestProj/blob/main/TechPhop3.gif" width="320"/>
+ </div>
