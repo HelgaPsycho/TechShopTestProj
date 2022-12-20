@@ -118,7 +118,7 @@ class MainViewController: UIViewController {
         managerAPI.delegate = self
         managerAPI.fetchHotSales()
         
-        view.backgroundColor = UIColor(named: "lightSilver")
+        view.backgroundColor = UIColor.backgroundGrayColor
     
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -147,18 +147,17 @@ class MainViewController: UIViewController {
         setupTitleLabels(label: bestSellersLabel)
         
         phonesButton.isSelected = true
-        phonesButton.backgroundColor = UIColor(named: "peach") ?? UIColor.orange
+        phonesButton.backgroundColor = UIColor.accentPeachColor
         
         carousel.translatesAutoresizingMaskIntoConstraints = false
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.layer.masksToBounds = true
         collectionView.layer.cornerRadius = 10
-        collectionView.backgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
+        collectionView.backgroundColor = UIColor.backgroundGrayColor
     }
     
     private func setupHierarchy() {
-       // scrollView.backgroundColor = .red
         scrollView.addSubview(contentView)
         contentView.addSubview(selectCategoryView)
         contentView.addSubview(hotSalesView)
@@ -302,7 +301,7 @@ class MainViewController: UIViewController {
     
     private func setupTitleLabels (label: UILabel) {
         label.textAlignment = .left
-        label.textColor = .black
+        label.textColor = .symbolsBlackColor
         label.font = UIFont(name: "MarkPro-Heavy", size: 25)
     }
 
@@ -310,21 +309,21 @@ class MainViewController: UIViewController {
     private func  getCircleButton(with title: String, and image: UIImage)-> UIButton{
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        let normalColorConfig = UIImage.SymbolConfiguration(paletteColors: [UIColor(named: "darkSilver") ?? UIColor.darkGray])
+        let normalColorConfig = UIImage.SymbolConfiguration(paletteColors: [UIColor.symbolsGrayColor])
         let normalImage = image.withConfiguration(normalColorConfig)
         button.setImage(normalImage, for: .normal)
-        let selectedColorConfig = UIImage.SymbolConfiguration(paletteColors: [UIColor.white])
+        let selectedColorConfig = UIImage.SymbolConfiguration(paletteColors: [UIColor.symbolWhiteColor])
         let selectedImage = image.withConfiguration(selectedColorConfig)
         button.setImage(selectedImage, for: .selected)
         button.imageView?.translatesAutoresizingMaskIntoConstraints = false
         button.imageView?.centerXAnchor.constraint(equalTo: button.centerXAnchor).isActive = true
         button.imageView?.centerYAnchor.constraint(equalTo: button.centerYAnchor).isActive = true
         button.setTitle(title, for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.setTitleColor(UIColor(named: "peach"), for: .selected)
+        button.setTitleColor(UIColor.symbolsBlackColor, for: .normal)
+        button.setTitleColor(UIColor.accentPeachColor, for: .selected)
         button.titleLabel?.font = UIFont(name: "MarkPro-Medium", size: 12)
         button.titleLabel?.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .white
+        button.backgroundColor = UIColor.backgroundWhiteColor
         //button.layer.masksToBounds = true
         button.layer.cornerRadius = 35
         button.widthAnchor.constraint(equalToConstant: 70).isActive = true
@@ -343,10 +342,10 @@ class MainViewController: UIViewController {
     @objc private func categoryButtonPressed (sender: UIButton){
         for button in buttonsArrray {
             button.isSelected = false
-            button.backgroundColor = .white
+            button.backgroundColor = UIColor.backgroundWhiteColor
         }
         sender.isSelected = true
-        sender.backgroundColor = UIColor(named: "peach") ?? UIColor.orange
+        sender.backgroundColor = UIColor.accentPeachColor
     }
     
     @objc private func filterButtonPresssed(sender: UIButton){

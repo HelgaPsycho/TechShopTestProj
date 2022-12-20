@@ -20,7 +20,7 @@ class FilterOptionView: UIView {
     var filterOptionsTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor =  UIColor.black
+        label.textColor =  UIColor.symbolsBlackColor
         label.text = "Filter Options"
         label.textAlignment = .center
         let font = UIFont(name: "MarkPro-Medium", size: 18)
@@ -31,13 +31,13 @@ class FilterOptionView: UIView {
     var doneButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor(named: "peach") ?? UIColor.orange
+        button.backgroundColor = UIColor.accentPeachColor
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor =  UIColor.white
+        label.textColor =  UIColor.symbolWhiteColor
         label.text = "Done"
         label.textAlignment = .center
         let font = UIFont(name: "MarkPro-Medium", size: 18)
@@ -72,7 +72,7 @@ class FilterOptionView: UIView {
     private func getLabelWith(title: String) -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor =  UIColor.black
+        label.textColor =  UIColor.symbolsBlackColor
         label.text = title
         label.textAlignment = .left
         let font = UIFont(name: "MarkPro-Medium", size: 18)
@@ -89,18 +89,18 @@ class FilterOptionView: UIView {
         dropdown.placeholderText = name
         dropdown.options = itemsArray
         dropdown.placeholderFont = UIFont(name: "MarkPro-Regular", size: 18)
-        dropdown.placeholderColor = UIColor.black
+        dropdown.placeholderColor = UIColor.symbolsBlackColor
         dropdown.arrowImage = UIImage(named: "downArrow")
         dropdown.arrowPosition = .right
         dropdown.borderWidth = 1
         //        dropdown.layer.masksToBounds = true
         //        dropdown.layer.cornerRadius = 10 - работает не коректно
-        dropdown.borderColor = UIColor(named: "lightGray")?.cgColor ?? UIColor.lightGray.cgColor
+        dropdown.borderColor = UIColor.backgroundGrayColor.cgColor
         dropdown.disableArrowAnimation = false
         dropdown.itemsFont = UIFont(name: "MarkPro-Regular", size: 18)
-        dropdown.itemsTextColor = UIColor.black
-        dropdown.checkmarkColor = UIColor(named: "darkSilver") ?? UIColor.darkGray
-        dropdown.selectedItemBackgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
+        dropdown.itemsTextColor = UIColor.symbolsBlackColor
+        dropdown.checkmarkColor = UIColor.symbolsGrayColor
+        dropdown.selectedItemBackgroundColor = UIColor.backgroundGrayColor
         // dropdown.dropdownHeight = 40
         dropdown.dropdownExtraSpace = 450 // placeholder frame высчитывается от  родительской вьюшки, а options - от всего контроллера. TODO - оптимизировать без константых значений
         
@@ -110,7 +110,7 @@ class FilterOptionView: UIView {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor.backgroundWhiteColor
         self.layer.masksToBounds = true
         self.layer.cornerRadius = 30
         brandDropdown.delegate = self

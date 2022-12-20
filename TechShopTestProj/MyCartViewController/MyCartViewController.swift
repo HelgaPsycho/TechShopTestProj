@@ -24,7 +24,7 @@ class MyCartViewController: UIViewController {
     private lazy var adressButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor(named: "peach") ?? UIColor.orange
+        button.backgroundColor = UIColor.accentPeachColor
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.setImage(UIImage(named: "adress.png"), for: .normal)
@@ -40,7 +40,7 @@ class MyCartViewController: UIViewController {
     private lazy var topViewLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor =  UIColor.black
+        label.textColor =  UIColor.symbolsBlackColor
         label.text = "Add adress"
         label.textAlignment = .right
         let font = UIFont(name: "MarkPro-Medium", size: 15)
@@ -57,7 +57,7 @@ class MyCartViewController: UIViewController {
         label.text = "My Cart"
         let font = UIFont(name: "MarkPro-Bold", size: 35)
         label.font = font
-        label.textColor = UIColor.black
+        label.textColor = UIColor.symbolsBlackColor
         label.textAlignment = .left
         return label
     }()
@@ -65,7 +65,7 @@ class MyCartViewController: UIViewController {
     private var tableViewConteiner: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(named: "indigo") ?? UIColor.black
+        view.backgroundColor = UIColor.accentIndigoColor
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 30
         return view
@@ -74,16 +74,16 @@ class MyCartViewController: UIViewController {
     private var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = UIColor(named: "indigo") ?? UIColor.black
+        tableView.backgroundColor = UIColor.accentIndigoColor
         return tableView
     }()
    
     private lazy var totalPriceView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(named: "indigo") ?? UIColor.black
+        view.backgroundColor = UIColor.accentIndigoColor
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor(named: "darkSilver")?.cgColor ?? UIColor.darkGray.cgColor
+        view.layer.borderColor = UIColor.symbolsGrayColor.cgColor
         return view
     }()
 
@@ -106,7 +106,7 @@ class MyCartViewController: UIViewController {
                     label.text = string
                     let font = UIFont(name: "MarkPro-Regular", size: 15)
                     label.font = font
-                    label.textColor = UIColor.white
+                    label.textColor = UIColor.symbolWhiteColor
                     label.textAlignment = .left
             labels.append(label)
         }
@@ -128,7 +128,7 @@ class MyCartViewController: UIViewController {
                 label.text = ""
                 let font = UIFont(name: "MarkPro-Bold", size: 15)
                 label.font = font
-                label.textColor = UIColor.white
+                label.textColor = UIColor.symbolWhiteColor
                 label.textAlignment = .left
                 return label
     }()
@@ -139,7 +139,7 @@ class MyCartViewController: UIViewController {
                 label.text = ""
                 let font = UIFont(name: "MarkPro-Bold", size: 15)
                 label.font = font
-                label.textColor = UIColor.white
+                label.textColor = UIColor.symbolWhiteColor
                 label.textAlignment = .left
                 return label
     }()
@@ -148,7 +148,7 @@ class MyCartViewController: UIViewController {
     private lazy var checkoutButtonView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(named: "indigo") ?? UIColor.black
+        view.backgroundColor = UIColor.accentIndigoColor
         return view
     }()
     
@@ -177,7 +177,7 @@ class MyCartViewController: UIViewController {
     
     func setupView(){
         navigationController?.isNavigationBarHidden = true
-        view.backgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
+        view.backgroundColor = UIColor.backgroundGrayColor
         titleView.translatesAutoresizingMaskIntoConstraints = false
         backButton.addTarget(self, action: #selector(navigateBackToProductsDetailController), for: .touchUpInside)
     }

@@ -29,7 +29,7 @@ class ProductInformationView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor =  UIColor.black
+        label.textColor =  UIColor.symbolsBlackColor
         label.textAlignment = .left
         label.contentMode = .bottomLeft
         let font = UIFont(name: "MarkPro-Medium", size: 24)
@@ -40,7 +40,7 @@ class ProductInformationView: UIView {
     private lazy var favouriteButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor(named: "indigo") ?? UIColor.black
+        button.backgroundColor = UIColor.accentIndigoColor
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.setImage(UIImage(named: "whiteHeart.png"), for: .normal)
@@ -89,8 +89,8 @@ class ProductInformationView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         simpleButtonsWithLabelsArray.append(button)
         button.setTitle(label, for: .normal)
-        button.setTitleColor(UIColor(named: "darkSilver"), for: .normal)
-        button.setTitleColor(.black, for: .selected)
+        button.setTitleColor(UIColor.symbolsGrayColor, for: .normal)
+        button.setTitleColor(UIColor.symbolsBlackColor, for: .selected)
         button.titleLabel?.font = UIFont(name: "MarkPro-Regular", size: 20)
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.translatesAutoresizingMaskIntoConstraints = false
@@ -150,7 +150,7 @@ class ProductInformationView: UIView {
     private func getDetailsLabel() -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor =  UIColor(named: "darkSilver") ?? UIColor.darkGray
+        label.textColor =  UIColor.symbolsGrayColor
         label.textAlignment = .center
         let font = UIFont(name: "MarkPro-Regular", size: 11)
         label.font = font
@@ -160,7 +160,7 @@ class ProductInformationView: UIView {
     private lazy var selectColorAndCapacityLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor =  UIColor.black
+        label.textColor =  UIColor.symbolsBlackColor
         label.text = "Select color and capacity"
         label.textAlignment = .left
         let font = UIFont(name: "MarkPro-Medium", size: 16)
@@ -216,8 +216,8 @@ class ProductInformationView: UIView {
             let string = "\(capacity) gb"
             button.setTitle(string, for: .normal)
             button.setTitle(string, for: .selected)
-            button.setTitleColor(UIColor(named: "darkSilver"), for: .normal)
-            button.setTitleColor(UIColor.white, for: .selected)
+            button.setTitleColor(UIColor.symbolsGrayColor, for: .normal)
+        button.setTitleColor(UIColor.symbolWhiteColor, for: .selected)
             button.titleLabel?.font = UIFont(name: "MarkPro-Bold", size: 13)
             button.titleLabel?.textAlignment = .center
             
@@ -268,7 +268,7 @@ class ProductInformationView: UIView {
         }
         colorsButtonsArray[0].isSelected = true
         capacityButtonsArray[0].isSelected = true
-        capacityButtonsArray[0].backgroundColor = UIColor(named: "peach")
+        capacityButtonsArray[0].backgroundColor = UIColor.accentPeachColor
         
         
     }
@@ -278,7 +278,7 @@ class ProductInformationView: UIView {
     }
     private func setupView(){
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor.backgroundWhiteColor
         self.layer.masksToBounds = true
         self.layer.cornerRadius = 30
         ratingImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -413,7 +413,7 @@ extension ProductInformationView {
         for button in capacityButtonsArray {
             if button == sender {
                 button.isSelected = true
-                button.backgroundColor = UIColor(named: "peach") ?? UIColor.orange
+                button.backgroundColor = UIColor.accentPeachColor
     
             } else {
                 button.isSelected = false

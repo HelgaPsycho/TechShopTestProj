@@ -43,6 +43,7 @@ class HotSalesCell: UICollectionViewCell {
         gradient.endPoint = CGPoint(x: 0.5, y: 0.7)
         
         imageView.layer.insertSublayer(gradient, at: 0)
+        gradient.frame = imageView.frame
     }
     
     private lazy var stackView: UIStackView = {
@@ -58,12 +59,12 @@ class HotSalesCell: UICollectionViewCell {
     private lazy var newView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(named: "peach") ?? UIColor.orange
+        view.backgroundColor = UIColor.accentPeachColor
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 15
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false
-        title.textColor = UIColor(named: "white") ?? UIColor.white
+        title.textColor = UIColor.symbolWhiteColor
         let font = UIFont(name: "SFProDisplay-Bold", size: 10)
         title.font = font
         title.text = "New"
@@ -91,8 +92,8 @@ class HotSalesCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.layer.borderColor = UIColor.black.cgColor
-        label.textColor = UIColor(named: "white") ?? UIColor.white
+    //    label.layer.borderColor = UIColor.black.cgColor
+        label.textColor = UIColor.symbolWhiteColor
         label.textAlignment = .left
         label.font = UIFont(name: "SFProDisplay-Bold", size: 25)
         label.adjustsFontSizeToFitWidth = true
@@ -105,7 +106,7 @@ class HotSalesCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Description"
-        label.textColor = UIColor(named: "white") ?? UIColor.white
+        label.textColor = UIColor.symbolWhiteColor
         let font = UIFont(name: "SFProDisplay-Bold", size: 11)
         label.font = font
         label.textAlignment = .left
@@ -117,14 +118,14 @@ class HotSalesCell: UICollectionViewCell {
     private lazy var buyNowButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor(named: "white") ?? UIColor.white
+        button.backgroundColor = UIColor.backgroundWhiteColor
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 5
         button.setTitle("By now!", for: .normal)
         let font = UIFont(name: "SFProDisplay-Bold", size: 11)
         button.titleLabel?.font = font
-        button.setTitleColor(.black, for: .normal)
-        button.setTitleColor(UIColor.lightGray, for: .highlighted)
+        button.setTitleColor(UIColor.symbolsBlackColor, for: .normal)
+        button.setTitleColor(UIColor.symbolsGrayColor, for: .highlighted)
         button.titleLabel?.textAlignment = .center
         
         return button

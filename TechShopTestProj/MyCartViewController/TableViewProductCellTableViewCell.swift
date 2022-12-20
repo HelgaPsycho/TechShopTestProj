@@ -50,7 +50,7 @@ class TableViewProductCell: UITableViewCell {
     private lazy var stepper: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(named: "lightIndigo") ?? UIColor.darkGray
+        view.backgroundColor = UIColor.accentLightIndigoColor
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 15
         
@@ -94,7 +94,7 @@ class TableViewProductCell: UITableViewCell {
     private lazy var stepperLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor =  UIColor.white
+        label.textColor =  UIColor.symbolWhiteColor
         label.text = "\(counter)"
         label.textAlignment = .center
         label.numberOfLines = 2
@@ -106,7 +106,7 @@ class TableViewProductCell: UITableViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor =  UIColor.white
+        label.textColor =  UIColor.symbolWhiteColor
         label.text = ""
         label.textAlignment = .left
         label.numberOfLines = 2
@@ -118,7 +118,7 @@ class TableViewProductCell: UITableViewCell {
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor =  UIColor(named: "peach") ?? UIColor.orange
+        label.textColor =  UIColor.accentPeachColor
         label.text = ""
         label.textAlignment = .left
         label.numberOfLines = 1

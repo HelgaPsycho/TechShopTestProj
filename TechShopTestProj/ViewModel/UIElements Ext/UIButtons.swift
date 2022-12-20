@@ -11,12 +11,12 @@ extension UIButton {
     func getBigOrangeButton(named title: String) -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor(named: "peach") ?? UIColor.orange
+        button.backgroundColor = UIColor.accentPeachColor
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.setTitle(title, for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.setTitleColor(UIColor.lightGray, for: .highlighted)
+        button.setTitleColor(UIColor.symbolWhiteColor, for: .normal)
+        button.setTitleColor(UIColor.symbolsGrayColor, for: .highlighted)
         button.titleLabel?.font = UIFont(name: "MarkPro-Bold", size: 20)
         button.titleLabel?.textAlignment = .center
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -27,7 +27,7 @@ extension UIButton {
     func getBackButton(with imageName: String) -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor(named: "indigo") ?? UIColor.black
+        button.backgroundColor = UIColor.accentIndigoColor
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.setImage(UIImage(named: imageName), for: .normal)

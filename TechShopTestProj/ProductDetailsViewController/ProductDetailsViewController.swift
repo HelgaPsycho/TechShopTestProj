@@ -46,7 +46,7 @@ class ProductDetailsViewController: UIViewController {
     private lazy var cartButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor(named: "peach") ?? UIColor.orange
+        button.backgroundColor = UIColor.accentPeachColor
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.setImage(UIImage(named: "cart.png"), for: .normal)
@@ -62,7 +62,7 @@ class ProductDetailsViewController: UIViewController {
     private lazy var productsInCartView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.backgroundWhiteColor
         
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 10
@@ -75,7 +75,7 @@ class ProductDetailsViewController: UIViewController {
     private lazy var productsInCartLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor =  UIColor(named: "peach")
+        label.textColor =  UIColor.accentPeachColor
         label.text = ""
         label.textAlignment = .center
         let font = UIFont(name: "MarkPro-Medium", size: 15)
@@ -87,7 +87,7 @@ class ProductDetailsViewController: UIViewController {
     private lazy var topViewLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor =  UIColor.black
+        label.textColor =  UIColor.symbolsBlackColor
         label.text = "Product Details"
         label.textAlignment = .center
         let font = UIFont(name: "MarkPro-Medium", size: 18)
@@ -130,7 +130,7 @@ class ProductDetailsViewController: UIViewController {
     private func setupComponents() {
         
         navigationController?.isNavigationBarHidden = true
-        view.backgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
+        view.backgroundColor = UIColor.backgroundGrayColor
         
         backButton.addTarget(self, action: #selector(navigateBackToMainController), for: .touchUpInside)
         
@@ -142,7 +142,7 @@ class ProductDetailsViewController: UIViewController {
         collectionView.layer.masksToBounds = true
         collectionView.layer.cornerRadius = 10
 
-        collectionView.backgroundColor = UIColor(named: "lightSilver") ?? UIColor.lightGray
+        collectionView.backgroundColor = UIColor.backgroundGrayColor
         
     }
     

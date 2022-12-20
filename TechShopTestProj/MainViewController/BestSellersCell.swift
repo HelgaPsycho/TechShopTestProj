@@ -22,7 +22,7 @@ final class BestSellersCell: UICollectionViewCell {
     private lazy var favouriteView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = UIColor.white
+        imageView.backgroundColor = UIColor.backgroundWhiteColor
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 10
         imageView.contentMode = .center
@@ -43,7 +43,7 @@ final class BestSellersCell: UICollectionViewCell {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.textColor = .black
+        label.textColor = UIColor.symbolsBlackColor
         label.text = ""
         label.font = UIFont(name: "MarkPro-Bold", size: 16)
         label.adjustsFontSizeToFitWidth = true
@@ -55,7 +55,7 @@ final class BestSellersCell: UICollectionViewCell {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.textColor = UIColor.lightGray
+        label.textColor = UIColor.symbolsGrayColor
         let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "")
         attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
         label.attributedText = attributeString
@@ -69,7 +69,7 @@ final class BestSellersCell: UICollectionViewCell {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.textColor = UIColor.black
+        label.textColor = UIColor.symbolsBlackColor
         label.text = "      "
         label.font = UIFont(name: "MarkPro", size: 10)
         return label
@@ -79,7 +79,7 @@ final class BestSellersCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.textColor = UIColor.black
+        label.textColor = UIColor.symbolsBlackColor
         label.text = "Samsung Galaxy s20 Ultra"
         label.font = UIFont(name: "MarkPro-Regular", size: 10)
         return label
@@ -106,7 +106,7 @@ final class BestSellersCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        contentView.backgroundColor = UIColor(named: "white") ?? UIColor.white
+        contentView.backgroundColor = UIColor.backgroundWhiteColor
         contentView.layer.masksToBounds = true
         contentView.layer.cornerRadius = 10
         setupHierarhy()
@@ -130,9 +130,6 @@ final class BestSellersCell: UICollectionViewCell {
         
     }
     
-    private func setupomponents() {
-        labelsStackView.backgroundColor = .yellow
-    }
     
     private func setupConstraints() {
         
