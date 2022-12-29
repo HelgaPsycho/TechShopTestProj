@@ -33,10 +33,10 @@ An online store project written programmatically without storyboard and xib.<br>
 <h2></h2>
 </div>
 <div>
-  <img src="https://github.com/HelgaPsycho/TechShopTestProj/blob/main/TechShop0.gif" width="320"/>
-  <img src="https://github.com/HelgaPsycho/TechShopTestProj/blob/main/TachShop1.gif" width="320"/> 
+  <img src="https://github.com/HelgaPsycho/TechShopTestProj/blob/main/TechShopTestProj/Images/IMG_2006.PNG" width="320"/>
+  <img src="https://github.com/HelgaPsycho/TechShopTestProj/blob/main/TechShopTestProj/Images/IMG_2007.PNG" width="320"/> 
 </div>
 <div>
-  <img src="https://github.com/HelgaPsycho/TechShopTestProj/blob/main/TechShop2.gif" width="320"/>
-  <img src="https://github.com/HelgaPsycho/TechShopTestProj/blob/main/TechPhop3.gif" width="320"/>
+  <img src="https://github.com/HelgaPsycho/TechShopTestProj/blob/main/TechShopTestProj/Images/IMG_2008.PNG" width="320"/>
+  <img src="https://github.com/HelgaPsycho/TechShopTestProj/blob/main/TechShopTestProj/Images/techProj.gif" width="320"/>
  </div>
